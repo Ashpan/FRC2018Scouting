@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Match Input</title>
+
+  <script src="https://www.w3schools.com/lib/w3data.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+  <div w3-include-html="/core/navbar.html"></div>
+  <script>w3IncludeHTML();</script>
+  <script src="/core/fireinit.js"></script>
+
+  <script src="/js/input.js"></script>
+
+  <div class="container-fluid text-center" style="margin-bottom: 0px" id="machine">
+    <br>
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <span class="input-group-addon">Scouter</span>
+        <input id="scouter" name="scouter" type="text" class="form-control" placeholder="Name...">
+      </div>
+      <br>
+      <div class="input-group">
+        <span class="input-group-addon">Team Number</span>
+        <input id="team" name="team" type="text" class="form-control" placeholder="Number...">
+      </div>
+      <br>
+      <div class="input-group">
+        <span class="input-group-addon">Match Number</span>
+        <input id="match" name="match" type="text" class="form-control" placeholder="Number...">
+      </div>
+      <hr>
+      <h3> Autonomous Mode</h3>
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Start Location</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="objective_auto_s" value="left" checked="checked">Left</label>
+          <label class="radio-inline"><input type="radio" name="objective_auto_s" value="center">Center</label>
+          <label class="radio-inline"><input type="radio" name="objective_auto_s" value="right">Right</label>
+        </div>
+      </div>
+      <br>
+
+
+      <div class="input-group">
+        <span class="input-group-addon">Baseline</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="baseline" value="h">Yes</label>
+          <label class="radio-inline"><input type="radio" name="baseline" value="" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Auto Switch Cube</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="auto_switch" value="h">Yes</label>
+          <label class="radio-inline"><input type="radio" name="auto_switch" value="" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Auto Scale Cube</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="auto_scale" value="l">Yes</label>
+          <label class="radio-inline"><input type="radio" name="auto_scale" value="" checked="checked">No</label>
+        </div>
+      </div>
+      <hr>
+           <h3> Teleoperated Period</h3>
+ 
+      <div class="input-group">
+        <span class="input-group-addon">Teleop High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="objective_teleop_h" value="h">Yes</label>
+          <label class="radio-inline"><input type="radio" name="objective_teleop_h" value="" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Teleop Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="objective_teleop_l" value="l">Yes</label>
+          <label class="radio-inline"><input type="radio" name="objective_teleop_l" value="" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Teleop Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="objective_teleop_g" value="g">Yes</label>
+          <label class="radio-inline"><input type="radio" name="objective_teleop_g" value="" checked="checked">No</label>
+        </div>
+      </div>
+      <br>
+          </div>
+
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-12" id="input_objective_auto_h" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Auto High Score</span>
+        <input id="auto_high_score" name="auto_high_score" type="text" class="form-control"  placeholder="Number..." value="0">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Auto High Miss</span>
+        <input id="auto_high_miss" name="auto_high_miss" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <br>
+    </div>
+    <div class="col-sm-12" id="input_objective_auto_l" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Auto Low Score</span>
+        <input id="auto_low_score" name="auto_low_score" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Auto Low Miss</span>
+        <input id="auto_low_miss" name="auto_low_miss" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <br>
+    </div>
+    <div class="col-sm-12" id="input_objective_auto_g" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Auto Gears Score</span>
+        <input id="auto_gears_score" name="auto_gears_score" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Auto Gears Miss</span>
+        <input id="auto_gears_miss" name="auto_gears_miss" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <br>
+    </div>
+
+    <div class="col-sm-12" id="input_objective_teleop_h" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Teleop High Score</span>
+        <input id="teleop_high_score" name="teleop_high_score" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Teleop High Miss</span>
+        <input id="teleop_high_miss" name="teleop_high_miss" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <br>
+    </div>
+    <div class="col-sm-12" id="input_objective_teleop_l" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Teleop Low Score</span>
+        <input id="teleop_low_score" name="teleop_low_score" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Teleop Low Miss</span>
+        <input id="teleop_low_miss" name="teleop_low_miss" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <br>
+    </div>
+    <div class="col-sm-12" id="input_objective_teleop_g" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Teleop Gears Score</span>
+        <input id="teleop_gears_score" name="teleop_gears_score" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Teleop Gears Miss</span>
+        <input id="teleop_gears_miss" name="teleop_gears_miss" type="text" class="form-control" placeholder="Number..." value="0">
+      </div>
+      <br>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Reach Line</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="auto_reachline" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="auto_reachline" value="no" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Climb</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="teleop_climb" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="teleop_climb" value="no">Failed</label>
+          <label class="radio-inline"><input type="radio" name="teleop_climb" value="n/a" checked="checked">N/A</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Defense Bot</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="_objective_teleop_d" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="_objective_teleop_d" value="no" checked="checked">No</label>
+        </div>
+      </div>
+      <br>
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Hopper Self Dump</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="robot_system_hopperdump" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="robot_system_hopperdump" value="no" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Fuel Intake</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="robot_system_fuelintake" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="robot_system_fuelintake" value="no" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Gear Intake</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="robot_system_gearintake" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="robot_system_gearintake" value="no" checked="checked">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Active Gear Mech</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="robot_system_mechgear" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="robot_system_mechgear" value="no" checked="checked">No</label>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <!-- <div class="col-sm-12" id="input_robot_system_hopperdump" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Hopper Self Dump Description</span>
+        <textarea id="robot_description_hopperdump" class="form-control" rows="2"></textarea>
+      </div>
+      <br>
+    </div>
+
+    <div class="col-sm-12" id="input_robot_system_fuelintake" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Fuel Intake Description</span>
+        <textarea id="robot_description_fuelintake" class="form-control" rows="2"></textarea>
+      </div>
+      <br>
+    </div>
+
+    <div class="col-sm-12" id="input_robot_system_gearintake" style="display: none;">
+      <div class="input-group">
+        <span class="input-group-addon">Gear Intake Description</span>
+        <textarea id="robot_description_gearintake" class="form-control" rows="2"></textarea>
+      </div>
+      <br>
+    </div> -->
+
+    <div class="col-sm-12">
+      <div class="input-group">
+        <span class="input-group-addon">Comments</span>
+        <textarea id="comment" class="form-control" rows="3"></textarea>
+      </div>
+      <br>
+    </div>
+
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-block btn-default" onclick="submitData()">Submit Information</button>
+    </div>
+
+  </div>
+
+  <div class="jumbotron vertical-center" id="uploading" style="margin-bottom: 0px; display: none">
+    <div class="container">
+      <div class="text-center">
+        <h1>Uploading...</h1>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-lg btn-block btn-primary" onclick="finishReset()">Next Team</button>
+      </div>
+      <br>
+      <div id="upload-count" class="alert alert-warning">
+        Updating team's match count...
+        <span class="glyphicon glyphicon-transfer pull-right"></span>
+      </div>
+      <div id="upload-teamlist" class="alert alert-warning">
+        Adding team to list...
+        <span class="glyphicon glyphicon-transfer pull-right"></span>
+      </div>
+      <div id="upload-data" class="alert alert-warning">
+        Uploading match data...
+        <span class="glyphicon glyphicon-transfer pull-right"></span>
+      </div>
+      <div id="upload-statisticsupdate" class="alert alert-warning">
+        Statistics no longer up to date...
+        <span class="glyphicon glyphicon-transfer pull-right"></span>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

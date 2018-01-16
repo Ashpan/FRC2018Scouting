@@ -1,0 +1,40 @@
+.vertical-center {
+  min-height: 95%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 95vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+li.list-group-item {
+  height: 42px;
+  white-space: nowrap;
+}
+.wrap-all{
+  word-wrap: break-word;
+  white-space: normal;
+}
+li.list-group-item.wrap-all{
+  word-wrap: break-word;
+  white-space: normal;
+  height: auto;
+}
+ul {
+  -webkit-margin-before: 0px;
+  -webkit-margin-after: 0px;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  list-style: none;
+}
+.no-padding {
+  padding-right: 0px;
+  padding-left: 0px;
+}

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Match Projection</title>
+
+  <script src="https://www.w3schools.com/lib/w3data.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+</head>
+
+<body>
+
+  <div w3-include-html="/core/navbar.html"></div>
+  <script>w3IncludeHTML();</script>
+  <script src="/core/fireinit.js"></script>
+  <script src="/core/loader.js"></script>
+  <script src="/core/statistics.js"></script>
+  <script src="/js/projection.js"></script>
+
+  <div class="jumbotron vertical-center" id="select-input" style="margin-bottom:0px">
+    <div class="container text-center">
+      <h1>Match Projection!</h1>
+      <div class="form-group">
+        <input type="text" class="form-control" id="red-team-one" placeholder="Red Alliance Team 1...">
+        <input type="text" class="form-control" id="red-team-two" placeholder="Red Alliance Team 2...">
+        <input type="text" class="form-control" id="red-team-three" placeholder="Red Alliance Team 3...">
+      </div>
+      <br>
+      <div class="form-group">
+        <input type="text" class="form-control" id="blue-team-one" placeholder="Blue Alliance Team 1...">
+        <input type="text" class="form-control" id="blue-team-two" placeholder="Blue Alliance Team 2...">
+        <input type="text" class="form-control" id="blue-team-three" placeholder="Blue Alliance Team 3...">
+      </div>
+      <br>
+      <button type="button" class="btn btn-block btn-default" onclick="quickLoadRanks()">Quick Load</button>
+      <br>
+      <button type="button" class="btn btn-block btn-default" onclick="smartLoadRanks()">Smart Load</button>
+      <br>
+      <button type="button" class="btn btn-block btn-default" onclick="smarterLoadRanks()">Smarter Load (Recommended)</button>
+      <br>
+      <button type="button" class="btn btn-block btn-default" onclick="forceLoadRanks()">Force Load</button>
+    </div>
+  </div>
+
+  <div id="content" class="container-fluid" style="margin-bottom: 0px; display: none">
+
+    <h4 id="warning"></h4>
+
+    <br>
+
+    <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+      <li id="redalliance1-mainheader" class="list-group-item col-xs-3 list-group-item-danger"></li>
+      <li id="redalliance2-mainheader" class="list-group-item col-xs-3 list-group-item-danger"></li>
+      <li id="redalliance3-mainheader" class="list-group-item col-xs-3 list-group-item-danger"></li>
+      <li id="redalliance-scoreheader" class="list-group-item col-xs-3 list-group-item-danger"></li>
+      <li id="bluealliance1-mainheader" class="list-group-item col-xs-3 list-group-item-info"></li>
+      <li id="bluealliance2-mainheader" class="list-group-item col-xs-3 list-group-item-info"></li>
+      <li id="bluealliance3-mainheader" class="list-group-item col-xs-3 list-group-item-info"></li>
+      <li id="bluealliance-scoreheader" class="list-group-item col-xs-3 list-group-item-info"></li>
+    </ul>
+
+    <br>
+
+    <button id="redalliance1-optionsheader" class="btn btn-block btn-default" data-toggle="collapse" data-target="#rankoptionsred1">Red -</button>
+    <div id="rankoptionsred1" class="well collapse">
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Use Full Statistics</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-viewall" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-viewall" value="no" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Auto
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Starting Position</span>
+        <div class="form-control" style="white-space: nowrap;">
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-s" value="boiler">Boiler</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-s" value="center">Center</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-s" value="loading">Loading Station</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-s" value="all" checked>Any</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-auto-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Teleop
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred1-teleop-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+    </div>
+    <button id="redalliance2-optionsheader" class="btn btn-block btn-default" data-toggle="collapse" data-target="#rankoptionsred2">Red -</button>
+    <div id="rankoptionsred2" class="well collapse">
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Use Full Statistics</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-viewall" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-viewall" value="no" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Auto
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Starting Position</span>
+        <div class="form-control" style="white-space: nowrap;">
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-s" value="boiler">Boiler</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-s" value="center">Center</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-s" value="loading">Loading Station</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-s" value="all" checked>Any</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-auto-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Teleop
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred2-teleop-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+    </div>
+    <button id="redalliance3-optionsheader" class="btn btn-block btn-default" data-toggle="collapse" data-target="#rankoptionsred3">Red -</button>
+    <div id="rankoptionsred3" class="well collapse">
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Use Full Statistics</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-viewall" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-viewall" value="no" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Auto
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Starting Position</span>
+        <div class="form-control" style="white-space: nowrap;">
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-s" value="boiler">Boiler</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-s" value="center">Center</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-s" value="loading">Loading Station</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-s" value="all" checked>Any</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-auto-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Teleop
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsred3-teleop-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+    </div>
+    <button id="bluealliance1-optionsheader" class="btn btn-block btn-default" data-toggle="collapse" data-target="#rankoptionsblue1">Red -</button>
+    <div id="rankoptionsblue1" class="well collapse">
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Use Full Statistics</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-viewall" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-viewall" value="no" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Auto
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Starting Position</span>
+        <div class="form-control" style="white-space: nowrap;">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-s" value="boiler">Boiler</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-s" value="center">Center</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-s" value="loading">Loading Station</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-s" value="all" checked>Any</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-auto-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Teleop
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue1-teleop-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+    </div>
+    <button id="bluealliance2-optionsheader" class="btn btn-block btn-default" data-toggle="collapse" data-target="#rankoptionsblue2">Red -</button>
+    <div id="rankoptionsblue2" class="well collapse">
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Use Full Statistics</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-viewall" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-viewall" value="no" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Auto
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Starting Position</span>
+        <div class="form-control" style="white-space: nowrap;">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-s" value="boiler">Boiler</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-s" value="center">Center</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-s" value="loading">Loading Station</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-s" value="all" checked>Any</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-auto-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Teleop
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue2-teleop-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+    </div>
+    <button id="bluealliance3-optionsheader" class="btn btn-block btn-default" data-toggle="collapse" data-target="#rankoptionsblue3">Red -</button>
+    <div id="rankoptionsblue3" class="well collapse">
+      <div class="input-group" style="text-align: left">
+        <span class="input-group-addon">Use Full Statistics</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-viewall" value="yes">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-viewall" value="no" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Auto
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Starting Position</span>
+        <div class="form-control" style="white-space: nowrap;">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-s" value="boiler">Boiler</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-s" value="center">Center</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-s" value="loading">Loading Station</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-s" value="all" checked>Any</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-auto-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+      Teleop
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Gears</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-g" value="g" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-g" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">High Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-h" value="h" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-h" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Low Goal</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-l" value="l" checked>Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-l" value="">No</label>
+        </div>
+      </div>
+      <div class="input-group" style="text-align: left;">
+        <span class="input-group-addon">Selective</span>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-and" value="selective">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optionsblue3-teleop-and" value="graball" checked>No</label>
+        </div>
+      </div>
+      <br>
+    </div>
+    <button type="button" class="btn btn-block btn-default" onclick="refreshProjection()">Refresh</button>
+
+    <br>
+
+
+    <div class="well">
+      <h3 id="redalliance-header">Red Alliance: </h3>
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-4 list-group-item-danger">Score Breakdown</li>
+        <li id="redalliance1-header" class="list-group-item col-xs-2 list-group-item-info"></li>
+        <li id="redalliance2-header" class="list-group-item col-xs-2 list-group-item-info"></li>
+        <li id="redalliance3-header" class="list-group-item col-xs-2 list-group-item-info"></li>
+        <li class="list-group-item col-xs-2 list-group-item-success">Score</li>
+      </ul>
+      <ul class="row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; list-style: none;">
+        <li class="col-xs-4" style="padding-right: 0px; padding-left: 0px;">
+          <ul class="list-group" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">
+            <li class="list-group-item">Auto Mobility</li>
+            <li class="list-group-item">&nbsp;&nbsp;Accuracy</li>
+            <li class="list-group-item">Pressure</li>
+            <li class="list-group-item">&nbsp;&nbsp;Auto Low</li>
+            <li class="list-group-item">&nbsp;&nbsp;Auto High</li>
+            <li class="list-group-item">&nbsp;&nbsp;Teleop Low</li>
+            <li class="list-group-item">&nbsp;&nbsp;Teleop High</li>
+            <li class="list-group-item">Rotor</li>
+            <li class="list-group-item">&nbsp;&nbsp;Auto Gears</li>
+            <li class="list-group-item">&nbsp;&nbsp;Teleop Gears</li>
+            <li class="list-group-item">Ready for Takeoff</li>
+            <li class="list-group-item">&nbsp;&nbsp;Accuracy</li>
+          </ul>
+        </li>
+
+        <li class="col-xs-6" style="padding-right: 0px; padding-left: 0px;">
+          <ul class="row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; list-style: none;">
+            <li id="redalliance-reachline" class="list-group-item col-xs-12">infinity 3</li>
+
+            <li id="redalliance1-reachline-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="redalliance2-reachline-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="redalliance3-reachline-frequency" class="list-group-item col-xs-4">1325%</li>
+
+            <li id="redalliance-pressure" class="list-group-item col-xs-12">infinity kPa</li>
+
+            <li id="redalliance1-pressure-autolow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance2-pressure-autolow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance3-pressure-autolow" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="redalliance1-pressure-autohigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance2-pressure-autohigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance3-pressure-autohigh" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="redalliance1-pressure-teleoplow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance2-pressure-teleoplow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance3-pressure-teleoplow" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="redalliance1-pressure-teleophigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance2-pressure-teleophigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="redalliance3-pressure-teleophigh" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="redalliance-rotors-auto" class="list-group-item col-xs-6">infinity Auto</li>
+            <li id="redalliance-rotors-teleop" class="list-group-item col-xs-6">infinity Teleop</li>
+
+            <li id="redalliance1-gears-auto" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="redalliance2-gears-auto" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="redalliance3-gears-auto" class="list-group-item col-xs-4">1325 Gears</li>
+
+            <li id="redalliance1-gears-teleop" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="redalliance2-gears-teleop" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="redalliance3-gears-teleop" class="list-group-item col-xs-4">1325 Gears</li>
+
+            <li id="redalliance-readyfortakeoff" class="list-group-item col-xs-12">infinity 3</li>
+
+            <li id="redalliance1-climb-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="redalliance2-climb-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="redalliance3-climb-frequency" class="list-group-item col-xs-4">1325%</li>
+          </ul>
+        </li>
+
+        <li class="col-xs-2" style="padding-right: 0px; padding-left: 0px;">
+          <ul class="list-group" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; text-align: right">
+            <li id="redalliance-score-reachline" class="list-group-item">Score</li>
+            <li class="list-group-item">-</li>
+
+            <li id="redalliance-score-pressure" class="list-group-item">Score</li>
+
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+
+            <li id="redalliance-score-rotors" class="list-group-item">Score</li>
+
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+
+            <li id="redalliance-score-readyfortakeoff" class="list-group-item">Score</li>
+            <li class="list-group-item">-</li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; font-weight: bold">
+        <li class="list-group-item col-xs-4 list-group-item-success">Final Score</li>
+        <li id="redalliance-totalscore" class="list-group-item col-xs-8" style="text-align: right">Score</li>
+      </ul>
+
+    </div>
+
+    <br>
+
+    <div class="well">
+      <h3 id="bluealliance-header">Blue Alliance: </h3>
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-4 list-group-item-danger">Score Breakdown</li>
+        <li id="bluealliance1-header" class="list-group-item col-xs-2 list-group-item-info"></li>
+        <li id="bluealliance2-header" class="list-group-item col-xs-2 list-group-item-info"></li>
+        <li id="bluealliance3-header" class="list-group-item col-xs-2 list-group-item-info"></li>
+        <li class="list-group-item col-xs-2 list-group-item-success">Score</li>
+      </ul>
+      <ul class="row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; list-style: none;">
+        <li class="col-xs-4" style="padding-right: 0px; padding-left: 0px;">
+          <ul class="list-group" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">
+            <li class="list-group-item">Auto Mobility</li>
+            <li class="list-group-item">&nbsp;&nbsp;Accuracy</li>
+            <li class="list-group-item">Pressure</li>
+            <li class="list-group-item">&nbsp;&nbsp;Auto Low</li>
+            <li class="list-group-item">&nbsp;&nbsp;Auto High</li>
+            <li class="list-group-item">&nbsp;&nbsp;Teleop Low</li>
+            <li class="list-group-item">&nbsp;&nbsp;Teleop High</li>
+            <li class="list-group-item">Rotor</li>
+            <li class="list-group-item">&nbsp;&nbsp;Auto Gears</li>
+            <li class="list-group-item">&nbsp;&nbsp;Teleop Gears</li>
+            <li class="list-group-item">Ready for Takeoff</li>
+            <li class="list-group-item">&nbsp;&nbsp;Accuracy</li>
+          </ul>
+        </li>
+
+        <li class="col-xs-6" style="padding-right: 0px; padding-left: 0px;">
+          <ul class="row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; list-style: none;">
+            <li id="bluealliance-reachline" class="list-group-item col-xs-12">infinity 3</li>
+
+            <li id="bluealliance1-reachline-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="bluealliance2-reachline-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="bluealliance3-reachline-frequency" class="list-group-item col-xs-4">1325%</li>
+
+            <li id="bluealliance-pressure" class="list-group-item col-xs-12">infinity kPa</li>
+
+            <li id="bluealliance1-pressure-autolow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance2-pressure-autolow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance3-pressure-autolow" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="bluealliance1-pressure-autohigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance2-pressure-autohigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance3-pressure-autohigh" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="bluealliance1-pressure-teleoplow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance2-pressure-teleoplow" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance3-pressure-teleoplow" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="bluealliance1-pressure-teleophigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance2-pressure-teleophigh" class="list-group-item col-xs-4">1325 kPa</li>
+            <li id="bluealliance3-pressure-teleophigh" class="list-group-item col-xs-4">1325 kPa</li>
+
+            <li id="bluealliance-rotors-auto" class="list-group-item col-xs-6">infinity Auto</li>
+            <li id="bluealliance-rotors-teleop" class="list-group-item col-xs-6">infinity Teleop</li>
+
+            <li id="bluealliance1-gears-auto" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="bluealliance2-gears-auto" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="bluealliance3-gears-auto" class="list-group-item col-xs-4">1325 Gears</li>
+
+            <li id="bluealliance1-gears-teleop" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="bluealliance2-gears-teleop" class="list-group-item col-xs-4">1325 Gears</li>
+            <li id="bluealliance3-gears-teleop" class="list-group-item col-xs-4">1325 Gears</li>
+
+            <li id="bluealliance-readyfortakeoff" class="list-group-item col-xs-12">infinity 3</li>
+
+            <li id="bluealliance1-climb-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="bluealliance2-climb-frequency" class="list-group-item col-xs-4">1325%</li>
+            <li id="bluealliance3-climb-frequency" class="list-group-item col-xs-4">1325%</li>
+          </ul>
+        </li>
+
+        <li class="col-xs-2" style="padding-right: 0px; padding-left: 0px;">
+          <ul class="list-group" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; text-align: right">
+            <li id="bluealliance-score-reachline" class="list-group-item">Score</li>
+            <li class="list-group-item">-</li>
+
+            <li id="bluealliance-score-pressure" class="list-group-item">Score</li>
+
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+
+            <li id="bluealliance-score-rotors" class="list-group-item">Score</li>
+
+            <li class="list-group-item">-</li>
+            <li class="list-group-item">-</li>
+
+            <li id="bluealliance-score-readyfortakeoff" class="list-group-item">Score</li>
+            <li class="list-group-item">-</li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px; font-weight: bold">
+        <li class="list-group-item col-xs-4 list-group-item-success">Final Score</li>
+        <li id="bluealliance-totalscore" class="list-group-item col-xs-8" style="text-align: right">Score</li>
+      </ul>
+
+    </div>
+
+    <br>
+
+  </div>
+
+</body>
+
+</html>

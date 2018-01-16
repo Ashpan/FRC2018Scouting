@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Match Input</title>
+    <script src="https://www.w3schools.com/lib/w3data.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body>
+    <div w3-include-html="/core/navbar.html"></div>
+    <div class="row">
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-10">
+        <h2 class="text-center">Match Information</h2>
+        <form>
+          <input type="text" class="form-control" placeholder="Scouter Name" name="name">
+          <input type="number" class="form-control" placeholder="Team Number" name="team">
+          <input type="number" class="form-control" placeholder="Match Number" name="match">
+          <select id="alliance" class="form-control">
+                <option selected>Alliance...</option>
+                <option>Blue 1</option>
+                <option>Blue 2</option>
+                <option>Blue 3</option>
+                <option>Red 1</option>
+                <option>Red 2</option>
+                <option>Red 3</option>
+          </select>
+          <select id="position" class="form-control">
+                <option selected>Starting Position...</option>
+                <option>Left</option>
+                <option>Middle</option>
+                <option>Right</option>
+          </select>
+          <div class="row">
+            <div class="col-md-6">
+              <h2 class="text-center">Autonomous</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Crossed Baseline</label>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="baseline" id="inlineRadio1" value="yes">
+                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="baseline" id="inlineRadio2" value="no" checked="checked">
+                    <label class="form-check-label" for="inlineRadio2">No</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Cube in Switch?</label>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="a_switch" id="inlineRadio1" value="yes">
+                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="a_switch" id="inlineRadio2" value="no" checked="checked">
+                    <label class="form-check-label" for="inlineRadio2">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="a_switch" id="inlineRadio2" value="failed">
+                    <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Cube in Scale?</label>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="a_scale" id="inlineRadio1" value="yes">
+                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="a_scale" id="inlineRadio2" value="no" checked="checked">
+                    <label class="form-check-label" for="inlineRadio2">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="a_scale" id="inlineRadio2" value="failed">
+                    <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <h2 class="text-center">Teleoperated</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Switch Success</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="number" class="form-control" placeholder=" Swtich Successes" name="switch_success">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Switch Failure</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="number" class="form-control" placeholder="Switch Failures" name="switch_fail">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Scale Success</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="number" class="form-control" placeholder="Scale Successes" name="scale_success">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Scale Failure</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="number" class="form-control" placeholder="Scale Failures" name="scale_fail">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Vault Cubes</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="number" class="form-control" placeholder="Vault Cubes" name="vault">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Play Type</label>
+                </div>
+                 <div class="col-md-6">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="type" id="inlineRadio1" value="offense">
+                    <label class="form-check-label" for="inlineRadio1">Offensive</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="type" id="inlineRadio2" value="defense">
+                    <label class="form-check-label" for="inlineRadio2">Defensive</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Powerups</label>
+                </div>
+                 <div class="col-md-6">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="type" id="inlineRadio1" value="boost">
+                    <label class="form-check-label" for="inlineRadio1">Boost</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="type" id="inlineRadio2" value="force">
+                    <label class="form-check-label" for="inlineRadio2">Force</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="type" id="inlineRadio2" value="levitate" checked="checked">
+                    <label class="form-check-label" for="inlineRadio2">Levitate</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Powerups Times</label>
+                </div>
+                 <div class="col-md-6">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                </div>
+              </div>
+<br>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Disconnects</label>
+                </div>
+                 <div class="col-md-6">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="col-md-1">
+      </div>
+    </div>
+    <script>w3IncludeHTML();</script>
+    <script src="/core/fireinit.js"></script>
+    <script src="/js/input.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+  </body>
+</html>
