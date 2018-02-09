@@ -1,30 +1,55 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
   <title>1325 Scouting</title>
-
-  <script src="https://www.w3schools.com/lib/w3data.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-  <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
-  <div w3-include-html="/core/navbar.html"></div>
-  <script>w3IncludeHTML();</script>
-  <script src="/core/fireinit.js"></script>
+    <nav id="navigator" class="navbar navbar-default" style="margin-bottom: 0px">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/index.html">Team 1325</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inputter
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/html/inputter_portal.html">Portal</a></li>
+              <li><a href="/html/inputter.html">Match Input</a></li>
+              <li><a href="/html/specs.html">Team Specs</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viewer
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/html/viewer_portal.html">Portal</a></li>
+              <li><a href="/html/raw_data.html">Raw Data</a></li>
+              <li><a href="/html/team_search.html">Team Search</a></li>
+              <li><a href="/html/alliance.html">View Alliance</a></li>
+              <li><a href="/html/rankings.html">Rankings</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
   <div class="jumbotron vertical-center" style="margin-bottom: 0px">
     <div class="container text-center">
       <h1>Welcome to the scouting database!</h1>
       <br>
-      <a href="/html/input_portal.html" class="btn btn-lg btn-primary btn-block" role="button">
+      <a href="/html/inputter_portal.html" class="btn btn-lg btn-primary btn-block" role="button">
         Let's input information!
       </a>
       <br>
@@ -33,6 +58,8 @@
       </a>
     </div>
   </div>
+
+  <script src="/js/fireinit.js"></script>
 
 </body>
 
