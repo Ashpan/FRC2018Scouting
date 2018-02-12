@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Team Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+</head>
+
+<body>
+
+
+    <nav id="navigator" class="navbar navbar-default" style="margin-bottom: 0px">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/index.html">Team 1325</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inputter
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/html/inputter_portal.html">Portal</a></li>
+              <li><a href="/html/inputter.html">Match Input</a></li>
+              <li><a href="/html/specs.html">Team Specs</a></li>
+            </ul>
+          </li>
+          <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viewer
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/html/viewer_portal.html">Portal</a></li>
+              <li><a href="/html/raw_data.html">Raw Data</a></li>
+              <li><a href="/html/team_search.html">Team Search</a></li>
+              <li><a href="/html/alliance.html">View Alliance</a></li>
+              <li><a href="/html/rankings.html">Rankings</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  <div class="jumbotron vertical-center" id="team-input" style="margin-bottom:0px">
+    <div class="container text-center">
+      <h1>Team Search!</h1>
+      <div class="form-group">
+        <input type="text" class="form-control" id="team" placeholder="Team Number">
+      </div>
+      <button type="button" class="btn btn-block btn-default" onclick="loadTeam()">Load Team Data</button>
+    </div>
+  </div>
+
+  <div id="content-list" class="container-fluid" style="margin-bottom: 0px; display: none">
+    <h1 id="team-header">ayy lmao</h1>
+    <h3 id="matchcount-header">Matches Played: </h3>
+    <br>
+
+    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tableauto">Autonomous Table</button>
+    <div id="tableauto" class="collapse in">
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
+        <li class="list-group-item col-xs-2 list-group-item-warning">Switch</li>
+        <li class="list-group-item col-xs-2 list-group-item-warning">Scale</li>
+        <li class="list-group-item col-xs-2 list-group-item-warning">Reach Line</li>
+        <li class="list-group-item col-xs-2 list-group-item-warning">Path</li>
+        <li class="list-group-item col-xs-2 list-group-item-warning">-</li>
+      </ul>
+      <ul id="table_auto" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+
+      </ul>
+    </div>
+
+    <br>
+
+    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tableteleop">Teleop Table</button>
+    <div id="tableteleop" class="collapse in">
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
+        <li class="list-group-item col-xs-2 list-group-item-info">Switch</li>
+        <li class="list-group-item col-xs-2 list-group-item-info">Scale</li>
+        <li class="list-group-item col-xs-2 list-group-item-info">Vault</li>
+        <li class="list-group-item col-xs-2 list-group-item-info">Cycle Time</li>
+        <li class="list-group-item col-xs-2 list-group-item-info">Climb</li>
+      </ul>
+      <ul id="table_teleop" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+
+      </ul>
+    </div>
+
+    <br>
+
+    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablerobot">Robot Table</button>
+    <div id="tablerobot" class="collapse in">
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
+        <li class="list-group-item col-xs-2 list-group-item-success">Defense</li>
+        <li class="list-group-item col-xs-2 list-group-item-success">Hopperdump</li>
+        <li class="list-group-item col-xs-2 list-group-item-success">Intake</li>
+        <li class="list-group-item col-xs-2 list-group-item-success">Fouls</li>
+        <li class="list-group-item col-xs-2 list-group-item-success">-</li>
+      </ul>
+      <ul id="table_robot" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+
+      </ul>
+    </div>
+
+    <br>
+
+    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablecomments">Comments Table</button>
+    <div id="tablecomments" class="collapse in">
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
+        <li class="list-group-item col-xs-10 list-group-item-success">Comment</li>
+      </ul>
+      <ul id="table_comment" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+
+      </ul>
+    </div>
+
+    <br>
+
+    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablespecs">Specifications</button>
+    <div id="tablespecs" class="collapse in">
+      <ul id="table_specs" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+
+      </ul>
+    </div>
+
+    <br>
+
+    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#statistics">Statistics</button>
+    <div id="statistics" class="collapse in">
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-6 list-group-item-warning">Autonomous</li>
+        <li class="list-group-item col-xs-6 list-group-item-warning">Succeeded:Failed</li>
+        <li class="list-group-item col-xs-6">High Goals</li>
+        <li id="stat_auto_high" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Low Goals</li>
+        <li id="stat_auto_low" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Gears</li>
+        <li id="stat_auto_gears" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Reach Line</li>
+        <li id="stat_auto_reachline" class="list-group-item col-xs-6">{} : {}</li>
+      </ul>
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-6 list-group-item-info">Teleoperated</li>
+        <li class="list-group-item col-xs-6 list-group-item-info">Succeeded:Failed</li>
+        <li class="list-group-item col-xs-6">High Goals</li>
+        <li id="stat_teleop_high" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Low Goals</li>
+        <li id="stat_teleop_low" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Gears</li>
+        <li id="stat_teleop_gears" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Cycle Time</li>
+        <li id="stat_teleop_cycletime" class="list-group-item col-xs-6">{} sec</li>
+        <li class="list-group-item col-xs-6">Climb</li>
+        <li id="stat_teleop_climb" class="list-group-item col-xs-6">{} : {}</li>
+      </ul>
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-6 list-group-item-success">Robot</li>
+        <li class="list-group-item col-xs-6 list-group-item-success">Yes:No</li>
+        <li class="list-group-item col-xs-6">Defense Bot</li>
+        <li id="stat_defense" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Hopper Self Dump</li>
+        <li id="stat_hopperdump" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Can Intake</li>
+        <li id="stat_intake" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Fouls</li>
+        <li id="stat_fouls" class="list-group-item col-xs-6">Fouled {}</li>
+      </ul>
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-6 list-group-item-danger">Overall</li>
+        <li class="list-group-item col-xs-6 list-group-item-danger">Total Average</li>
+        <li class="list-group-item col-xs-6">Score Contribution</li>
+        <li id="stat_score" class="list-group-item col-xs-6">{}</li>
+        <li class="list-group-item col-xs-6">Gears</li>
+        <li id="stat_gears" class="list-group-item col-xs-6">{}</li>
+        <li class="list-group-item col-xs-6">kPa</li>
+        <li id="stat_kpa" class="list-group-item col-xs-6">{}</li>
+        <li class="list-group-item col-xs-6">Consistency</li>
+        <li id="stat_consistency" class="list-group-item col-xs-6">{}%</li>
+        <li class="list-group-item col-xs-6">Auto Gear Accuracy</li>
+        <li id="stat_auto_gearacc" class="list-group-item col-xs-6">{}%</li>
+        <li class="list-group-item col-xs-6">Teleop Gear Accuracy</li>
+        <li id="stat_teleop_gearacc" class="list-group-item col-xs-6">{}%</li>
+        <li class="list-group-item col-xs-6">High Goal Accuracy</li>
+        <li id="stat_high_scoreacc" class="list-group-item col-xs-6">{}%</li>
+        <li class="list-group-item col-xs-6">Low Goal Accuracy</li>
+        <li id="stat_low_scoreacc" class="list-group-item col-xs-6">{}%</li>
+        <li class="list-group-item col-xs-6">Climb Frequency</li>
+        <li id="stat_climbacc" class="list-group-item col-xs-6">{}%</li>
+        <li class="list-group-item col-xs-6">Reach Line Frequency</li>
+        <li id="stat_reachlineacc" class="list-group-item col-xs-6">{}%</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script src="/js/fireinit.js"></script>
+  <script src="/js/team_search.js"></script>
+
+</body>
+
+</html>

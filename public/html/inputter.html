@@ -12,7 +12,7 @@
   </head>
   <body>
     <script src="/js/fireinit.js?v=1359283"></script>
-    <script src="/js/inputter.js"></script>
+    <script src="/js/inputter.js?v=153"></script>
     <nav id="navigator" class="navbar navbar-default" style="margin-bottom: 0px">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -89,53 +89,53 @@
                 <div class="col-md-6">
                   <h2 class="text-center">Autonomous</h2>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label>Crossed Baseline</label>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-check form-check-inline">
+                    <div class="col-md-8">
+                      <div class="form-check form-check-inline col-md-6">
                         <input class="form-check-input" type="radio" name="baseline" id="inlineRadio1" value="yes">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-6">
                         <input class="form-check-input" type="radio" name="baseline" id="inlineRadio2" value="no" checked="checked">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label>Cube in Switch?</label>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-check form-check-inline">
+                    <div class="col-md-8">
+                      <div class="form-check form-check-inline col-md-3">
                         <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio1" value="yes">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-3">
                         <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio2" value="no" checked="checked">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-6">
                         <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio2" value="failed">
                         <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label>Cube in Scale?</label>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-check form-check-inline">
+                    <div class="col-md-8">
+                      <div class="form-check form-check-inline col-md-3">
                         <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio1" value="yes">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-3">
                         <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio2" value="no" checked="checked">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-6">
                         <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio2" value="failed">
                         <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
                       </div>
@@ -202,30 +202,31 @@
                       <label>Play Type</label>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-6">
                         <input class="form-check-input" type="checkbox" name="offense" id="offense" value="offense">
                         <label class="form-check-label" for="inlineRadio1">Offensive</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-6">
                         <input class="form-check-input" type="checkbox" name="type" id="defense" value="defense">
                         <label class="form-check-label" for="inlineRadio2">Defensive</label>
                       </div>
                     </div>
                   </div>
+                  <br>
                   <div class="row">
                     <div class="col-md-6">
                       <label>Powerups</label>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-4">
                         <input class="form-check-input" type="checkbox" name="type" id="boost" value="boost">
                         <label class="form-check-label" for="inlineRadio1">Boost</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-4">
                         <input class="form-check-input" type="checkbox" name="type" id="force" value="force">
                         <label class="form-check-label" for="inlineRadio2">Force</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline col-md-4">
                         <input class="form-check-input" type="checkbox" name="type" id="levitate" value="levitate" checked="checked">
                         <label class="form-check-label" for="inlineRadio2">Levitate</label>
                       </div>
@@ -254,7 +255,7 @@
                       <label>Other Notes</label>
                     </div>
                     <div class="col-md-6">
-                      <textarea class="form-control" id="notes" rows="2"></textarea>
+                      <textarea class="form-control" id="comment" rows="2"></textarea>
                     </div>
                   </div>
                 </div>

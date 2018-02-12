@@ -31,7 +31,7 @@ function submitData() {
 
   document.getElementById('content-input').style.display = "none";
   document.getElementById('uploading-wait').style.display = "";
-  console.log('submitting data');
+
   if (team == 0 || team == null || team == "") {
     console.log("Team is null.");
     failDataUpload('matchdata-loading', "Match data upload failed.");
@@ -92,8 +92,6 @@ function updateDatabase() {
   try {
 
     db.child (team + '/matches/' + matchString).set({
-      match: document.getElementById('matchnumber').value,
-      scouter: document.getElementById('scouter').value,
       alliance: document.getElementById('alliance').value,
       starting_position: document.getElementById('position').value,
       auto_baseline: document.querySelector('input[name="baseline"]:checked').value,
@@ -107,7 +105,6 @@ function updateDatabase() {
       teleop_scale_success: document.getElementById('teleop_scale_success').value,
       teleop_scale_fail: document.getElementById('teleop_scale_fail').value,
       teleop_vault: document.getElementById('teleop_vault').value,
-      // offense: document.querySelector('input[name="offense"]:checked').value,
       offense: document.getElementById('offense').checked,
       defense: document.getElementById('defense').checked,
       boost: document.getElementById('boost').checked,
@@ -115,24 +112,7 @@ function updateDatabase() {
       levitate: document.getElementById('levitate').checked,
       powerup_times: document.getElementById('powerup_time').value,
       disconnects: document.getElementById('dcs').value,
-      notes: document.getElementById('notes').value
-      // auto_high_miss: document.getElementById('auto_high_miss').value,
-      // auto_high_score: document.getElementById('auto_high_score').value,
-      // auto_low_miss: document.getElementById('auto_low_miss').value,
-      // auto_low_score: document.getElementById('auto_low_score').value,
-      // auto_reachline: document.querySelector('input[name="auto_reachline"]:checked').value,
-      // teleop_climb: document.querySelector('input[name="teleop_climb"]:checked').value,
-      // teleop_cycletime: document.getElementById('teleop_cycletime').value,
-      // robot_defense: document.querySelector('input[name="robot_defense"]:checked').value,
-      // robot_intake: document.querySelector('input[name="robot_intake"]:checked').value,
-      // robot_fouls: document.getElementById('robot_fouls').value,
-      // teleop_gears_miss: document.getElementById('teleop_gears_miss').value,
-      // teleop_gears_score: document.getElementById('teleop_gears_score').value,
-      // teleop_high_miss: document.getElementById('teleop_high_miss').value,
-      // teleop_high_score: document.getElementById('teleop_high_score').value,
-      // robot_hopperdump: document.querySelector('input[name="robot_hopperdump"]:checked').value,
-      // teleop_low_miss: document.getElementById('teleop_low_miss').value,
-      // teleop_low_score: document.getElementById('teleop_low_score').value
+      comment: document.getElementById('comment').value
     }).then(function(done){
       console.log("Successfully uploaded data to allteams/" + team + "/matches/" + matchString);
       successDataUpload('matchdata-loading', "Match data upload succeeded!");
