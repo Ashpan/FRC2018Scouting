@@ -64,12 +64,10 @@
     <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tableauto">Autonomous Table</button>
     <div id="tableauto" class="collapse in">
       <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-        <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
-        <li class="list-group-item col-xs-2 list-group-item-warning">Switch</li>
-        <li class="list-group-item col-xs-2 list-group-item-warning">Scale</li>
-        <li class="list-group-item col-xs-2 list-group-item-warning">Reach Line</li>
-        <li class="list-group-item col-xs-2 list-group-item-warning">Path</li>
-        <li class="list-group-item col-xs-2 list-group-item-warning">-</li>
+        <li class="list-group-item col-xs-3 list-group-item-danger">Match #</li>
+        <li class="list-group-item col-xs-3 list-group-item-warning">Switch</li>
+        <li class="list-group-item col-xs-3 list-group-item-warning">Scale</li>
+        <li class="list-group-item col-xs-3 list-group-item-warning">Baseline</li>
       </ul>
       <ul id="table_auto" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
 
@@ -84,8 +82,8 @@
         <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
         <li class="list-group-item col-xs-2 list-group-item-info">Switch</li>
         <li class="list-group-item col-xs-2 list-group-item-info">Scale</li>
+        <li class="list-group-item col-xs-2 list-group-item-info">Opposite Switch</li>
         <li class="list-group-item col-xs-2 list-group-item-info">Vault</li>
-        <li class="list-group-item col-xs-2 list-group-item-info">Cycle Time</li>
         <li class="list-group-item col-xs-2 list-group-item-info">Climb</li>
       </ul>
       <ul id="table_teleop" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
@@ -94,6 +92,20 @@
     </div>
 
     <br>
+
+
+    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablecomments">Comments Table</button>
+    <div id="tablecomments" class="collapse in">
+      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+        <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
+        <li class="list-group-item col-xs-10 list-group-item-success">Comment</li>
+      </ul>
+      <ul id="table_comment" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
+
+      </ul>
+    </div>
+
+<!--     <br>
 
     <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablerobot">Robot Table</button>
     <div id="tablerobot" class="collapse in">
@@ -108,59 +120,34 @@
       <ul id="table_robot" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
 
       </ul>
-    </div>
+    </div> -->
 
     <br>
-
-    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablecomments">Comments Table</button>
-    <div id="tablecomments" class="collapse in">
-      <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-        <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
-        <li class="list-group-item col-xs-10 list-group-item-success">Comment</li>
-      </ul>
-      <ul id="table_comment" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-
-      </ul>
-    </div>
-
-    <br>
-
-    <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablespecs">Specifications</button>
-    <div id="tablespecs" class="collapse in">
-      <ul id="table_specs" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-
-      </ul>
-    </div>
-
-    <br>
-
     <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#statistics">Statistics</button>
     <div id="statistics" class="collapse in">
       <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
         <li class="list-group-item col-xs-6 list-group-item-warning">Autonomous</li>
         <li class="list-group-item col-xs-6 list-group-item-warning">Succeeded:Failed</li>
-        <li class="list-group-item col-xs-6">High Goals</li>
-        <li id="stat_auto_high" class="list-group-item col-xs-6">{} : {}</li>
-        <li class="list-group-item col-xs-6">Low Goals</li>
-        <li id="stat_auto_low" class="list-group-item col-xs-6">{} : {}</li>
-        <li class="list-group-item col-xs-6">Gears</li>
-        <li id="stat_auto_gears" class="list-group-item col-xs-6">{} : {}</li>
-        <li class="list-group-item col-xs-6">Reach Line</li>
-        <li id="stat_auto_reachline" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Switch</li>
+        <li id="stat_auto_switch" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Scale</li>
+        <li id="stat_auto_scale" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Baseline</li>
+        <li id="stat_auto_baseline" class="list-group-item col-xs-6">{} : {}</li>
       </ul>
       <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
         <li class="list-group-item col-xs-6 list-group-item-info">Teleoperated</li>
         <li class="list-group-item col-xs-6 list-group-item-info">Succeeded:Failed</li>
-        <li class="list-group-item col-xs-6">High Goals</li>
-        <li id="stat_teleop_high" class="list-group-item col-xs-6">{} : {}</li>
-        <li class="list-group-item col-xs-6">Low Goals</li>
-        <li id="stat_teleop_low" class="list-group-item col-xs-6">{} : {}</li>
-        <li class="list-group-item col-xs-6">Gears</li>
-        <li id="stat_teleop_gears" class="list-group-item col-xs-6">{} : {}</li>
-        <li class="list-group-item col-xs-6">Cycle Time</li>
-        <li id="stat_teleop_cycletime" class="list-group-item col-xs-6">{} sec</li>
+        <li class="list-group-item col-xs-6">Switch</li>
+        <li id="stat_teleop_switch" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Scale</li>
+        <li id="stat_teleop_scale" class="list-group-item col-xs-6">{} : {}</li>
+        <li class="list-group-item col-xs-6">Opposite Switch</li>
+        <li id="stat_teleop_opp_switch" class="list-group-item col-xs-6">{} sec</li>
+        <li class="list-group-item col-xs-6">Vault</li>
+        <li id="stat_teleop_vault" class="list-group-item col-xs-6">{} : {}</li>
         <li class="list-group-item col-xs-6">Climb</li>
-        <li id="stat_teleop_climb" class="list-group-item col-xs-6">{} : {}</li>
+        <li id="stat_teleop_climb" class="list-group-item col-xs-6">{} sec</li>
       </ul>
       <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
         <li class="list-group-item col-xs-6 list-group-item-success">Robot</li>
@@ -203,7 +190,7 @@
   </div>
 
   <script src="/js/fireinit.js"></script>
-  <script src="/js/team_search.js"></script>
+  <script src="/js/team_search.js?v=325405455489648651"></script>
 
 </body>
 

@@ -12,7 +12,7 @@
   </head>
   <body>
     <script src="/js/fireinit.js?v=1359283"></script>
-    <script src="/js/inputter.js?v=153"></script>
+    <script src="/js/inputter.js?v=15344"></script>
     <nav id="navigator" class="navbar navbar-default" style="margin-bottom: 0px">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -69,39 +69,32 @@
           <div class="col-md-10">
             <h2 class="text-center">Match Information</h2>
             <form>
-              <input type="text" class="form-control" placeholder="Scouter Name" name="name" id="scouter" tabindex="1">
-              <!-- <select id="alliance" class="form-control">
-                <option selected>Alliance...</option>
-                <option>Blue 1</option>
-                <option>Blue 2</option>
-                <option>Blue 3</option>
-                <option>Red 1</option>
-                <option>Red 2</option>
-                <option>Red 3</option>
-              </select> -->
-              <select id="position" class="form-control" tabindex="2">
+              <input type="text" class="form-control" placeholder="Scouter Name" name="name" id="scouter">
+              <select id="position" class="form-control">
                 <option selected>Starting Position...</option>
                 <option>Left</option>
                 <option>Middle</option>
                 <option>Right</option>
               </select>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <h2 class="text-center">Autonomous</h2>
                   <div class="row">
                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-2">
                       <label>Crossed Baseline</label>
                     </div>
-                    <div class="col-md-8">
-                      <div class="form-check form-check-inline col-md-3">
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline col-md-1">
                         <input class="form-check-input" type="radio" name="baseline" id="inlineRadio1" value="yes">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                       </div>
-                      <div class="form-check form-check-inline col-md-3">
-                        <input class="form-check-input" type="radio" name="baseline" id="inlineRadio2" value="no" checked="checked" tabindex="3">
+                      <div class="form-check form-check-inline col-md-1">
+                        <input class="form-check-input" type="radio" name="baseline" id="inlineRadio2" value="no" checked="checked">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                       </div>
-                      <div class="form-check form-check-inline col-md-6">
+                      <div class="form-check form-check-inline col-md-2">
                         <input class="form-check-input" type="radio" name="baseline" id="inlineRadio2" value="failed">
                         <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
                       </div>
@@ -109,18 +102,20 @@
                   </div>
                   <div class="row">
                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-2">
                       <label>Cube in Switch?</label>
                     </div>
-                    <div class="col-md-8">
-                      <div class="form-check form-check-inline col-md-3">
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline col-md-1">
                         <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio1" value="yes">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                       </div>
-                      <div class="form-check form-check-inline col-md-3">
-                        <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio2" value="no" checked="checked" tabindex="4">
+                      <div class="form-check form-check-inline col-md-1">
+                        <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio2" value="no" checked="checked">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                       </div>
-                      <div class="form-check form-check-inline col-md-6">
+                      <div class="form-check form-check-inline col-md-2">
                         <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio2" value="failed">
                         <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
                       </div>
@@ -128,35 +123,36 @@
                   </div>
                   <div class="row">
                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-2">
                       <label>Cube in Scale?</label>
                     </div>
-                    <div class="col-md-8">
-                      <div class="form-check form-check-inline col-md-3">
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline col-md-1">
                         <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio1" value="yes">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                       </div>
-                      <div class="form-check form-check-inline col-md-3">
-                        <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio2" value="no" checked="checked" tabindex="5">
+                      <div class="form-check form-check-inline col-md-1">
+                        <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio2" value="no" checked="checked">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                       </div>
-                      <div class="form-check form-check-inline col-md-6">
+                      <div class="form-check form-check-inline col-md-2">
                         <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio2" value="failed">
                         <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
                       </div>
                     </div>
                   </div>
                  <hr>
-                 <h1 tabindex="16"> CLIMBB </h1> 
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <h2 class="text-center">Teleoperated</h2>
                   <div class="row">
                     <div class="col-md-6">
                       <label>Switch Success</label>
                     </div>
                     <div class="col-md-6">
-                      <input type="number" class="form-control" placeholder=" Switch Successes" name="switch_success" id="teleop_switch_success" tabindex="6">
+                      <input type="number" class="form-control" placeholder=" Switch Successes" name="switch_success" id="teleop_switch_success">
                     </div>
                   </div>
                   <div class="row">
@@ -164,7 +160,7 @@
                       <label>Switch Failure</label>
                     </div>
                     <div class="col-md-6">
-                      <input type="number" class="form-control" placeholder="Switch Failures" name="switch_fail" id="teleop_switch_fail" tabindex="7">
+                      <input type="number" class="form-control" placeholder="Switch Failures" name="switch_fail" id="teleop_switch_fail">
                     </div>
                   </div>
                   <div class="row">
@@ -172,7 +168,7 @@
                       <label>Scale Success</label>
                     </div>
                     <div class="col-md-6">
-                      <input type="number" class="form-control" placeholder="Scale Successes" name="scale_success" id="teleop_scale_success" tabindex="8">
+                      <input type="number" class="form-control" placeholder="Scale Successes" name="scale_success" id="teleop_scale_success">
                     </div>
                   </div>
                   <div class="row">
@@ -180,7 +176,23 @@
                       <label>Scale Failure</label>
                     </div>
                     <div class="col-md-6">
-                      <input type="number" class="form-control" placeholder="Scale Failures" name="scale_fail" id="teleop_scale_fail" tabindex="9">
+                      <input type="number" class="form-control" placeholder="Scale Failures" name="scale_fail" id="teleop_scale_fail">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Opposite Switch Success</label>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="number" class="form-control" placeholder=" Switch Successes" name="opp_switch_success" id="teleop_opp_switch_success">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Opposite Switch Failure</label>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="number" class="form-control" placeholder="Switch Failures" name="opp_switch_fail" id="teleop_opp_switch_fail">
                     </div>
                   </div>
                   <div class="row">
@@ -188,7 +200,7 @@
                       <label>Vault Cubes</label>
                     </div>
                     <div class="col-md-6">
-                      <input type="number" class="form-control" placeholder="Vault Cubes" name="vault" id="teleop_vault" tabindex="10">
+                      <input type="number" class="form-control" placeholder="Vault Cubes" name="vault" id="teleop_vault">
                     </div>
                   </div>
                   <div class="row">
@@ -197,7 +209,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-check form-check-inline col-md-6">
-                        <input class="form-check-input" type="checkbox" name="offense" id="offense" value="offense" tabindex="11">
+                        <input class="form-check-input" type="checkbox" name="offense" id="offense" value="offense">
                         <label class="form-check-label" for="inlineRadio1">Offensive</label>
                       </div>
                       <div class="form-check form-check-inline col-md-6">
@@ -209,11 +221,38 @@
                   <br>
                   <div class="row">
                     <div class="col-md-6">
+                      <label>Climb</label>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline col-md-2">
+                        <input class="form-check-input" type="radio" name="type" id="climb" value="selfClimb">
+                        <label class="form-check-label" for="inlineRadio1">Self-Climb</label>
+                      </div>
+                      <div class="form-check form-check-inline col-md-2">
+                        <input class="form-check-input" type="radio" name="type" id="climb" value="deployedRamps">
+                        <label class="form-check-label" for="inlineRadio1">Deployed Ramps</label>
+                      </div>
+                      <div class="form-check form-check-inline col-md-2">
+                        <input class="form-check-input" type="radio" name="type" id="climb" value="climbedRamps">
+                        <label class="form-check-label" for="inlineRadio1">Climbed on Ramps</label>
+                      </div>
+                      <div class="form-check form-check-inline col-md-2">
+                        <input class="form-check-input" type="radio" name="type" id="climb" value="notAttempt">
+                        <label class="form-check-label" for="inlineRadio2">Did not Attempt</label>
+                      </div>
+                      <div class="form-check form-check-inline col-md-2">
+                        <input class="form-check-input" type="radio" name="type" id="climb" value="missedClimb">
+                        <label class="form-check-label" for="inlineRadio2">Missed Climb</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
                       <label>Powerups</label>
                     </div>
                     <div class="col-md-6">
                       <div class="form-check form-check-inline col-md-4">
-                        <input class="form-check-input" type="checkbox" name="type" id="boost" value="boost" tabindex="12">
+                        <input class="form-check-input" type="checkbox" name="type" id="boost" value="boost">
                         <label class="form-check-label" for="inlineRadio1">Boost</label>
                       </div>
                       <div class="form-check form-check-inline col-md-4">
@@ -231,7 +270,7 @@
                       <label>Powerups Times</label>
                     </div>
                     <div class="col-md-6">
-                      <textarea class="form-control" id="powerup_time" rows="2" tabindex="13"></textarea>
+                      <textarea class="form-control" id="powerup_time" rows="2"></textarea>
                     </div>
                   </div>
                   <br>
@@ -240,7 +279,7 @@
                       <label>Disconnects</label>
                     </div>
                     <div class="col-md-6">
-                      <textarea class="form-control" id="dcs" rows="2" tabindex="14"></textarea>
+                      <textarea class="form-control" id="dcs" rows="2"></textarea>
                     </div>
                   </div>
                   <br>
@@ -249,13 +288,13 @@
                       <label>Other Notes</label>
                     </div>
                     <div class="col-md-6">
-                      <textarea class="form-control" id="comment" rows="2" tabindex="15"></textarea>
+                      <textarea class="form-control" id="comment" rows="2"></textarea>
                     </div>
                   </div>
                 </div>
               </div>
               <hr>
-              <button type="submit" class="btn btn-primary" onclick="submitData()" tabindex="17">Submit</button>
+              <button type="submit" class="btn btn-primary" onclick="submitData()">Submit</button>
             </form>
           </div>
           <div class="col-md-1">
