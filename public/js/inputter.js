@@ -141,7 +141,7 @@ function updateDatabase() {
     } catch (err) {
         failDataUpload('matchinfo-loading', "Match data upload failed.");
         console.log("Match data upload failed /matches-info/");
-    }
+    } 
 
     firebase.database().ref().child('teamlist/' + team).set(1);
 
