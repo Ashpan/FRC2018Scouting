@@ -3,6 +3,7 @@ const db = firebase.database().ref('allteams/');
 var team = 0;
 
 var matchNumber = 0;
+var valKey = [];
 
 // var counter = 0;
 function enterTeam() {
@@ -146,20 +147,23 @@ function updateDatabase() {
 
     console.log("Team " + team + " added to teamlist.");
 
-    var valKey = []
     var query = firebase.database().ref("rawdata").orderByKey();
     query.once("value").then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key;
+            console.log("UP: " + key);
             valKey.push(key);
-            console.log("up: " + valKey)
+            console.log("valkey in fetch: " + valKey);
         });
-        // key = parseInt(key) + 1;
+        console.log("length: " + valKey.length);
+        var keys = valKey.length;
+        console.log("key: " + keys);
+        RawData(keys);
     });
+}
 
-    var key = valKey.slice(-1)[0];
-    console.log("key: " + valKey);
-    firebase.database().ref().child('rawdata/' + key).set({
+function RawData(keys) {
+    firebase.database().ref().child('rawdata/' + keys).set({
         starting_position: document.getElementById('position').value,
         auto_baseline: document.querySelector('input[name="baseline"]:checked').value,
         auto_switch: document.querySelector('input[name="auto_switch"]:checked').value,
