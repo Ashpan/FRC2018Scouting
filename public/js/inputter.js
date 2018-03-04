@@ -94,8 +94,10 @@ function updateDatabase() {
         db.child(team + '/matches/' + matchString).set({
             starting_position: document.getElementById('position').value,
             auto_baseline: document.querySelector('input[name="baseline"]:checked').value,
-            auto_switch: document.querySelector('input[name="auto_switch"]:checked').value,
-            auto_scale: document.querySelector('input[name="auto_scale"]:checked').value,
+            auto_switch_success: document.getElementById('auto_switch_success').value,
+            auto_switch_fail: document.getElementById('auto_switch_fail').value,
+            auto_scale_success: document.getElementById('auto_scale_success').value,
+            auto_scale_fail: document.getElementById('auto_scale_fail').value,
             teleop_switch_success: document.getElementById('teleop_switch_success').value,
             teleop_switch_fail: document.getElementById('teleop_switch_fail').value,
             teleop_scale_success: document.getElementById('teleop_scale_success').value,
@@ -105,7 +107,7 @@ function updateDatabase() {
             teleop_vault: document.getElementById('teleop_vault').value,
             offense: document.getElementById('offense').checked,
             defense: document.getElementById('defense').checked,
-            climb: document.querySelector('input[name="climb"]:checked').value,
+            climb: document.getElementById('climb').value,
             boost: document.getElementById('boost').checked,
             force: document.getElementById('force').checked,
             levitate: document.getElementById('levitate').checked,
@@ -151,13 +153,9 @@ function updateDatabase() {
     query.once("value").then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key;
-            console.log("UP: " + key);
             valKey.push(key);
-            console.log("valkey in fetch: " + valKey);
         });
-        console.log("length: " + valKey.length);
         var keys = valKey.length;
-        console.log("key: " + keys);
         RawData(keys);
     });
 }
@@ -166,8 +164,10 @@ function RawData(keys) {
     firebase.database().ref().child('rawdata/' + keys).set({
         starting_position: document.getElementById('position').value,
         auto_baseline: document.querySelector('input[name="baseline"]:checked').value,
-        auto_switch: document.querySelector('input[name="auto_switch"]:checked').value,
-        auto_scale: document.querySelector('input[name="auto_scale"]:checked').value,
+        auto_switch_success: document.getElementById('auto_switch_success').value,
+        auto_switch_fail: document.getElementById('auto_switch_fail').value,
+        auto_scale_success: document.getElementById('auto_scale_success').value,
+        auto_scale_fail: document.getElementById('auto_scale_fail').value,
         teleop_switch_success: document.getElementById('teleop_switch_success').value,
         teleop_switch_fail: document.getElementById('teleop_switch_fail').value,
         teleop_scale_success: document.getElementById('teleop_scale_success').value,
@@ -177,7 +177,7 @@ function RawData(keys) {
         teleop_vault: document.getElementById('teleop_vault').value,
         offense: document.getElementById('offense').checked,
         defense: document.getElementById('defense').checked,
-        climb: document.querySelector('input[name="climb"]:checked').value,
+        climb: document.getElementById('climb').value,
         boost: document.getElementById('boost').checked,
         force: document.getElementById('force').checked,
         levitate: document.getElementById('levitate').checked,

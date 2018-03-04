@@ -101,47 +101,37 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-2">
-                      <label>Cube in Switch?</label>
+                    <div class="col-md-6">
+                      <label>Auto Switch Success</label>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-check form-check-inline col-md-1">
-                        <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio1" value="yes">
-                        <label class="form-check-label" for="inlineRadio1">Yes</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-1">
-                        <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio2" value="no" checked="checked">
-                        <label class="form-check-label" for="inlineRadio2">No</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-2">
-                        <input class="form-check-input" type="radio" name="auto_switch" id="inlineRadio2" value="failed">
-                        <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
-                      </div>
+                      <input type="number" class="form-control" placeholder=" Switch Successes" name="switch_success" id="auto_switch_success" value="0">
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-2">
-                      <label>Cube in Scale?</label>
+                    <div class="col-md-6">
+                      <label>Auto Switch Failure</label>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-check form-check-inline col-md-1">
-                        <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio1" value="yes">
-                        <label class="form-check-label" for="inlineRadio1">Yes</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-1">
-                        <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio2" value="no" checked="checked">
-                        <label class="form-check-label" for="inlineRadio2">No</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-2">
-                        <input class="form-check-input" type="radio" name="auto_scale" id="inlineRadio2" value="failed">
-                        <label class="form-check-label" for="inlineRadio2">Failed Attempt</label>
-                      </div>
+                      <input type="number" class="form-control" placeholder="Switch Failures" name="switch_fail" id="auto_switch_fail" value="0">
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Auto Scale Success</label>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="number" class="form-control" placeholder="Scale Successes" name="scale_success" id="auto_scale_success" value="0">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Auto Scale Failure</label>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="number" class="form-control" placeholder="Scale Failures" name="scale_fail" id="auto_scale_fail" value="0">
+                    </div>
+                  </div
                  <hr>
                 </div>
                 
@@ -224,7 +214,17 @@
                       <label>Climb</label>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-check form-check-inline col-md-2">
+                      <select id="climb" class="form-control">
+                <option selected>Climb...</option>
+                <option>Self Climb</option>
+                <option>Deployed Ramps</option>
+                <option>Climbed on Ramps</option>
+                <option>Parked</option>
+                <option>Failed Park</option>
+                <option>Failed Climb</option>
+                <option>Did not Attempt</option>
+              </select>
+<!--                       <div class="form-check form-check-inline col-md-2">
                         <input class="form-check-input" type="radio" name="climb" id="inlineRadio1" value="Self Climb">
                         <label class="form-check-label" for="inlineRadio1">Self-Climb</label>
                       </div>
@@ -243,7 +243,7 @@
                       <div class="form-check form-check-inline col-md-2">
                         <input class="form-check-input" type="radio" name="climb" id="inlineRadio5" value="Missed Climb">
                         <label class="form-check-label" for="inlineRadio5">Missed Climb</label>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="row">
@@ -260,7 +260,7 @@
                         <label class="form-check-label" for="inlineRadio2">Force</label>
                       </div>
                       <div class="form-check form-check-inline col-md-4">
-                        <input class="form-check-input" type="checkbox" name="type" id="levitate" value="levitate" checked="checked">
+                        <input class="form-check-input" type="checkbox" name="type" id="levitate" value="levitate">
                         <label class="form-check-label" for="inlineRadio2">Levitate</label>
                       </div>
                     </div>
@@ -294,7 +294,7 @@
                 </div>
               </div>
               <hr>
-              <button type="submit" class="btn btn-primary" onclick="submitData()">Submit</button>
+              <button type="submit" class="btn btn-primary" onclick="submitData()" value="inputter.html">Submit</button>
             </form>
           </div>
           <div class="col-md-1">

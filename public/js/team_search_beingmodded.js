@@ -54,47 +54,16 @@ function setData() {
   const statClimbAcc = document.getElementById('stat_climbacc');
   const statReachlineAcc = document.getElementById('stat_reachlineacc');
 
-  var totalAutoHighScore = 0;
-  var totalAutoHighMiss = 0;
-
-  var totalAutoLowScore = 0;
-  var totalAutoLowMiss = 0;
-
-  var totalAutoGearsScore = 0;
-  var totalAutoGearsMiss = 0;
-
+  var totalAutoSwitchScore = 0;
+  var totalAutoSwitchMiss = 0;
+  var totalAutoScaleScore = 0;
+  var totalAutoScaleMiss = 0;
   var totalAutoReachlineYes = 0;
   var totalAutoReachlineNo = 0;
-
-
-  var totalTeleopHighScore = 0;
-  var totalTeleopHighMiss = 0;
-
-  var totalTeleopLowScore = 0;
-  var totalTeleopLowMiss = 0;
-
-  var totalTeleopGearsScore = 0;
-  var totalTeleopGearsMiss = 0;
-
-  var totalTeleopCycletime = 0;
-
-  var cycleTimeNulls = 0;
-
-
-  var totalTeleopClimbSuccess = 0;
-  var totalTeleopClimbFailure = 0;
-
-
-  var totalDefenseYes = 0;
-  var totalDefenseNo = 0;
-
-  var totalHopperdumpYes = 0;
-  var totalHopperdumpNo = 0;
-
-  var totalIntakeYes = 0;
-  var totalIntakeNo = 0;
-
-  var totalFouls = 0;
+  var totalTeleopSwitchScore = 0;
+  var totalTeleopSwitchMiss = 0;
+  var totalTeleopScaleScore = 0;
+  var totalTeleopScaleMiss = 0;
 
 
   dbTeam.child('matches').once('value').then(function(snap){
@@ -140,20 +109,21 @@ function setData() {
 
       matchsnap.forEach(function(infosnap){
 
-        if (infosnap.key == "auto_switch_success") {newAutoSwitch.innerText = infosnap.val() + ":" + newAutoSwitch.innerText;}
+        if (infosnap.key == "auto_switch_success") {newAutoSwitch.innerText = infosnap.val() + ":" + newAutoSwitch.innerText; totalAutoSwitchScore += parseInt(infosnap.val());}
+
         else if (infosnap.key == "auto_switch_fail") {newAutoSwitch.innerText = infosnap.val();}
         else if (infosnap.key == "auto_scale_success") {newAutoScale.innerText = infosnap.val() + ":" + newAutoScale.innerText;}
         else if (infosnap.key == "auto_scale_fail") {newAutoScale.innerText = infosnap.val();}
         else if (infosnap.key == "auto_baseline") {newAutoBaseline.innerText = infosnap.val();}
-        // else if (infosnap.key == "auto_reachline") {
-        //   if (infosnap.val() == "Yes") {
-        //     totalAutoReachlineYes += 1;
-        //   }
-        //   else if (infosnap.val() == "No") {
-        //     totalAutoReachlineNo += 1;
-        //   }
-        //   newAutoReachline.innerText = infosnap.val();
-        // }
+        else if (infosnap.key == "auto_baseline") {
+          if (infosnap.val() == "yes") {
+            totalAutoReachlineYes += 1;
+          }
+          else if (infosnap.val() == "no") {
+            totalAutoReachlineNo += 1;
+          }
+          newAutoReachline.innerText = infosnap.val();
+        }
 
         else if (infosnap.key == "teleop_switch_success") {newTeleopSwitch.innerText = infosnap.val() + ":" + newTeleopSwitch.innerText;}
         else if (infosnap.key == "teleop_switch_fail") {newTeleopSwitch.innerText = infosnap.val();}
