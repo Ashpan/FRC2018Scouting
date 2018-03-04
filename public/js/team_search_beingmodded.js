@@ -40,30 +40,40 @@ function setData() {
   const statTeleopVault = document.getElementById('stat_teleop_vault');
   const statTeleopClimb = document.getElementById('stat_teleop_climb');
 
-  const statScore = document.getElementById('stat_score');
+  // const statScore = document.getElementById('stat_score');
 
-  const statGears = document.getElementById('stat_gears');
-  const statKPA = document.getElementById('stat_kpa');
+  // const statGears = document.getElementById('stat_gears');
+  // const statKPA = document.getElementById('stat_kpa');
 
-  const statConsistency = document.getElementById('stat_consistency');
+  // const statConsistency = document.getElementById('stat_consistency');
 
-  const statAutoGearAcc = document.getElementById('stat_auto_gearacc');
-  const statTeleopGearAcc = document.getElementById('stat_teleop_gearacc');
-  const statHighScoreAcc = document.getElementById('stat_high_scoreacc');
-  const statLowScoreAcc = document.getElementById('stat_low_scoreacc');
-  const statClimbAcc = document.getElementById('stat_climbacc');
-  const statReachlineAcc = document.getElementById('stat_reachlineacc');
+  // const statAutoGearAcc = document.getElementById('stat_auto_gearacc');
+  // const statTeleopGearAcc = document.getElementById('stat_teleop_gearacc');
+  // const statHighScoreAcc = document.getElementById('stat_high_scoreacc');
+  // const statLowScoreAcc = document.getElementById('stat_low_scoreacc');
+  // const statClimbAcc = document.getElementById('stat_climbacc');
+  // const statReachlineAcc = document.getElementById('stat_reachlineacc');
 
   var totalAutoSwitchScore = 0;
   var totalAutoSwitchMiss = 0;
+
   var totalAutoScaleScore = 0;
   var totalAutoScaleMiss = 0;
+
   var totalAutoReachlineYes = 0;
   var totalAutoReachlineNo = 0;
+
   var totalTeleopSwitchScore = 0;
   var totalTeleopSwitchMiss = 0;
+
   var totalTeleopScaleScore = 0;
   var totalTeleopScaleMiss = 0;
+
+  var totalTeleopOppSwitchScore = 0;
+  var totalTeleopOppSwitchMiss = 0;
+
+  var totalTeleopVault = 0;
+
 
 
   dbTeam.child('matches').once('value').then(function(snap){
@@ -109,52 +119,64 @@ function setData() {
 
       matchsnap.forEach(function(infosnap){
 
-        if (infosnap.key == "auto_switch_success") {newAutoSwitch.innerText = infosnap.val() + ":" + newAutoSwitch.innerText; totalAutoSwitchScore += parseInt(infosnap.val());}
-
-        else if (infosnap.key == "auto_switch_fail") {newAutoSwitch.innerText = infosnap.val();}
-        else if (infosnap.key == "auto_scale_success") {newAutoScale.innerText = infosnap.val() + ":" + newAutoScale.innerText;}
-        else if (infosnap.key == "auto_scale_fail") {newAutoScale.innerText = infosnap.val();}
-        else if (infosnap.key == "auto_baseline") {newAutoBaseline.innerText = infosnap.val();}
+        if (infosnap.key == "auto_switch_success") {
+          newAutoSwitch.innerText = infosnap.val() + ":" + newAutoSwitch.innerText;
+          totalAutoSwitchScore += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "auto_switch_fail") {
+          newAutoSwitch.innerText = infosnap.val();
+          totalAutoSwitchMiss += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "auto_scale_success") {
+          newAutoScale.innerText = infosnap.val() + ":" + newAutoScale.innerText;
+          totalAutoScaleScore += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "auto_scale_fail") {
+          newAutoScale.innerText = infosnap.val();
+          totalAutoScaleMiss += parseInt(infosnap.val());
+        }
         else if (infosnap.key == "auto_baseline") {
-          if (infosnap.val() == "yes") {
+          if (infosnap.val() == "Yes") {
             totalAutoReachlineYes += 1;
           }
-          else if (infosnap.val() == "no") {
+          else if (infosnap.val() == "No") {
             totalAutoReachlineNo += 1;
           }
-          newAutoReachline.innerText = infosnap.val();
+          newAutoBaseline.innerText = infosnap.val();
         }
 
-        else if (infosnap.key == "teleop_switch_success") {newTeleopSwitch.innerText = infosnap.val() + ":" + newTeleopSwitch.innerText;}
-        else if (infosnap.key == "teleop_switch_fail") {newTeleopSwitch.innerText = infosnap.val();}
-        else if (infosnap.key == "teleop_scale_success") {newTeleopScale.innerText = infosnap.val() + ":" + newTeleopScale.innerText;}
-        else if (infosnap.key == "teleop_scale_fail") {newTeleopScale.innerText = infosnap.val();}
-        else if (infosnap.key == "teleop_opp_switch_success") {newTeleopOppSwitch.innerText = infosnap.val() + ":" + newTeleopOppSwitch.innerText; console.log(infosnap.val());}
-        else if (infosnap.key == "teleop_opp_switch_fail") {newTeleopOppSwitch.innerText = infosnap.val();}
-        else if (infosnap.key == "teleop_vault") {newTeleopVault.innerText = infosnap.val();}
-        else if (infosnap.key == "climb") {newTeleopClimb.innerText = infosnap.val(); console.log(infosnap.val());}
-
-
-        // else if (infosnap.key == "teleop_cycletime") {
-        //   if (infosnap.val() != "") {
-        //     totalTeleopCycletime += parseInt(infosnap.val());
-        //     newTeleopCycletime.innerText = infosnap.val();
-        //   }
-        //   else {
-        //     cycleTimeNulls += 1;
-        //     newTeleopCycletime.innerText = "-";
-        //   }
-        // }
-
-        // else if (infosnap.key == "teleop_climb") {
-        //   if (infosnap.val() == "Success") {
-        //     totalTeleopClimbSuccess += 1;
-        //   }
-        //   else if (infosnap.val() == "Failure") {
-        //     totalTeleopClimbFailure += 1;
-        //   }
-        //   newTeleopClimb.innerText = infosnap.val();
-        // }
+        else if (infosnap.key == "teleop_switch_success") {
+          newTeleopSwitch.innerText = infosnap.val() + ":" + newTeleopSwitch.innerText;
+          totalTeleopSwitchScore += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "teleop_switch_fail") {
+          newTeleopSwitch.innerText = infosnap.val();
+          totalTeleopSwitchMiss += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "teleop_scale_success") {
+          newTeleopScale.innerText = infosnap.val() + ":" + newTeleopScale.innerText;
+          totalTeleopScaleScore += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "teleop_scale_fail") {
+          newTeleopScale.innerText = infosnap.val();
+          totalTeleopScaleMiss += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "teleop_opp_switch_success") {
+          newTeleopOppSwitch.innerText = infosnap.val() + ":" + newTeleopOppSwitch.innerText; 
+          totalTeleopOppSwitchScore += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "teleop_opp_switch_fail") {
+          newTeleopOppSwitch.innerText = infosnap.val();
+          totalTeleopOppSwitchMiss += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "teleop_vault") {
+          newTeleopVault.innerText = infosnap.val();
+          totalTeleopVault += parseInt(infosnap.val());
+        }
+        else if (infosnap.key == "climb") {
+          newTeleopClimb.innerText = infosnap.val(); 
+          console.log(infosnap.val());
+        }
 
       });
 
@@ -206,8 +228,35 @@ function setData() {
 
     });
 
-    // statAutoReachline.innerText = totalAutoReachlineYes + " : " + totalAutoReachlineNo;
-    statTeleopClimb.innerText = totalTeleopClimbSuccess + " : " + totalTeleopClimbFailure;
+    var averageAutoSwitchScore = totalAutoSwitchScore / matchCount;
+    var averageAutoSwitchMiss = totalAutoSwitchMiss / matchCount;
+
+    var averageAutoScaleScore =  totalAutoScaleScore / matchCount;
+    var averageAutoScaleMiss = totalAutoScaleMiss / matchCount;
+
+    var averageAutoReachlineYes = totalAutoReachlineYes / matchCount;
+    var averageAutoReachlineNo = totalAutoReachlineNo / matchCount;
+
+    var averageTeleopSwitchScore = totalTeleopScaleScore / matchCount;
+    var averageTeleopSwitchMiss = totalTeleopScaleMiss / matchCount;
+
+    var averageTeleopScaleScore = totalTeleopScaleScore / matchCount;
+    var averageTeleopScaleMiss = totalTeleopScaleMiss / matchCount;
+
+    var averageTeleopOppSwitchScore = totalTeleopOppSwitchScore / matchCount;
+    var averageTeleopOppSwitchMiss = totalTeleopOppSwitchMiss / matchCount;
+
+    var averageTeleopVault = totalTeleopVault / matchCount;
+
+    statAutoSwitch.innerText = averageAutoSwitchScore + " : " + averageAutoSwitchMiss;
+    statAutoScale.innerText = averageAutoScaleScore + " : " + averageAutoScaleMiss;
+    statAutoBaseline.innerText = averageAutoReachlineYes + " : " + averageAutoReachlineNo;
+
+    statTeleopSwitch.innerText = averageTeleopSwitchScore + " : " + averageTeleopSwitchMiss;
+    statTeleopScale.innerText = averageTeleopScaleScore + " : " + averageAutoScaleMiss;
+    statTeleopOppSwitch.innerText = averageTeleopOppSwitchScore + " : " + averageTeleopOppSwitchMiss;
+    statTeleopVault.innerText = averageTeleopVault;
+    statTeleopClimb.innerText = "tbd";
     
 
   });
