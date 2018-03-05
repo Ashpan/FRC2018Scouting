@@ -112,7 +112,6 @@ function updateDatabase() {
             force: document.getElementById('force').checked,
             levitate: document.getElementById('levitate').checked,
             powerup_times: document.getElementById('powerup_time').value,
-            disconnects: document.getElementById('dcs').value,
             team_number: document.getElementById('team').value,
             match_number: document.getElementById('matchnumber').value,
             scouter: document.getElementById('scouter').value,
@@ -131,11 +130,16 @@ function updateDatabase() {
         document.getElementById('comment').value = "-";
     }
 
+    if (document.getElementById('dcs').value == "" || document.getElementById('dcs').value == null) {
+        document.getElementById('dcs').value = "-";
+    }
+
     try {
         db.child(team + '/matches-info/' + matchString).set({
             number: document.getElementById('matchnumber').value,
             scouter: document.getElementById('scouter').value,
-            comment: document.getElementById('comment').value
+            comment: document.getElementById('comment').value,
+            disconnects: document.getElementById('dcs').value
         }).then(function(done) {
             console.log("Successfully uploaded data to allteams/" + team + "/matches-info/" + matchString);
             successDataUpload('matchinfo-loading', "Match info upload succeeded!");

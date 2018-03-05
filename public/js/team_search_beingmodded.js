@@ -81,6 +81,7 @@ function setData() {
     const autoTable = document.getElementById('table_auto');
     const teleopTable = document.getElementById('table_teleop');
     const commentTable = document.getElementById('table_comment');
+    const disconnectTable = document.getElementById('table_disconnect');
 
     snap.forEach(function(matchsnap){
 
@@ -115,6 +116,8 @@ function setData() {
       const newComments = document.createElement('li');
       newComments.setAttribute('class', 'list-group-item col-xs-2');
 
+      const newDisconnect = document.createElement('li');
+      newDisconnect.setAttribute('class', 'list-group-item col-xs-2');
 
 
       matchsnap.forEach(function(infosnap){
@@ -194,6 +197,12 @@ function setData() {
         const newMatchComment = document.createElement('li');
         newMatchComment.setAttribute ('class', 'list-group-item col-xs-2');
         newMatchComment.innerText = numsnap.val();
+        console.log("nmc" + numsnap.val());
+        const newMatchDisconnect = document.createElement('li');
+        newMatchDisconnect.setAttribute ('class', 'list-group-item col-xs-2');
+        newMatchDisconnect.innerText = numsnap.val();
+        console.log("nmd" + numsnap.val());
+
 
         const emptyAuto = document.createElement('li');
         emptyAuto.setAttribute ('class', 'list-group-item col-xs-3');
@@ -223,6 +232,14 @@ function setData() {
           commentTable.appendChild(newComment);
 
         });
+        dbTeam.child('matches-info/' + matchsnap.key + '/disconnects').once('value').then(function(commentsnap){
+
+          const newDisconnect = document.createElement('li');
+          newDisconnect.setAttribute ('class', 'list-group-item col-xs-10');
+          newDisconnect.innerText = commentsnap.val();
+          disconnectTable.appendChild(newMatchDisconnect);
+          disconnectTable.appendChild(newDisconnect);
+});
 
       });
 
