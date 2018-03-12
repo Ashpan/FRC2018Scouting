@@ -4,44 +4,23 @@
     <title>Input Match Data</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="https://www.w3schools.com/lib/w3data.js"></script>
+
   </head>
   <body>
-    <script src="/js/fireinit.js?v=1359283"></script>
+    <div w3-include-html="/html/nav.html"></div>
+  <script>w3IncludeHTML();</script>
+    <script src="/js/fireinit.js"></script>
     <script src="/js/inputter.js"></script>
-    <nav id="navigator" class="navbar navbar-default" style="margin-bottom: 0px">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/index.html">Team 1325</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li class="dropdown active">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inputter
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/html/inputter_portal.html">Portal</a></li>
-                <li><a href="/html/inputter.html">Match Input</a></li>
-                <li><a href="/html/specs.html">Team Specs</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viewer
-                <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/html/viewer_portal.html">Portal</a></li>
-                  <li><a href="/html/raw_data.html">Raw Data</a></li>
-                  <li><a href="/html/team_search.html">Team Search</a></li>
-                  <li><a href="/html/alliance.html">View Alliance</a></li>
-                  <li><a href="/html/rankings.html">Rankings</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </nav>
+
         <div class="jumbotron vertical-center" id="team-input" style="margin-bottom: 0px">
           <div class="container">
             <div class="text-center">
@@ -60,7 +39,7 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid text-center" id="content-input" style="margin-bottom: 0px; display: none">
+        <div class="container text-center" id="content-input" style="margin-bottom: 0px; display: none">
           <h1 id="team-header">ayy lmao</h1>
           <h3 id="matchnumber-header">ayy lmao</h3>
           <br>
@@ -69,7 +48,12 @@
           <div class="col-md-10">
             <h2 class="text-center">Match Information</h2>
             <form>
-              <input type="text" class="form-control" placeholder="Scouter Name" name="name" id="scouter">
+              <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Scouter</span>
+      </div>
+      <input id="scouter" type="text" class="form-control" placeholder="Name...">
+    </div>
               <select id="position" class="form-control">
                 <option selected>Starting Position...</option>
                 <option>Left</option>
@@ -132,7 +116,7 @@
                       <input type="number" class="form-control" placeholder="Scale Failures" name="scale_fail" id="auto_scale_fail" value="0">
                     </div>
                   </div
-                 <hr>
+                  <hr>
                 </div>
                 
                 <div class="col-md-12">
@@ -215,62 +199,23 @@
                     </div>
                     <div class="col-md-6">
                       <select id="climb" class="form-control">
-                <option selected>Climb...</option>
-                <option>Self Climb</option>
-                <option>Deployed Ramps</option>
-                <option>Climbed on Ramps</option>
-                <option>Parked</option>
-                <option>Failed Park</option>
-                <option>Failed Climb</option>
-                <option>Did not Attempt</option>
-              </select>
-<!--                       <div class="form-check form-check-inline col-md-2">
-                        <input class="form-check-input" type="radio" name="climb" id="inlineRadio1" value="Self Climb">
-                        <label class="form-check-label" for="inlineRadio1">Self-Climb</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-2">
-                        <input class="form-check-input" type="radio" name="climb" id="inlineRadio2" value="Deployed Ramps" checked="checked">
-                        <label class="form-check-label" for="inlineRadio2">Deployed Ramps</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-2">
-                        <input class="form-check-input" type="radio" name="climb" id="inlineRadio3" value="Climbed Ramps">
-                        <label class="form-check-label" for="inlineRadio3">Climbed on Ramps</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-2">
-                        <input class="form-check-input" type="radio" name="climb" id="inlineRadio4" value="Did not Attempt">
-                        <label class="form-check-label" for="inlineRadio4">Did not Attempt</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-2">
-                        <input class="form-check-input" type="radio" name="climb" id="inlineRadio5" value="Missed Climb">
-                        <label class="form-check-label" for="inlineRadio5">Missed Climb</label>
-                      </div> -->
+                        <option selected>Climb...</option>
+                        <option>Self Climb</option>
+                        <option>Assisted Climb (Used other bot to climb)</option>
+                        <option checked="checked">Failed Climb</option>
+                        <option>Parked</option>
+                        <option>Failed Park</option>
+                        <option>Failed Climb</option>
+                        <option>Other</option>
+                      </select>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <label>Powerups</label>
+                      <label>Climb Other...</label>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-check form-check-inline col-md-4">
-                        <input class="form-check-input" type="checkbox" name="type" id="boost" value="boost">
-                        <label class="form-check-label" for="inlineRadio1">Boost</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-4">
-                        <input class="form-check-input" type="checkbox" name="type" id="force" value="force">
-                        <label class="form-check-label" for="inlineRadio2">Force</label>
-                      </div>
-                      <div class="form-check form-check-inline col-md-4">
-                        <input class="form-check-input" type="checkbox" name="type" id="levitate" value="levitate">
-                        <label class="form-check-label" for="inlineRadio2">Levitate</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label>Powerups Times</label>
-                    </div>
-                    <div class="col-md-6">
-                      <textarea class="form-control" id="powerup_time" rows="2"></textarea>
+                      <textarea class="form-control" id="climb_other" rows="2"></textarea>
                     </div>
                   </div>
                   <br>
@@ -301,7 +246,6 @@
           </div>
         </div>
         
-
         <div class="jumbotron vertical-center" id="uploading-wait" style="margin-bottom: 0px; display: none">
           <div class="container">
             <div class="text-center">

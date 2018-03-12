@@ -40,7 +40,7 @@ dbTeamsList.on('child_added', snap => {
     // Add header to entry
     const matchHeader = document.createElement('h4');
     matchHeader.id = snap.key + "-" + matchsnap.key + "-header";
-    matchHeader.innerText = "Qualification Match " + parseInt(dbMatchesInfo.child('number').val());
+    matchHeader.innerText = "Qualification Match " + parseInt(dbMatchesInfo.child('match_number').val());
     matchLi.appendChild(matchHeader);
 
     // Add match info list to entry
@@ -59,8 +59,8 @@ dbTeamsList.on('child_added', snap => {
 
     const matchFooter = document.createElement('h4');
     matchFooter.id = snap.key + "-" + matchsnap.key + "-footer";
-    matchFooter.innerText = "Match Scouted By: " + dbMatchesInfo.child('scouter').val();
-    matchFooter.innerText += "\n\nComments: " + dbMatchesInfo.child('comment').val();
+    matchFooter.innerText = "Match Scouted By: " + dbMatchesInfo.child('match_scouter').val();
+    matchFooter.innerText += "\n\nComments: " + dbMatchesInfo.child('match_comment').val();
     matchFooter.setAttribute("class", "wrap-all");
     matchLi.appendChild(matchFooter);
 

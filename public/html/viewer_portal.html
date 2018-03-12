@@ -6,45 +6,20 @@
   <title>Viewer Portal</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<body>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="https://www.w3schools.com/lib/w3data.js"></script>
 
-
-    <nav id="navigator" class="navbar navbar-default" style="margin-bottom: 0px">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/index.html">Team 1325</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inputter
-            <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="/html/inputter_portal.html">Portal</a></li>
-              <li><a href="/html/inputter.html">Match Input</a></li>
-              <li><a href="/html/specs.html">Team Specs</a></li>
-            </ul>
-          </li>
-          <li class="dropdown active">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Viewer
-            <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="/html/viewer_portal.html">Portal</a></li>
-              <li><a href="/html/raw_data.html">Raw Data</a></li>
-              <li><a href="/html/team_search.html">Team Search</a></li>
-              <li><a href="/html/alliance.html">View Alliance</a></li>
-              <li><a href="/html/rankings.html">Rankings</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  </head>
+  <body>
+    <div w3-include-html="/html/nav.html"></div>
+  <script>w3IncludeHTML();</script>
 
   <div class="jumbotron vertical-center" style="margin-bottom:0px">
     <div class="container text-center">
