@@ -1,3 +1,26 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+
+@font-face {
+  font-family: 'ADAM';
+  src:  url('/fonts/adamcg.otf') format('opentype');
+}
+
+.open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.adam-cg {
+  font-family: 'ADAM', sans-serif;
+}
+
+.royal-blue {
+  color: #213e99;
+}
+
+.off-white{
+  color: #646464;
+}
+
 .vertical-center {
   min-height: 95%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 95vh; /* These two lines are counted as one :-)       */
@@ -5,6 +28,12 @@
   display: flex;
   align-items: center;
 }
+
+.container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+
 img {
   display: block;
   width: auto;
@@ -26,4 +55,107 @@ ul {
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
   -webkit-padding-start: 0px;
+}
+
+/*NAVBAR*/
+
+/* navbar crap */
+
+.navbar-custom {
+    font-family: 'ADAM', sans-serif;
+    background-color:#213e99;
+    color:#555;
+    border-radius:0px;
+    border-color: #213e99;
+    padding: 15px;
+    margin-bottom: 0px
+}
+
+.navbar-default {
+  background-color: #213e99;
+  border-color: #213e99;
+}
+.navbar-default .navbar-brand {
+  color: #eaeaea;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #abaaac;
+}
+.navbar-default .navbar-text {
+  color: #eaeaea;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #eaeaea;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #abaaac;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #abaaac;
+  background-color: #213e99;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #abaaac;
+  background-color: #213e99;
+}
+.navbar-default .navbar-toggle {
+  border-color: #213e99;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #213e99;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #eaeaea;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #eaeaea;
+}
+.navbar-default .navbar-link {
+  color: #eaeaea;
+}
+.navbar-default .navbar-link:hover {
+  color: #abaaac;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #eaeaea;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #abaaac;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #abaaac;
+    background-color: #213e99;
+  }
+}
+.brand {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px !important;  /* 50% of your logo width */
+    display: block;
+}
+
+.logo {
+  float: left;
+}
+
+.footer{
+  background-color: #213f99;
+  /*background-color: #e9ecef;*/
+}
+
+.offf-white{
+  color: #eaeaea;
 }

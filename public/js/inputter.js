@@ -121,7 +121,7 @@ function updateDatabase(newKey) {
         firebase.database().ref().child('allteams/' + team + '/match-count').set(length_of_matches);
     });
 
-    fetchPlateAssignment(newKey);
+    fetchTBAInfo(newKey);
 
 
     var query = firebase.database().ref("rawdata").orderByKey();
@@ -158,12 +158,13 @@ function RawData(keys) {
         scouter: $('#scouter').val(),
         comment: $('#comment').val()
     }).then(function(done) {
-        // window.location.href = '/html/inputter2.html';
+        console.log('published data to /rawdata/' + keys)
+        window.location.href = '/html/inputter2.html';
 
     });
 }
 
-function fetchPlateAssignment(newKey) {
+function fetchTBAInfo(newKey) {
     console.log('testing');
     var request = new XMLHttpRequest();
     const year = '2018';
@@ -189,17 +190,23 @@ function fetchPlateAssignment(newKey) {
             var alliance = 'red' + (data.alliances.red.team_keys.indexOf("frc" + team)+1);
         }
         if(alliance === 'blue1'){
-            baseline = data.score_breakdown.blue.autoRobot1;
+            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
+            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
         }else if(alliance === 'blue2'){
-            baseline = data.score_breakdown.blue.autoRobot2;
+            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
+            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
         }else if(alliance === 'blue3'){
-            baseline = data.score_breakdown.blue.autoRobot3;
+            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
+            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
         }else if(alliance === 'red1'){
-            baseline = data.score_breakdown.blue.autoRobot1;
+            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
+            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
         }else if(alliance === 'red2'){
-            baseline = data.score_breakdown.blue.autoRobot2;
+            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
+            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
         }else if(alliance === 'red3'){
-            baseline = data.score_breakdown.blue.autoRobot3;
+            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
+            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
         }
 
         if (request.status >= 200 && request.status < 400) {

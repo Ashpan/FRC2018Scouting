@@ -1,14 +1,14 @@
 // Initialize Firebase
 //
-// var config = {
-//     apiKey: "AIzaSyAXpp8Ynw79a_l17iEi--jh3BGKbzqbCiU",
-//     authDomain: "scouting-compiler-onbar.firebaseapp.com",
-//     databaseURL: "https://scouting-compiler-onbar.firebaseio.com",
-//     projectId: "scouting-compiler-onbar",
-//     storageBucket: "scouting-compiler-onbar.appspot.com",
-//     messagingSenderId: "148693715808"
-//   };
-// firebase.initializeApp(config);
+ // var config = {
+ //    apiKey: "AIzaSyCxahRnzexvO_C-K6hFxgFb8Jvavr95Ick",
+ //    authDomain: "scouting-compiler-onnyo.firebaseapp.com",
+ //    databaseURL: "https://scouting-compiler-onnyo.firebaseio.com",
+ //    projectId: "scouting-compiler-onnyo",
+ //    storageBucket: "scouting-compiler-onnyo.appspot.com",
+ //    messagingSenderId: "577025368281"
+ //  };
+ //  firebase.initializeApp(config);
 
 var config = {
   apiKey: "AIzaSyAUxp-Hz_5ZKo2WabIiEU3PUU8TEGwWAQE",

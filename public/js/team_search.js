@@ -40,20 +40,6 @@ function setData() {
     const statTeleopVault = document.getElementById('stat_teleop_vault');
     const statTeleopClimb = document.getElementById('stat_teleop_climb');
 
-    // const statScore = document.getElementById('stat_score');
-
-    // const statGears = document.getElementById('stat_gears');
-    // const statKPA = document.getElementById('stat_kpa');
-
-    // const statConsistency = document.getElementById('stat_consistency');
-
-    // const statAutoGearAcc = document.getElementById('stat_auto_gearacc');
-    // const statTeleopGearAcc = document.getElementById('stat_teleop_gearacc');
-    // const statHighScoreAcc = document.getElementById('stat_high_scoreacc');
-    // const statLowScoreAcc = document.getElementById('stat_low_scoreacc');
-    // const statClimbAcc = document.getElementById('stat_climbacc');
-    // const statReachlineAcc = document.getElementById('stat_reachlineacc');
-
     var totalAutoSwitchScore = 0;
     var totalAutoSwitchMiss = 0;
 
@@ -177,7 +163,7 @@ function setData() {
 
                             });
 
-                        dbTeam.child('matches-info/' + matchsnap.key + '/number').once('value').then(function(numsnap) {
+                        dbTeam.child('matches-info/' + matchsnap.key + '/match_number').once('value').then(function(numsnap) {
 
                             const newMatchAuto = document.createElement('li');
                             newMatchAuto.setAttribute('class', 'list-group-item col-xs-3');
@@ -200,7 +186,7 @@ function setData() {
                             emptyAuto.setAttribute('class', 'list-group-item col-xs-3');
                             emptyAuto.innerText = "-";
 
-                            dbTeam.child('matches-info/' + matchsnap.key + '/comment').once('value').then(function(commentsnap) {
+                            dbTeam.child('matches-info/' + matchsnap.key + '/match_comment').once('value').then(function(commentsnap) {
 
                                 const newComment = document.createElement('li');
                                 newComment.setAttribute('class', 'list-group-item col-xs-10');
@@ -224,7 +210,7 @@ function setData() {
                                 commentTable.appendChild(newComment);
 
                             });
-                            dbTeam.child('matches-info/' + matchsnap.key + '/disconnects').once('value').then(function(commentsnap) {
+                            dbTeam.child('matches-info/' + matchsnap.key + '/match_disconnects').once('value').then(function(commentsnap) {
 
                                 const newDisconnect = document.createElement('li');
                                 newDisconnect.setAttribute('class', 'list-group-item col-xs-10');
