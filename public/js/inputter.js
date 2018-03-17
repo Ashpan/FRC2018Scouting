@@ -12,7 +12,7 @@ function submitData() {
 
     if (inputVerification()) {
 
-        pushData();
+        updateDatabase();
 
     }
 
@@ -43,53 +43,44 @@ function inputVerification() {
     return check;
 }
 
-function pushData() {
-
-    var team = $('#team').val();
-
-    $('#uploading').html($('#uploading').html() + "<br>Uploading...");
-    var newKey = db.push().key;
-    db.child(team + '/matches-info/' + newKey).set({
-        match_number: $('#matchnumber').val(),
-        match_scouter: $('#scouter').val() === "" ? "-" : $('#scouter').val(),
-        match_comment: $('#comment').val() === "" ? "-" : $('#comment').val(),
-        match_disconnect: $('#dcs').val() === "" ? "-" : $('#dcs').val(),
-        match_startpos: $('label#position.active').attr('value'),
-
-    }).then(function(done) {
-        $('#uploading').html($('#uploading').html() + "<br>Done publishing data!");
-    });
-    updateDatabase(newKey);
-}
-
-function updateDatabase(newKey) {
+function updateDatabase() {
 
     var team = $('#team').val();
     var updateCount = {};
     updateCount['match-count'] = matchNumber;
     db.child(team).update(updateCount);
+    var newKey = db.push().key;
+    db.child(team + '/' + newKey).set({
+        auto_switch_success: parseInt($('#auto_switch_success').val()),
+        auto_switch_fail: parseInt($('#auto_switch_fail').val()),
+        auto_scale_success: parseInt($('#auto_scale_success').val()),
+        auto_scale_fail: parseInt($('#auto_scale_fail').val()),
 
-    db.child(team + '/matches/' + newKey).set({
-        starting_position: $('label#position.active').attr('value'),
-        auto_switch_success: $('#auto_switch_success').val(),
-        auto_switch_fail: $('#auto_switch_fail').val(),
-        auto_scale_success: $('#auto_scale_success').val(),
-        auto_scale_fail: $('#auto_scale_fail').val(),
-        teleop_switch_success: $('#teleop_switch_success').val(),
-        teleop_switch_fail: $('#teleop_switch_fail').val(),
-        teleop_scale_success: $('#teleop_scale_success').val(),
-        teleop_scale_fail: $('#teleop_scale_fail').val(),
-        teleop_opp_switch_success: $('#teleop_opp_switch_success').val(),
-        teleop_opp_switch_fail: $('#teleop_opp_switch_fail').val(),
-        teleop_vault: $('#teleop_vault').val(),
+        teleop_switch_success: parseInt($('#teleop_switch_success').val()),
+        teleop_switch_fail: parseInt($('#teleop_switch_fail').val()),
+        teleop_scale_success: parseInt($('#teleop_scale_success').val()),
+        teleop_scale_fail: parseInt($('#teleop_scale_fail').val()),
+        teleop_opp_switch_success: parseInt($('#teleop_opp_switch_success').val()),
+        teleop_opp_switch_fail: parseInt($('#teleop_opp_switch_fail').val()),
+        teleop_vault: parseInt($('#teleop_vault').val()),
+
         offense: $('label#offense.active').attr('value'),
         defense: $('label#defense.active').attr('value'),
         climb: document.querySelector('input[name="climb"]:checked').value,
         climb_notes: $('#climb_other').val(),
-        team_number: $('#team').val(),
-        match_number: $('#matchnumber').val(),
-        scouter: $('#scouter').val(),
-        comment: $('#comment').val()
+        
+        team_number: parseInt($('#team').val()),
+        match_number: parseInt($('#matchnumber').val()),
+        match_scouter: $('#scouter').val() === "" ? "-" : $('#scouter').val(),
+        match_comment: $('#comment').val() === "" ? "-" : $('#comment').val(),
+        match_disconnect: $('#dcs').val() === "" ? "-" : $('#dcs').val(),
+        match_startpos: $('label#position.active').attr('value'),
+        
+        overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
+        overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
+        overall_auto_success: parseInt($('#auto_switch_success').val()) + parseInt($('#auto_scale_success').val()),
+        overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val())
+
     }).then(function(done) {
         console.log("Successfully uploaded data to allteams/" + team + "/matches/" + newKey);
     });
@@ -111,61 +102,20 @@ function updateDatabase(newKey) {
 
     console.log("Team " + team + " added to teamlist.");
 
-    var counter = firebase.database().ref('allteams/' + team + '/matches/').orderByKey();
+    var counter = firebase.database().ref('allteams/' + team ).orderByKey();
     counter.once("value").then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             var list_of_matches = childSnapshot.key;
             matchArray.push(list_of_matches);
         });
         var length_of_matches = matchArray.length;
-        firebase.database().ref().child('allteams/' + team + '/match-count').set(length_of_matches);
+        firebase.database().ref().child('allteams/' + team + '/match-count').set(length_of_matches-1);
     });
 
     fetchTBAInfo(newKey);
-
-
-    var query = firebase.database().ref("rawdata").orderByKey();
-    query.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            var key = childSnapshot.key;
-            valKey.push(key);
-        });
-        var keys = valKey.length;
-        RawData(keys);
-    });
-}
-
-function RawData(keys) {
-    firebase.database().ref().child('rawdata/' + keys).set({
-        starting_position: $('label#position.active').attr('value'),
-        auto_switch_success: $('#auto_switch_success').val(),
-        auto_switch_fail: $('#auto_switch_fail').val(),
-        auto_scale_success: $('#auto_scale_success').val(),
-        auto_scale_fail: $('#auto_scale_fail').val(),
-        teleop_switch_success: $('#teleop_switch_success').val(),
-        teleop_switch_fail: $('#teleop_switch_fail').val(),
-        teleop_scale_success: $('#teleop_scale_success').val(),
-        teleop_scale_fail: $('#teleop_scale_fail').val(),
-        teleop_opp_switch_success: $('#teleop_opp_switch_success').val(),
-        teleop_opp_switch_fail: $('#teleop_opp_switch_fail').val(),
-        teleop_vault: $('#teleop_vault').val(),
-        offense: $('label#offense.active').attr('value'),
-        defense: $('label#defense.active').attr('value'),
-        climb: document.querySelector('input[name="climb"]:checked').value,
-        climb_notes: $('#climb_other').val(),
-        team_number: $('#team').val(),
-        match_number: $('#matchnumber').val(),
-        scouter: $('#scouter').val(),
-        comment: $('#comment').val()
-    }).then(function(done) {
-        console.log('published data to /rawdata/' + keys)
-        window.location.href = '/html/inputter2.html';
-
-    });
 }
 
 function fetchTBAInfo(newKey) {
-    console.log('testing');
     var request = new XMLHttpRequest();
     const year = '2018';
     const event = 'onbar';
@@ -173,42 +123,59 @@ function fetchTBAInfo(newKey) {
     const api = 'https://www.thebluealliance.com/api/v3/match/' + year + event + '_qm' + match + '?X-TBA-Auth-Key=aSeFMfnmXUczi0DbldlhqJ6u2EyCgEt3XcQyFtElytJCdRHj7swAs8S2vatmCeBX';
     var switch_cycle = 'none';
     var scale_cycle = 'none';
-    var baseline = '';
+    var baseline = '-';
     var starting_position = $('label#position.active').attr('value');
     var team = $('#team').val();
     request.open('GET', api, true);
     request.onload = function() {
-
         // Begin accessing JSON data here
         var data = JSON.parse(this.response);
         var plate_assignment = data.score_breakdown.blue.tba_gameData;
-        
-//      Figure out the alliance of team
-        if(data.alliances.blue.team_keys.indexOf("frc" + team) >= 0){
-            var alliance = 'blue' + (data.alliances.blue.team_keys.indexOf("frc" + team)+1);
-        }else if(data.alliances.red.team_keys.indexOf("frc" + team) >= 0){
-            var alliance = 'red' + (data.alliances.red.team_keys.indexOf("frc" + team)+1);
+        console.log('Accessing data from tba at: ' + api);
+        console.log("Plate assignment: " + plate_assignment);
+        //      Figure out the alliance of team
+        if (data.alliances.blue.team_keys.indexOf("frc" + team) >= 0) {
+            var alliance = 'blue' + (data.alliances.blue.team_keys.indexOf("frc" + team) + 1);
+        } else if (data.alliances.red.team_keys.indexOf("frc" + team) >= 0) {
+            var alliance = 'red' + (data.alliances.red.team_keys.indexOf("frc" + team) + 1);
         }
-        if(alliance === 'blue1'){
-            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
-            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
-        }else if(alliance === 'blue2'){
-            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
-            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
-        }else if(alliance === 'blue3'){
-            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
-            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
-        }else if(alliance === 'red1'){
-            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
-            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
-        }else if(alliance === 'red2'){
-            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
-            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
-        }else if(alliance === 'red3'){
-            if(data.score_breakdown.blue.autoRobot1 === 'AutoRun'){baseline = 'yes'}
-            else if(data.score_breakdown.blue.autoRobot1 === 'None'){baseline = 'no'}
+        if (alliance === 'blue1') {
+            if (data.score_breakdown.blue.autoRobot1 === 'AutoRun') {
+                baseline = 1;
+            } else if (data.score_breakdown.blue.autoRobot1 === 'None') {
+                baseline = 0;
+            }
+        } else if (alliance === 'blue2') {
+            if (data.score_breakdown.blue.autoRobot1 === 'AutoRun') {
+                baseline = 1;
+            } else if (data.score_breakdown.blue.autoRobot1 === 'None') {
+                baseline = 0;
+            }
+        } else if (alliance === 'blue3') {
+            if (data.score_breakdown.blue.autoRobot1 === 'AutoRun') {
+                baseline = 1;
+            } else if (data.score_breakdown.blue.autoRobot1 === 'None') {
+                baseline = 0;
+            }
+        } else if (alliance === 'red1') {
+            if (data.score_breakdown.blue.autoRobot1 === 'AutoRun') {
+                baseline = 1;
+            } else if (data.score_breakdown.blue.autoRobot1 === 'None') {
+                baseline = 0;
+            }
+        } else if (alliance === 'red2') {
+            if (data.score_breakdown.blue.autoRobot1 === 'AutoRun') {
+                baseline = 1;
+            } else if (data.score_breakdown.blue.autoRobot1 === 'None') {
+                baseline = 0;
+            }
+        } else if (alliance === 'red3') {
+            if (data.score_breakdown.blue.autoRobot1 === 'AutoRun') {
+                baseline = 1;
+            } else if (data.score_breakdown.blue.autoRobot1 === 'None') {
+                baseline = 0;
+            }
         }
-
         if (request.status >= 200 && request.status < 400) {
             if ($('#auto_switch_success').val() > 0) {
                 if ((starting_position === 'right' && plate_assignment.charAt(0) === 'R') || (starting_position === 'left' && plate_assignment.charAt(0) === 'L')) {
@@ -227,23 +194,22 @@ function fetchTBAInfo(newKey) {
                 } else if ((starting_position === 'right' && plate_assignment.charAt(1) === 'L') || (starting_position === 'left' && plate_assignment.charAt(1) === 'R')) {
                     scale_cycle = 'far';
                 }
-
             }
-        db.child(team + '/matches/' + newKey).update({
-        auto_switch_cycle: switch_cycle,
-        auto_scale_cycle: scale_cycle,
-        auto_baseline: baseline
-        }).then(function(done) {
-        console.log("Successfully uploaded cycles to allteams/" + team + "/matches/" + newKey + "/");
-    });
-        console.log('switch cycle ' + switch_cycle);
-        console.log('scale cycle ' + scale_cycle);
-        console.log('baseline ' + baseline);
-    } else {
-        console.log('error');
+            db.child(team + '/' + newKey).update({
+                auto_switch_cycle: switch_cycle,
+                auto_scale_cycle: scale_cycle,
+                auto_baseline: baseline
+            }).then(function(done) {
+                console.log("Successfully uploaded cycles to allteams/" + team + "/matches/" + newKey + "/");
+            });
+            console.log('switch cycle ' + switch_cycle);
+            console.log('scale cycle ' + scale_cycle);
+            console.log('baseline ' + baseline);
+            window.location.replace('/html/inputter.html');
+        } else {
+            console.log('error');
+        }
     }
-}
 
-request.send();
-
+    request.send();
 }

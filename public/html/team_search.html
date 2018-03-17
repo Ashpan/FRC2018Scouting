@@ -3,19 +3,183 @@
   <head>
     <title>Team Search</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
     <script src="https://www.w3schools.com/lib/w3data.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
   </head>
   <body>
     <div w3-include-html="/html/nav.html"></div>
     <script>w3IncludeHTML();</script>
-    <div class="jumbotron vertical-center" id="team-input" style="margin-bottom:0px">
+    <script src="/js/fireinit.js"></script>
+    <script src="/js/team_search.js"></script>
+    <script src="/js/team_search_stats.js"></script>
+    <script src="/js/team_search_matchhistory.js"></script>
+    <div class="container">
+      <br>
+      <h1>
+      Team Search!
+      </h1>
+      <p id="alerts">
+        Select a team, and view their data!
+      </p>
+      <br>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Team #</span>
+        </div>
+        <input id="team" type="number" class="form-control" placeholder="Number...">
+      </div>
+      <button class="btn btn-block btn-primary" onclick="loadTeam()">Load Team</button>
+      <br>
+      <div class="dropdown block">
+        <button id="menu" class="btn btn-block btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+        Select View
+        </button>
+        <div class="dropdown-menu" style="right: 0">
+          <button id="tab-stats" type="button" class="dropdown-item">Statistics</button>
+          <button id="tab-statsgraphs" type="button" class="dropdown-item">Statistics Graphs</button>
+          <button id="tab-matches" type="button" class="dropdown-item">Match History</button>
+          <button id="tab-matchesgraphs" type="button" class="dropdown-item">Match History Graphs</button>
+          <button id="tab-insights" type="button" class="dropdown-item">Insights</button>
+        </div>
+      </div>
+      <br>
+      <div id="section-tab-stats" style="display: none">
+        <br>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Stat</th>
+                <th scope="col">Median</th>
+                <th scope="col">IQR</th>
+                <th scope="col">Mean</th>
+                <th scope="col">ST Dev</th>
+                <th scope="col">Range</th>
+              </tr>
+            </thead>
+            <tbody id="stats_table">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="section-tab-statsgraphs" style="display: none">
+        statsgraphs
+      </div>
+      <div id="section-tab-matches" style="display: none">
+        <br>
+        <p>
+          (x) denotes missed.
+        </p>
+        <br>
+        <div class="table-responsive">
+          <h4>
+          Overall Cubes Table
+          </h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col">Auto</th>
+                <th scope="col">Teleop</th>
+              </tr>
+            </thead>
+            <tbody id="overall_table">
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="table-responsive">
+          <h4>
+          Autonomous Table
+          </h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Match #</th>
+                <th scope="col">Switch</th>
+                <th scope="col">Scale</th>
+                <th scope="col">Reach Line</th>
+                <th scope="col">Switch Cycle</th>
+                <th scope="col">Scale Cycle</th>
+              </tr>
+            </thead>
+            <tbody id="auto_table">
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="table-responsive">
+          <h4>
+          Teleoperated Table
+          </h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Match #</th>
+                <th scope="col">Switch</th>
+                <th scope="col">Scale</th>
+                <th scope="col">Opp. Switch</th>
+                <th scope="col">Vault</th>
+              </tr>
+            </thead>
+            <tbody id="teleop_table">
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="table-responsive">
+          <h4>
+          Misc. Table
+          </h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Match #</th>
+                <th scope="col">Start</th>
+                <th scope="col">Offense</th>
+                <th scope="col">Defense</th>
+                <th scope="col">Climb</th>
+                <th scope="col">Climb Other</th>                
+              </tr>
+            </thead>
+            <tbody id="misc_table">
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="table-responsive">
+          <h4>
+          Comment Table
+          </h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Match #</th>
+                <th scope="col">Scouter</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Disconnects</th>
+              </tr>
+            </thead>
+            <tbody id="comment_table">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="section-tab-matchesgraphs" style="display: none">
+        matchesgraphs
+      </div>
+      <div id="section-tab-insights" style="display: none">
+        insights
+      </div>
+    </div>
+    <!-- <div class="jumbotron vertical-center" id="team-input" style="margin-bottom:0px">
       <div class="container text-center">
         <h1>Team Search!</h1>
         <div class="form-group">
@@ -100,46 +264,8 @@
           <li class="list-group-item col-xs-6">Climb</li>
           <li id="stat_teleop_climb" class="list-group-item col-xs-6">{}</li>
         </ul>
-        <!-- <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-6 list-group-item-success">Robot</li>
-          <li class="list-group-item col-xs-6 list-group-item-success">Yes:No</li>
-          <li class="list-group-item col-xs-6">Defense Bot</li>
-          <li id="stat_defense" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Hopper Self Dump</li>
-          <li id="stat_hopperdump" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Can Intake</li>
-          <li id="stat_intake" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Fouls</li>
-          <li id="stat_fouls" class="list-group-item col-xs-6">Fouled {}</li>
-        </ul> -->
-        <!-- <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-6 list-group-item-danger">Overall</li>
-          <li class="list-group-item col-xs-6 list-group-item-danger">Total Average</li>
-          <li class="list-group-item col-xs-6">Score Contribution</li>
-          <li id="stat_score" class="list-group-item col-xs-6">{}</li>
-          <li class="list-group-item col-xs-6">Gears</li>
-          <li id="stat_gears" class="list-group-item col-xs-6">{}</li>
-          <li class="list-group-item col-xs-6">kPa</li>
-          <li id="stat_kpa" class="list-group-item col-xs-6">{}</li>
-          <li class="list-group-item col-xs-6">Consistency</li>
-          <li id="stat_consistency" class="list-group-item col-xs-6">{}%</li>
-          <li class="list-group-item col-xs-6">Auto Gear Accuracy</li>
-          <li id="stat_auto_gearacc" class="list-group-item col-xs-6">{}%</li>
-          <li class="list-group-item col-xs-6">Teleop Gear Accuracy</li>
-          <li id="stat_teleop_gearacc" class="list-group-item col-xs-6">{}%</li>
-          <li class="list-group-item col-xs-6">High Goal Accuracy</li>
-          <li id="stat_high_scoreacc" class="list-group-item col-xs-6">{}%</li>
-          <li class="list-group-item col-xs-6">Low Goal Accuracy</li>
-          <li id="stat_low_scoreacc" class="list-group-item col-xs-6">{}%</li>
-          <li class="list-group-item col-xs-6">Climb Frequency</li>
-          <li id="stat_climbacc" class="list-group-item col-xs-6">{}%</li>
-          <li class="list-group-item col-xs-6">Reach Line Frequency</li>
-          <li id="stat_reachlineacc" class="list-group-item col-xs-6">{}%</li>
-        </ul> -->
       </div>
-    </div>
-    <script src="/js/fireinit.js"></script>
-    <script src="/js/team_search.js"></script>
+    </div> -->
     <div w3-include-html="/html/footer.html"></div>
     <script>w3IncludeHTML();</script>
   </body>
