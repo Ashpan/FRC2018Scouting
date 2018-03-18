@@ -4,6 +4,8 @@ var matchNumber = 0;
 var valKey = [];
 var matchArray = [];
 
+
+
 // var counter = 0;
 function submitData() {
 
@@ -223,3 +225,38 @@ function fetchTBAInfo(newKey) {
 
     request.send();
 }
+
+function fetchTeams() {
+    console.log('hey');
+    var xmlhttp = new XMLHttpRequest();
+    const year = '2018';
+    const event = 'onnyo';
+    const api = 'https://www.thebluealliance.com/api/v3/event/' + year + event + '/teams/keys' + '?X-TBA-Auth-Key=aSeFMfnmXUczi0DbldlhqJ6u2EyCgEt3XcQyFtElytJCdRHj7swAs8S2vatmCeBX';
+    var teams = []
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var data = JSON.parse(this.responseText);
+            teams = data;
+            for (i = 0; i < teams.length; i++) {
+                teams[i] = parseInt(teams[i].substring(3));
+            }
+
+            teams.sort(sortNumber);
+            for (i = 0; i < teams.length; i++) {
+                teams[i] = String(teams[i]);
+            }
+            console.log(teams);
+            $("#team").autocomplete({
+                source: teams
+            });
+        }
+    };
+    xmlhttp.open("GET", api, true);
+    xmlhttp.send();
+}
+
+function sortNumber(a,b) {
+    return a - b;
+}
+
+window.onload = fetchTeams;

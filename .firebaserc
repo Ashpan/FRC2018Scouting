@@ -1,6 +1,6 @@
 {
   "projects": {
-  	"dev": "scouting-compiler-dev",
+  	"default": "scouting-compiler-dev",
     "barrie": "scouting-compiler-onbar",
     "york": "scouting-compiler-onnyo",
     "mac": "scouting-compiler-onham"
