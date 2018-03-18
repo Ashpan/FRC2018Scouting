@@ -44,10 +44,7 @@
         </button>
         <div class="dropdown-menu" style="right: 0">
           <button id="tab-stats" type="button" class="dropdown-item">Statistics</button>
-          <button id="tab-statsgraphs" type="button" class="dropdown-item">Statistics Graphs</button>
           <button id="tab-matches" type="button" class="dropdown-item">Match History</button>
-          <button id="tab-matchesgraphs" type="button" class="dropdown-item">Match History Graphs</button>
-          <button id="tab-insights" type="button" class="dropdown-item">Insights</button>
         </div>
       </div>
       <br>
@@ -69,9 +66,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-      <div id="section-tab-statsgraphs" style="display: none">
-        statsgraphs
       </div>
       <div id="section-tab-matches" style="display: none">
         <br>
@@ -173,100 +167,7 @@
           </table>
         </div>
       </div>
-      <div id="section-tab-matchesgraphs" style="display: none">
-        matchesgraphs
-      </div>
-      <div id="section-tab-insights" style="display: none">
-        insights
-      </div>
     </div>
-    <!-- <div class="jumbotron vertical-center" id="team-input" style="margin-bottom:0px">
-      <div class="container text-center">
-        <h1>Team Search!</h1>
-        <div class="form-group">
-          <input type="text" class="form-control" id="team" placeholder="Team Number">
-        </div>
-        <button type="button" class="btn btn-block btn-default" onclick="loadTeam()">Load Team Data</button>
-      </div>
-    </div>
-    <div id="content-list" class="container-fluid" style="margin-bottom: 0px; display: none">
-      <h1 id="team-header">ayy lmao</h1>
-      <h3 id="matchcount-header">Matches Played: </h3>
-      <br>
-      <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tableauto">Autonomous Table</button>
-      <div id="tableauto" class="collapse in">
-        <ul class="list-group-horizontal row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-3 list-group-item-danger">Match #</li>
-          <li class="list-group-item col-xs-3 list-group-item-warning">Switch</li>
-          <li class="list-group-item col-xs-3 list-group-item-warning">Scale</li>
-          <li class="list-group-item col-xs-3 list-group-item-warning">Baseline</li>
-        </ul>
-        <ul id="table_auto" class="list-group-horizontal row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-        </ul>
-      </div>
-      <br>
-      <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tableteleop">Teleop Table</button>
-      <div id="tableteleop" class="collapse in">
-        <ul class="list-group-horizontal row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
-          <li class="list-group-item col-xs-2 list-group-item-info">Switch</li>
-          <li class="list-group-item col-xs-2 list-group-item-info">Scale</li>
-          <li class="list-group-item col-xs-2 list-group-item-info">Opposite Switch</li>
-          <li class="list-group-item col-xs-2 list-group-item-info">Vault</li>
-          <li class="list-group-item col-xs-2 list-group-item-info">Climb</li>
-        </ul>
-        <ul id="table_teleop" class="list-group-horizontal row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-        </ul>
-      </div>
-      <br>
-      <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tablecomments">Comments Table</button>
-      <div id="tablecomments" class="collapse in">
-        <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
-          <li class="list-group-item col-xs-10 list-group-item-success">Comment</li>
-        </ul>
-        <ul id="table_comment" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-        </ul>
-      </div>
-      <br>
-      <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#tabledisconnect">Disconnects Table</button>
-      <div id="tabledisconnect" class="collapse in">
-        <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-2 list-group-item-danger">Match #</li>
-          <li class="list-group-item col-xs-10 list-group-item-success">Disconnect</li>
-        </ul>
-        <ul id="table_disconnect" class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-        </ul>
-      </div>
-      <br>
-      <button class="btn btn-block btn-default" data-toggle="collapse" data-target="#statistics">Statistics</button>
-      <div id="statistics" class="collapse in">
-        <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-6 list-group-item-warning">Autonomous</li>
-          <li class="list-group-item col-xs-6 list-group-item-warning">Succeeded:Failed</li>
-          <li class="list-group-item col-xs-6">Switch</li>
-          <li id="stat_auto_switch" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Scale</li>
-          <li id="stat_auto_scale" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Baseline</li>
-          <li id="stat_auto_baseline" class="list-group-item col-xs-6">{} : {}</li>
-        </ul>
-        <ul class="list-group row" style="margin-bottom: 0px; margin-left: 0px; margin-right: 0px">
-          <li class="list-group-item col-xs-6 list-group-item-info">Teleoperated</li>
-          <li class="list-group-item col-xs-6 list-group-item-info">Succeeded:Failed</li>
-          <li class="list-group-item col-xs-6">Switch</li>
-          <li id="stat_teleop_switch" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Scale</li>
-          <li id="stat_teleop_scale" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Opposite Switch</li>
-          <li id="stat_teleop_opp_switch" class="list-group-item col-xs-6">{} : {}</li>
-          <li class="list-group-item col-xs-6">Vault</li>
-          <li id="stat_teleop_vault" class="list-group-item col-xs-6">{}</li>
-          <li class="list-group-item col-xs-6">Climb</li>
-          <li id="stat_teleop_climb" class="list-group-item col-xs-6">{}</li>
-        </ul>
-      </div>
-    </div> -->
     <div w3-include-html="/html/footer.html"></div>
     <script>w3IncludeHTML();</script>
   </body>

@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "scouting-compiler-onnyo"
+    "barrie": "scouting-compiler-onbar",
+    "york": "scouting-compiler-onnyo",
+    "mac": "scouting-compiler-onham"
   }
 }
