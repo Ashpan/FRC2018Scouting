@@ -51,39 +51,42 @@ function updateDatabase() {
     db.child(team).update(updateCount);
     var newKey = db.push().key;
     db.child(team + '/' + newKey).set({
-        auto_switch_success: parseInt($('#auto_switch_success').val()),
-        auto_switch_fail: parseInt($('#auto_switch_fail').val()),
-        auto_scale_success: parseInt($('#auto_scale_success').val()),
-        auto_scale_fail: parseInt($('#auto_scale_fail').val()),
+            auto_switch_success: parseInt($('#auto_switch_success').val()),
+            auto_switch_fail: parseInt($('#auto_switch_fail').val()),
+            auto_scale_success: parseInt($('#auto_scale_success').val()),
+            auto_scale_fail: parseInt($('#auto_scale_fail').val()),
 
-        teleop_switch_success: parseInt($('#teleop_switch_success').val()),
-        teleop_switch_fail: parseInt($('#teleop_switch_fail').val()),
-        teleop_scale_success: parseInt($('#teleop_scale_success').val()),
-        teleop_scale_fail: parseInt($('#teleop_scale_fail').val()),
-        teleop_opp_switch_success: parseInt($('#teleop_opp_switch_success').val()),
-        teleop_opp_switch_fail: parseInt($('#teleop_opp_switch_fail').val()),
-        teleop_vault: parseInt($('#teleop_vault').val()),
+            teleop_switch_success: parseInt($('#teleop_switch_success').val()),
+            teleop_switch_fail: parseInt($('#teleop_switch_fail').val()),
+            teleop_scale_success: parseInt($('#teleop_scale_success').val()),
+            teleop_scale_fail: parseInt($('#teleop_scale_fail').val()),
+            teleop_opp_switch_success: parseInt($('#teleop_opp_switch_success').val()),
+            teleop_opp_switch_fail: parseInt($('#teleop_opp_switch_fail').val()),
+            teleop_vault: parseInt($('#teleop_vault').val()),
 
-        offense: $('label#offense.active').attr('value'),
-        defense: $('label#defense.active').attr('value'),
-        climb: document.querySelector('input[name="climb"]:checked').value,
-        climb_notes: $('#climb_other').val(),
-        
-        team_number: parseInt($('#team').val()),
-        match_number: parseInt($('#matchnumber').val()),
-        match_scouter: $('#scouter').val() === "" ? "-" : $('#scouter').val(),
-        match_comment: $('#comment').val() === "" ? "-" : $('#comment').val(),
-        match_disconnect: $('#dcs').val() === "" ? "-" : $('#dcs').val(),
-        match_startpos: $('label#position.active').attr('value'),
-        
-        overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
-        overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
-        overall_auto_success: parseInt($('#auto_switch_success').val()) + parseInt($('#auto_scale_success').val()),
-        overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val())
+            offense: $('label#offense.active').attr('value'),
+            defense: $('label#defense.active').attr('value'),
+            climb: document.querySelector('input[name="climb"]:checked').value,
+            climb_notes: $('#climb_other').val(),
 
-    }).then(function(done) {
-        console.log("Successfully uploaded data to allteams/" + team + "/matches/" + newKey);
-    });
+            team_number: parseInt($('#team').val()),
+            match_number: parseInt($('#matchnumber').val()),
+            match_scouter: $('#scouter').val() === "" ? "-" : $('#scouter').val(),
+            match_comment: $('#comment').val() === "" ? "-" : $('#comment').val(),
+            match_disconnect: $('#dcs').val() === "" ? "-" : $('#dcs').val(),
+            match_startpos: $('label#position.active').attr('value'),
+
+            overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
+            overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
+            overall_auto_success: parseInt($('#auto_switch_success').val()) + parseInt($('#auto_scale_success').val()),
+            overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val())
+
+        }, function(err) {
+            alert("Make sure you're logged in. This entry did not go through");
+        })
+        .then(function(done) {
+            console.log("Successfully uploaded data to allteams/" + team + "/matches/" + newKey);
+        });
 
 
     if (document.getElementById('climb_other').value === "" || document.getElementById('climb_other').value === null) {
@@ -102,14 +105,14 @@ function updateDatabase() {
 
     console.log("Team " + team + " added to teamlist.");
 
-    var counter = firebase.database().ref('allteams/' + team ).orderByKey();
+    var counter = firebase.database().ref('allteams/' + team).orderByKey();
     counter.once("value").then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             var list_of_matches = childSnapshot.key;
             matchArray.push(list_of_matches);
         });
         var length_of_matches = matchArray.length;
-        firebase.database().ref().child('allteams/' + team + '/match-count').set(length_of_matches-1);
+        firebase.database().ref().child('allteams/' + team + '/match-count').set(length_of_matches - 1);
     });
 
     fetchTBAInfo(newKey);
@@ -196,13 +199,18 @@ function fetchTBAInfo(newKey) {
                 }
             }
             db.child(team + '/' + newKey).update({
-                auto_switch_cycle: switch_cycle,
-                auto_scale_cycle: scale_cycle,
-                auto_baseline: baseline,
-                plate_assignment: plate_assignment
-            }).then(function(done) {
-                console.log("Successfully uploaded cycles to allteams/" + team + "/matches/" + newKey + "/");
-            });
+                    auto_switch_cycle: switch_cycle,
+                    auto_scale_cycle: scale_cycle,
+                    auto_baseline: baseline,
+                    plate_assignment: plate_assignment
+
+
+                }, function(err) {
+                    alert("Make sure you're logged in. This entry did not go through!");
+                })
+                .then(function(done) {
+                    console.log("Successfully uploaded cycles to allteams/" + team + "/matches/" + newKey + "/");
+                });
             console.log('switch cycle ' + switch_cycle);
             console.log('scale cycle ' + scale_cycle);
             console.log('baseline ' + baseline);
