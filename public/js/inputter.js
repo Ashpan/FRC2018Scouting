@@ -198,7 +198,8 @@ function fetchTBAInfo(newKey) {
             db.child(team + '/' + newKey).update({
                 auto_switch_cycle: switch_cycle,
                 auto_scale_cycle: scale_cycle,
-                auto_baseline: baseline
+                auto_baseline: baseline,
+                plate_assignment: plate_assignment
             }).then(function(done) {
                 console.log("Successfully uploaded cycles to allteams/" + team + "/matches/" + newKey + "/");
             });

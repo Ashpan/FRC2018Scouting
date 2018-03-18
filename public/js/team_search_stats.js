@@ -8,8 +8,6 @@ function populateStats() {
     addDualAnalysis("Teleop Scale", analyzeSet(data.teleop_scale_success), analyzeSet(data.teleop_scale_fail));
     addDualAnalysis("Teleop Opp. Switch", analyzeSet(data.teleop_opp_switch_success), analyzeSet(data.teleop_opp_switch_fail));
     addAnalysis("Vault", analyzeSet(data.teleop_vault));
-
-    pushToStats(parseInt($("#team").val()));
 }
 
 function analyzeSet(dataset) {
@@ -64,17 +62,4 @@ function addDualAnalysis(name, analysis1, analysis2) {
 
     $('#stats_table').append(row);
 
-}
-
-function pushToStats(team){
-    firebase.database().ref('statistics/').child(team).set({
-        average_auto_switch_success: analyzeSet(data.auto_switch_success)[0],
-        average_auto_scale_success: analyzeSet(data.auto_scale_success)[0],
-        average_teleop_switch_success: analyzeSet(data.teleop_switch_success)[0],
-        average_teleop_scale_success: analyzeSet(data.teleop_scale_success)[0],
-        average_teleop_opp_switch_success: analyzeSet(data.teleop_opp_switch_success)[0],
-        average_teleop_vault: analyzeSet(data.teleop_vault)[0]
-    }).then(function(done) {
-        console.log("Successfully uploaded stats to statistics/" + team);
-    });
 }

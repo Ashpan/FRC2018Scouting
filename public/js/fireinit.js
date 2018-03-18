@@ -1,4 +1,4 @@
-// Initialize Firebase
+// Initialize YORK DATABASE
 //
  // var config = {
  //    apiKey: "AIzaSyCxahRnzexvO_C-K6hFxgFb8Jvavr95Ick",
@@ -10,6 +10,7 @@
  //  };
  //  firebase.initializeApp(config);
 
+// Initialize DEV DATABASE 
 var config = {
   apiKey: "AIzaSyAUxp-Hz_5ZKo2WabIiEU3PUU8TEGwWAQE",
     authDomain: "scouting-compiler-dev.firebaseapp.com",

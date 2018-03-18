@@ -56,6 +56,7 @@ function analyzeSet(dataset) {
 }
 
 function pushToStats(team) {
+    $('#uploading').html("");
     firebase.database().ref('statistics/').child(team).set({
         team: team,
         average_auto_switch_success: analyzeSet(data.auto_switch_success)[0],
@@ -66,5 +67,10 @@ function pushToStats(team) {
         average_teleop_vault: analyzeSet(data.teleop_vault)[0]
     }).then(function(done) {
         console.log("Successfully uploaded stats to statistics/" + team);
+        $("#uploading").show();
+        $('#uploading').html($('#uploading').html() + "<br>Successfully uploaded " + team + " to statistics.");
+        setTimeout(function(){
+            $("#uploading").hide();
+        }, 750); 
     });
 }
