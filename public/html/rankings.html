@@ -37,28 +37,29 @@
           <button id="tab-a_scale" type="button" class="dropdown-item">Auto Scale</button>
           <button id="tab-t_switch" type="button" class="dropdown-item">Teleop Switch</button>
           <button id="tab-t_scale" type="button" class="dropdown-item">Teleop Scale</button>
-          <button id="tab-t_opp_switch" type="button" class="dropdown-item">Teleop Opposite Scale</button>
+          <button id="tab-t_opp_switch" type="button" class="dropdown-item">Teleop Opposite Switch</button>
           <button id="tab-t_vault" type="button" class="dropdown-item">Teleop Vault</button>
         </div>
       </div>
       <button class="btn btn-block btn-primary" onclick="loadRankings()">Load Rankings</button>
       <br>
-      <button class="btn btn-block btn-primary" onclick="fetchStats()">Set Stats</button>
+      <button class="btn btn-block btn-danger" onclick="fetchStats()">Set Stats</button>
       <br>
       <br>
       <div id="section-tab-rankings" style="display: none">
         <br>
+        <p><strong>Averages</strong></p>
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">Team</th>
-                <th scope="col">Auto Switch Accuracy</th>
-                <th scope="col">Auto Scale Accuracy</th>
-                <th scope="col">Teleop Switch Accuracy</th>
-                <th scope="col">Teleop Scale Accuracy</th>
-                <th scope="col">Teleop Opposite Scale Accuracy</th>
-                <th scope="col">Teleop Vault Accuracy</th>
+                <th scope="col">Auto Switch</th>
+                <th scope="col">Auto Scale</th>
+                <th scope="col">Teleop Switch</th>
+                <th scope="col">Teleop Scale</th>
+                <th scope="col">Teleop Opposite Scale</th>
+                <th scope="col">Teleop Vault</th>
               </tr>
             </thead>
             <tbody id="rankings_table">

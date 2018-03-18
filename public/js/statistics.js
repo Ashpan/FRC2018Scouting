@@ -2,42 +2,38 @@ var data = {};
 
 
 function fetchStats() {
-    var query = firebase.database().ref("statistics").orderByKey();
+    var query = firebase.database().ref("allteams").orderByKey();
     query.once("value").then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             var team = parseInt(childSnapshot.key);
-            var pls = retrieveData(team);
-            console.log(pls);
-            console.log('retrieving data');
-            console.log(data);
-            pushToStats(team);
-            console.log('pushing to stats');
+            retrieveData(team);
         });
     });
 }
 
 function retrieveData(team) {
+	console.log(team);
     firebase.database().ref("allteams/" + team).on('value', function(snap) {
         if (snap.exists()) {
             data = {};
             snap.forEach(function(matchsnap) {
-                parseMatch(matchsnap);
+                parseMatch(matchsnap, team);
             });
         } else {
             console.log("Failed to retrieve data for team: " + team + "<br>Please check your internet connection and if the team exists in the database.");
         }
-    }).then(function(done){
-    	return true;
     });
 }
 
-function parseMatch(matchsnap) {
+function parseMatch(matchsnap, team) {
     matchsnap.forEach(function(infosnap) {
         if (typeof data[infosnap.key] == "undefined") {
             data[infosnap.key] = [];
         }
         data[infosnap.key].push(infosnap.val());
     });
+    console.log(data);
+    pushToStats(team);
 }
 
 function analyzeSet(dataset) {
@@ -61,6 +57,7 @@ function analyzeSet(dataset) {
 
 function pushToStats(team) {
     firebase.database().ref('statistics/').child(team).set({
+        team: team,
         average_auto_switch_success: analyzeSet(data.auto_switch_success)[0],
         average_auto_scale_success: analyzeSet(data.auto_scale_success)[0],
         average_teleop_switch_success: analyzeSet(data.teleop_switch_success)[0],

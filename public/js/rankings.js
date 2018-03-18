@@ -79,11 +79,87 @@ function loadRankings() {
             teamDone.push(maxTeam);
             console.log(teamDone);
         }
+    }).then(function(done) {
+
+        addToTable(teamDone);
     });
 }
 
+function addToTable(teamDone) {
+    var team = 0;
+    var auto_switch_success = 0;
+    var auto_scale_success = 0;
+    var teleop_switch_success = 0;
+    var teleop_scale_success = 0;
+    var teleop_opp_switch_success = 0;
+    var teleop_vault = 0;
+    $("#rankings_table").html("");
+    for (var i = 0; i < teamDone.length; i++) {
+        currTeam = teamDone[i];
+        console.log(currTeam);
+        var query = firebase.database().ref("statistics/" + currTeam).orderByKey();
+        query.once("value").then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                console.log(childSnapshot.key + ' : ' + childSnapshot.val());
+                if (childSnapshot.key === "average_auto_switch_success") {
+                    auto_switch_success = childSnapshot.val();
+                }
+                if (childSnapshot.key === "average_auto_scale_success") {
+                    console.log('working');
+                    auto_scale_success = childSnapshot.val();
+                }
+                if (childSnapshot.key === "average_teleop_switch_success") {
+                    teleop_switch_success = childSnapshot.val();
+                }
+                if (childSnapshot.key === "average_teleop_scale_success") {
+                    teleop_scale_success = childSnapshot.val();
+                }
+                if (childSnapshot.key === "average_teleop_opp_switch_success") {
+                    teleop_opp_switch_success = childSnapshot.val();
+                }
+                if (childSnapshot.key === "average_teleop_vault") {
+                    teleop_vault = childSnapshot.val();
+                }
+                if (childSnapshot.key === "team") {
+                    team = childSnapshot.val();
+                }
+            });
+        }).then(function(done){
+        console.log(team);
+        console.log(auto_switch_success);
+        console.log(auto_scale_success);
+        console.log(teleop_switch_success);
+        console.log(teleop_scale_success);
+        console.log(teleop_opp_switch_success);
+        console.log(teleop_vault);
+        var row = $('<tr></tr>');
+        row.append($('<th scope="row"></th>').text(team));
+        row.append($('<td></td>').text(auto_switch_success));
+        row.append($('<td></td>').text(auto_scale_success));
+        row.append($('<td></td>').text(teleop_switch_success));
+        row.append($('<td></td>').text(teleop_scale_success));
+        row.append($('<td></td>').text(teleop_opp_switch_success));
+        row.append($('<td></td>').text(teleop_vault));
+        $('#rankings_table').append(row);
+        $("#section-tab-rankings").show();
+});
+    }
+}
 
 
+// function populateStats() {
+
+//     $("#stats_table").html("");
+
+//     addDualAnalysis("Auto Switch", analyzeSet(data.auto_switch_success), analyzeSet(data.auto_switch_fail));
+//     addDualAnalysis("Auto Scale", analyzeSet(data.auto_scale_success), analyzeSet(data.auto_scale_fail));
+//     addDualAnalysis("Teleop Switch", analyzeSet(data.teleop_switch_success), analyzeSet(data.teleop_switch_fail));
+//     addDualAnalysis("Teleop Scale", analyzeSet(data.teleop_scale_success), analyzeSet(data.teleop_scale_fail));
+//     addDualAnalysis("Teleop Opp. Switch", analyzeSet(data.teleop_opp_switch_success), analyzeSet(data.teleop_opp_switch_fail));
+//     addAnalysis("Vault", analyzeSet(data.teleop_vault));
+
+//     pushToStats(parseInt($("#team").val()));
+// }
 // function quickLoadRanks() {
 
 //     document.getElementById('stat-input').style.display = "none";
