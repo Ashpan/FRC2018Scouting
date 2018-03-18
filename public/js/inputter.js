@@ -1,6 +1,5 @@
 const db = firebase.database().ref('allteams/');
 
-
 var matchNumber = 0;
 var valKey = [];
 var matchArray = [];
@@ -48,6 +47,7 @@ function updateDatabase() {
     var team = $('#team').val();
     var updateCount = {};
     updateCount['match-count'] = matchNumber;
+    if (firebase.auth().currentUser) {
     db.child(team).update(updateCount);
     var newKey = db.push().key;
     db.child(team + '/' + newKey).set({
@@ -79,14 +79,14 @@ function updateDatabase() {
             overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
             overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
             overall_auto_success: parseInt($('#auto_switch_success').val()) + parseInt($('#auto_scale_success').val()),
-            overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val())
-
-        }, function(err) {
-            alert("Make sure you're logged in. This entry did not go through");
+            overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val())  
         })
         .then(function(done) {
             console.log("Successfully uploaded data to allteams/" + team + "/matches/" + newKey);
         });
+    }else{
+        alert("Make sure you're logged in. This entry did not go through");
+    }
 
 
     if (document.getElementById('climb_other').value === "" || document.getElementById('climb_other').value === null) {
@@ -198,19 +198,20 @@ function fetchTBAInfo(newKey) {
                     scale_cycle = 'far';
                 }
             }
+            if (firebase.auth().currentUser) {
             db.child(team + '/' + newKey).update({
                     auto_switch_cycle: switch_cycle,
                     auto_scale_cycle: scale_cycle,
                     auto_baseline: baseline,
                     plate_assignment: plate_assignment
-
-
-                }, function(err) {
-                    alert("Make sure you're logged in. This entry did not go through!");
                 })
                 .then(function(done) {
                     console.log("Successfully uploaded cycles to allteams/" + team + "/matches/" + newKey + "/");
                 });
+            }else{
+                    alert("Make sure you're logged in. This TBA fetch push did not go through!");
+
+            }
             console.log('switch cycle ' + switch_cycle);
             console.log('scale cycle ' + scale_cycle);
             console.log('baseline ' + baseline);
