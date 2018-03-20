@@ -3,9 +3,9 @@ const db = firebase.database().ref('allteams/');
 var matchNumber = 0;
 var valKey = [];
 var matchArray = [];
-
+var teams = []
 $(document).ready(function() {
-    var teams = ["188", "746", "771", "854", "907", "919", "1075", "1310", "1325", "1360", "4001", "4343", "4618", "4939", "4946", "4976", "5031", "5036", "5428", "5519", "5699", "5776", "5921", "6009", "6135", "6140", "6141", "6397", "6513", "6564", "6632", "6867", "6975", "7013", "7136", "7329"]
+    teams = ["188", "746", "771", "854", "907", "919", "1075", "1310", "1325", "1360", "4001", "4343", "4618", "4939", "4946", "4976", "5031", "5036", "5428", "5519", "5699", "5776", "5921", "6009", "6135", "6140", "6141", "6397", "6513", "6564", "6632", "6867", "6975", "7013", "7136", "7329"]
     $("#team").autocomplete({
         source: teams
     });
@@ -29,11 +29,18 @@ function inputVerification() {
 
     var check = true;
 
+    if (!(firebase.auth().currentUser)) {
+        alert("Please Login to your account to input data");
+        check = false;
+    }
     if (isNaN(parseInt($('#team').val()))) {
         $('#uploading').html($('#uploading').html() + "<br>Please enter a team number as an integer.");
         check = false;
     }
-
+    if(!(teams.includes($('#team').val()))){
+     $('#uploading').html($('#uploading').html() + "<br>The team you entered is not attending York.");
+        check = false;
+    }
     if (isNaN(parseInt($('#matchnumber').val()))) {
         $('#uploading').html($('#uploading').html() + "<br>Please enter a match number as an integer.");
         check = false;
@@ -55,7 +62,6 @@ function updateDatabase() {
     var team = $('#team').val();
     var updateCount = {};
     updateCount['match-count'] = matchNumber;
-    if (firebase.auth().currentUser) {
         db.child(team).update(updateCount);
         var newKey = db.push().key;
         db.child(team + '/' + newKey).set({
@@ -94,9 +100,6 @@ function updateDatabase() {
             .then(function(done) {
                 console.log("Successfully uploaded data to allteams/" + team + "/matches/" + newKey);
             });
-    } else {
-        alert("Make sure you're logged in. This entry did not go through");
-    }
 
 
     if (document.getElementById('climb_other').value === "" || document.getElementById('climb_other').value === null) {
@@ -208,7 +211,6 @@ function fetchTBAInfo(newKey) {
                     scale_cycle = 'far';
                 }
             }
-            if (firebase.auth().currentUser) {
                 db.child(team + '/' + newKey).update({
                         auto_switch_cycle: switch_cycle,
                         auto_scale_cycle: scale_cycle,
@@ -219,10 +221,6 @@ function fetchTBAInfo(newKey) {
                     .then(function(done) {
                         console.log("Successfully uploaded cycles to allteams/" + team + "/matches/" + newKey + "/");
                     });
-            } else {
-                alert("Make sure you're logged in. This TBA fetch push did not go through!");
-
-            }
             console.log('switch cycle ' + switch_cycle);
             console.log('scale cycle ' + scale_cycle);
             console.log('baseline ' + baseline);
