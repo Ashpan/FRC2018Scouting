@@ -28,8 +28,6 @@
       <h1>
       Data Entry!
       </h1>
-      <button class="btn btn-block btn-primary" onclick="fetchTeams()">Fetch</button>
-      <br>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Team #</span>
@@ -176,16 +174,16 @@
         <label class="custom-control-label active" for="parked">Parked</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="assisted-climb" value="assisted-climb" name="climb" class="custom-control-input">
-        <label class="custom-control-label" for="assisted-climb">Assisted Climb (Used other bot to climb)</label>
-      </div>
-      <div class="custom-control custom-radio">
         <input type="radio" id="failed-climb" value="failed-climb" name="climb" class="custom-control-input">
         <label class="custom-control-label" for="failed-climb">Failed-Climb</label>
       </div>
       <div class="custom-control custom-radio">
         <input type="radio" id="failed-park" value="failed-park" name="climb" class="custom-control-input">
         <label class="custom-control-label" for="failed-park">Failed Park</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input type="radio" id="did-not-attempt" value="did-not-attempt" name="climb" class="custom-control-input">
+        <label class="custom-control-label" for="did-not-attempt">Did not Attempt</label>
       </div>
       <div class="custom-control custom-radio">
         <input type="radio" id="other-climb" value="other-climb" name="climb" class="custom-control-input">

@@ -28,8 +28,62 @@
                 <a class="nav-link open-sans" id="login" onclick='log_out();'></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="login_link" href="/html/auth/email.html">Login</a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" id="login_link" data-toggle="modal" data-target="#login_modal">Login</button>
             </li>
         </ul>
     </div>
 </nav>
+<!-- Modal -->
+<div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Email</span>
+                                </div>
+                                <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Password</span>
+                                </div>
+                                <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
+                            </div>
+                        </div>
+                    </div>
+                    <br/><br/>
+                    <div class="row">
+                        <div class="col">
+                            <button disabled class="btn btn-block btn-primary" id="sign-in" name="signin" type="submit">Sign In</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-block btn-warning" disabled id="verify-email" name="verify-email">Send Email Verification</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-block btn-info" id="password-reset" name="verify-email">Send Password Reset Email</button>
+                        </div>
+                    </div>
+                    <div class="user-details-container">
+                        Firebase sign-in status: <span id="sign-in-status">Unknown</span>
+                    </div>
+                </div>      </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="updateNav();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
