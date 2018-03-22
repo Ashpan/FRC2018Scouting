@@ -99,6 +99,7 @@ function matchHistoryComments() {
         row.append($('<td></td>').text(data.match_scouter[i]));
         row.append($('<td></td>').text(data.match_comment[i]));
         row.append($('<td></td>').text(data.match_disconnect[i]));
+        row.append($('<td></td>').text(data.compiler_email[i]));
 
         $('#comment_table').append(row);
 
