@@ -61,7 +61,7 @@ function updateDatabase() {
 
     var team = $('#team').val();
     var updateCount = {};
-    updateCount['match-count'] = matchNumber;
+    // updateCount['match-count'] = matchNumber;
         db.child(team).update(updateCount);
         var newKey = db.push().key;
         db.child(team + '/' + newKey).set({
@@ -118,23 +118,20 @@ function updateDatabase() {
 
     console.log("Team " + team + " added to teamlist.");
 
-    var counter = firebase.database().ref('allteams/' + team).orderByKey();
-    counter.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            var list_of_matches = childSnapshot.key;
-            matchArray.push(list_of_matches);
-        });
-        var length_of_matches = matchArray.length;
-        firebase.database().ref().child('allteams/' + team + '/match-count').set(length_of_matches - 1);
-    });
+    // var counter = firebase.database().ref('allteams/' + team).orderByKey();
+    // counter.once("value").then(function(snapshot) {
+    //     snapshot.forEach(function(childSnapshot) {
+    //         var list_of_matches = childSnapshot.key;
+    //         matchArray.push(list_of_matches);
+    //     });
+    //     var length_of_matches = matchArray.length;
+    //     firebase.database().ref().child('allteams/' + team + '/match-count').set(length_of_matches - 1);
+    // });
 
     fetchTBAInfo(newKey);
 }
 
 function fetchTBAInfo(newKey) {
-    var request = new XMLHttpRequest();
-    const year = '2018';
-    const event = 'onbar';
     var match = $('#matchnumber').val();
     const api = 'https://www.thebluealliance.com/api/v3/match/' + year + event + '_qm' + match + '?X-TBA-Auth-Key=aSeFMfnmXUczi0DbldlhqJ6u2EyCgEt3XcQyFtElytJCdRHj7swAs8S2vatmCeBX';
     var switch_cycle = 'none';
