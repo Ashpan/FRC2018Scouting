@@ -34,6 +34,8 @@
         </ul>
     </div>
 </nav>
+
+
 <!-- Modal -->
 <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
@@ -45,6 +47,7 @@
                 </button>
             </div>
             <div class="modal-body">
+            	<form>
                 <div class="container">
                     <br>
                     <div class="row">
@@ -80,7 +83,9 @@
                     <div class="user-details-container">
                         Firebase sign-in status: <span id="sign-in-status">Unknown</span>
                     </div>
-                </div>      </div>
+                </div>
+            </form>
+                      </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="updateNav();">Close</button>
                 </div>

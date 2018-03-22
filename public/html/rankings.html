@@ -17,12 +17,13 @@
     <script src="/js/fireinit.js"></script>
     <script src="/js/rankings.js"></script>
     <script src="/js/statistics.js"></script>
+    <!-- <script src="/js/tbaapi.js"></script> -->
     <script src="/js/auth.js"></script>
     <div w3-include-html="/html/nav.html"></div>
     <script>w3IncludeHTML();</script>
     <div class="container">
       <br>
-      <h1>
+      <h1 id="test">
       Rankings!
       </h1>
       <p id="alerts">
@@ -30,6 +31,7 @@
       </p>
       <br>
       <button class="btn btn-block btn-outline-info" onclick="fetchStats()">Populate Statistics</button>
+      <!-- <button class="btn btn-block btn-outline-info" onclick="fetchMatches()">Populate Statistics</button> -->
       <div id="uploading"></div>
       <br>
       <div class="dropdown block">
