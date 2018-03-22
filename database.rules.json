@@ -1,6 +1,16 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
-  }
+  	"allteams": {
+	    ".read": true,
+	    ".write": "auth != null"
+  		},
+	"teamlist": {
+	    ".read": true,
+	    ".write": "auth != null"
+  		},
+	"statistics": {
+		".read": true,
+	    ".write": true
+	}
+	}
 }

@@ -1,248 +1,88 @@
 const db = firebase.database();
 
-const storage = firebase.storage();
-const storageRef = storage.ref();
+$(document).ready(function() {
+
+var teams = ["188", "746", "771", "854", "907", "919", "1075", "1310", "1325", "1360", "4001", "4343", "4618", "4939", "4946", "4976", "5031", "5036", "5428", "5519", "5699", "5776", "5921", "6009", "6135", "6140", "6141", "6397", "6513", "6564", "6632", "6867", "6975", "7013", "7136", "7329"]
+    $("#team").autocomplete({
+        source: teams
+    });
+
+  hideAll();
+
+  $("#section-stats").show();
+
+  $("button[id^=tab]").click(function() {
+
+    hideAll();
+
+    $("#section-" + $(this).attr("id")).show();
+    $("#menu").text($(this).text());
+
+  });
+
+});
+
+function hideAll() {
+  $("#section-tab-stats").hide();
+  $("#section-tab-statsgraphs").hide();
+  $("#section-tab-matches").hide();
+  $("#section-tab-matchesgraphs").hide();
+  $("#section-tab-insights").hide();
+}
 
 var team = 0;
-var matchCount = 0;
 
-
+var data = {};
 
 function loadTeam() {
 
-  document.getElementById('team-input').style.display = "none";
-  document.getElementById('content-list').style.display = "";
+  if (isNaN(parseInt($("#team").val()))) {
+    $("#alerts").text("Please enter a valid team number.");
+    return;
+  }
 
-  const teamText = document.getElementById('team-header');
-  team = document.getElementById('team').value;
-  teamText.innerText = "Team: " + team;
+  team = parseInt($("#team").val());
 
-  const matchcountText = document.getElementById('matchcount-header');
-  db.ref('/allteams/' + team + '/match-count').once('value').then(function(snap){
-    matchCount = parseInt(snap.val());
-    matchcountText.innerText = "Matches Played: " + matchCount;
-    setData();
+  retrieveData();
+}
+
+function retrieveData() {
+  db.ref("allteams/" + team).on('value', function(snap){
+
+    if (snap.exists()) {
+
+      $("#alerts").html("Viewing data for team: " + team);
+      console.log("Viewing data for team: " + team);
+      data = {};
+
+      snap.forEach(function(matchsnap) {
+        parseMatch(matchsnap);
+      });
+
+      // Matches have been retrieved
+      populateStats();
+      populateMatchHistory();
+
+    }
+    else {
+
+      $("#alerts").html("Failed to retrieve data for team: " + team + "<br>Please check your internet connection and if the team exists in the database.");
+
+    }
+
   });
 }
 
+function parseMatch(matchsnap) {
 
-function setData() {
+  matchsnap.forEach(function(infosnap) {
 
-  const dbTeam = firebase.database().ref('/allteams/' + team);
+    if (typeof data[infosnap.key] == "undefined") {
+      data[infosnap.key] = [];
+    }
 
-  const statAutoSwitch = document.getElementById('stat_auto_switch');
-  const statAutoScale = document.getElementById('stat_auto_scale');
-  const statAutoBaseline = document.getElementById('stat_auto_baseline');
-
-  const statTeleopSwitch = document.getElementById('stat_teleop_switch');
-  const statTeleopScale = document.getElementById('stat_teleop_scale');
-  const statTeleopOppSwitch = document.getElementById('stat_teleop_opp_switch');
-  const statTeleopVault = document.getElementById('stat_teleop_vault');
-  const statTeleopClimb = document.getElementById('stat_teleop_climb');
-
-  const statScore = document.getElementById('stat_score');
-
-  const statGears = document.getElementById('stat_gears');
-  const statKPA = document.getElementById('stat_kpa');
-
-  const statConsistency = document.getElementById('stat_consistency');
-
-  const statAutoGearAcc = document.getElementById('stat_auto_gearacc');
-  const statTeleopGearAcc = document.getElementById('stat_teleop_gearacc');
-  const statHighScoreAcc = document.getElementById('stat_high_scoreacc');
-  const statLowScoreAcc = document.getElementById('stat_low_scoreacc');
-  const statClimbAcc = document.getElementById('stat_climbacc');
-  const statReachlineAcc = document.getElementById('stat_reachlineacc');
-
-  var totalAutoHighScore = 0;
-  var totalAutoHighMiss = 0;
-
-  var totalAutoLowScore = 0;
-  var totalAutoLowMiss = 0;
-
-  var totalAutoGearsScore = 0;
-  var totalAutoGearsMiss = 0;
-
-  var totalAutoReachlineYes = 0;
-  var totalAutoReachlineNo = 0;
-
-
-  var totalTeleopHighScore = 0;
-  var totalTeleopHighMiss = 0;
-
-  var totalTeleopLowScore = 0;
-  var totalTeleopLowMiss = 0;
-
-  var totalTeleopGearsScore = 0;
-  var totalTeleopGearsMiss = 0;
-
-  var totalTeleopCycletime = 0;
-
-  var cycleTimeNulls = 0;
-
-
-  var totalTeleopClimbSuccess = 0;
-  var totalTeleopClimbFailure = 0;
-
-
-  var totalDefenseYes = 0;
-  var totalDefenseNo = 0;
-
-  var totalHopperdumpYes = 0;
-  var totalHopperdumpNo = 0;
-
-  var totalIntakeYes = 0;
-  var totalIntakeNo = 0;
-
-  var totalFouls = 0;
-
-
-  dbTeam.child('matches').once('value').then(function(snap){
-
-    const autoTable = document.getElementById('table_auto');
-    const teleopTable = document.getElementById('table_teleop');
-    const commentTable = document.getElementById('table_comment');
-
-    snap.forEach(function(matchsnap){
-
-      const newAutoSwitch = document.createElement('li');
-      newAutoSwitch.setAttribute('class', 'list-group-item col-xs-3');
-
-      const newAutoScale = document.createElement('li');
-      newAutoScale.setAttribute('class', 'list-group-item col-xs-3');
-
-      const newAutoBaseline = document.createElement('li');
-      newAutoBaseline.setAttribute('class', 'list-group-item col-xs-3');
-
-      // const newAutoBaseline = document.createElement('li');
-      // newAutoBaseline.setAttribute('class', 'list-group-item col-xs-2');
-
-
-      const newTeleopSwitch = document.createElement('li');
-      newTeleopSwitch.setAttribute('class', 'list-group-item col-xs-2');
-
-      const newTeleopScale = document.createElement('li');
-      newTeleopScale.setAttribute('class', 'list-group-item col-xs-2');
-
-      const newTeleopOppSwitch = document.createElement('li');
-      newTeleopOppSwitch.setAttribute('class', 'list-group-item col-xs-2');
-
-      const newTeleopVault = document.createElement('li');
-      newTeleopVault.setAttribute('class', 'list-group-item col-xs-2');
-
-      const newTeleopClimb = document.createElement('li');
-      newTeleopClimb.setAttribute('class', 'list-group-item col-xs-2');
-
-      const newComments = document.createElement('li');
-      newComments.setAttribute('class', 'list-group-item col-xs-2');
-
-
-
-      matchsnap.forEach(function(infosnap){
-
-        if (infosnap.key == "auto_switch_success") {newAutoSwitch.innerText = infosnap.val() + ":" + newAutoSwitch.innerText;}
-        else if (infosnap.key == "auto_switch_fail") {newAutoSwitch.innerText = infosnap.val();}
-        else if (infosnap.key == "auto_scale_success") {newAutoScale.innerText = infosnap.val() + ":" + newAutoScale.innerText;}
-        else if (infosnap.key == "auto_scale_fail") {newAutoScale.innerText = infosnap.val();}
-        else if (infosnap.key == "auto_baseline") {newAutoBaseline.innerText = infosnap.val();}
-        // else if (infosnap.key == "auto_reachline") {
-        //   if (infosnap.val() == "Yes") {
-        //     totalAutoReachlineYes += 1;
-        //   }
-        //   else if (infosnap.val() == "No") {
-        //     totalAutoReachlineNo += 1;
-        //   }
-        //   newAutoReachline.innerText = infosnap.val();
-        // }
-
-        else if (infosnap.key == "teleop_switch_success") {newTeleopSwitch.innerText = infosnap.val() + ":" + newTeleopSwitch.innerText;}
-        else if (infosnap.key == "teleop_switch_fail") {newTeleopSwitch.innerText = infosnap.val();}
-        else if (infosnap.key == "teleop_scale_success") {newTeleopScale.innerText = infosnap.val() + ":" + newTeleopScale.innerText;}
-        else if (infosnap.key == "teleop_scale_fail") {newTeleopScale.innerText = infosnap.val();}
-        else if (infosnap.key == "teleop_opp_switch_success") {newTeleopOppSwitch.innerText = infosnap.val() + ":" + newTeleopOppSwitch.innerText; console.log(infosnap.val());}
-        else if (infosnap.key == "teleop_opp_switch_fail") {newTeleopOppSwitch.innerText = infosnap.val();}
-        else if (infosnap.key == "teleop_vault") {newTeleopVault.innerText = infosnap.val();}
-        else if (infosnap.key == "climb") {newTeleopClimb.innerText = infosnap.val(); console.log(infosnap.val());}
-
-
-        // else if (infosnap.key == "teleop_cycletime") {
-        //   if (infosnap.val() != "") {
-        //     totalTeleopCycletime += parseInt(infosnap.val());
-        //     newTeleopCycletime.innerText = infosnap.val();
-        //   }
-        //   else {
-        //     cycleTimeNulls += 1;
-        //     newTeleopCycletime.innerText = "-";
-        //   }
-        // }
-
-        // else if (infosnap.key == "teleop_climb") {
-        //   if (infosnap.val() == "Success") {
-        //     totalTeleopClimbSuccess += 1;
-        //   }
-        //   else if (infosnap.val() == "Failure") {
-        //     totalTeleopClimbFailure += 1;
-        //   }
-        //   newTeleopClimb.innerText = infosnap.val();
-        // }
-
-      });
-
-      dbTeam.child('matches-info/' + matchsnap.key + '/number').once('value').then(function(numsnap){
-
-        const newMatchAuto = document.createElement('li');
-        newMatchAuto.setAttribute ('class', 'list-group-item col-xs-3');
-        newMatchAuto.innerText = numsnap.val();
-
-        const newMatchTeleop = document.createElement('li');
-        newMatchTeleop.setAttribute ('class', 'list-group-item col-xs-2');
-        newMatchTeleop.innerText = numsnap.val();
-
-
-        const newMatchComment = document.createElement('li');
-        newMatchComment.setAttribute ('class', 'list-group-item col-xs-2');
-        newMatchComment.innerText = numsnap.val();
-
-        const emptyAuto = document.createElement('li');
-        emptyAuto.setAttribute ('class', 'list-group-item col-xs-3');
-        emptyAuto.innerText = "-";
-
-        dbTeam.child('matches-info/' + matchsnap.key + '/comment').once('value').then(function(commentsnap){
-
-          const newComment = document.createElement('li');
-          newComment.setAttribute ('class', 'list-group-item col-xs-10');
-          newComment.innerText = commentsnap.val();
-
-          autoTable.appendChild(newMatchAuto);
-          autoTable.appendChild(newAutoSwitch);
-          autoTable.appendChild(newAutoScale);
-          autoTable.appendChild(newAutoBaseline);
-
-          teleopTable.appendChild(newMatchTeleop);
-          teleopTable.appendChild(newTeleopSwitch);
-          teleopTable.appendChild(newTeleopScale);
-          teleopTable.appendChild(newTeleopOppSwitch);
-          teleopTable.appendChild(newTeleopVault);
-          teleopTable.appendChild(newTeleopClimb);
-
-      
-
-          commentTable.appendChild(newMatchComment);
-          commentTable.appendChild(newComment);
-
-        });
-
-      });
-
-    });
-
-    // statAutoReachline.innerText = totalAutoReachlineYes + " : " + totalAutoReachlineNo;
-    statTeleopClimb.innerText = totalTeleopClimbSuccess + " : " + totalTeleopClimbFailure;
-    
+    data[infosnap.key].push(infosnap.val());
 
   });
-
-
-
 
 }

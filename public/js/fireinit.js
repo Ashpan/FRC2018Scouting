@@ -1,20 +1,26 @@
-// Initialize Firebase
+var request = new XMLHttpRequest();
+const year = '2018';
+const event = 'onnyo';
+// Initialize YORK DATABASE
 //
-var config = {
-    apiKey: "AIzaSyAXpp8Ynw79a_l17iEi--jh3BGKbzqbCiU",
-    authDomain: "scouting-compiler-onbar.firebaseapp.com",
-    databaseURL: "https://scouting-compiler-onbar.firebaseio.com",
-    projectId: "scouting-compiler-onbar",
-    storageBucket: "scouting-compiler-onbar.appspot.com",
-    messagingSenderId: "148693715808"
+ var config = {
+    apiKey: "AIzaSyCxahRnzexvO_C-K6hFxgFb8Jvavr95Ick",
+    authDomain: "scouting-compiler-onnyo.firebaseapp.com",
+    databaseURL: "https://scouting-compiler-onnyo.firebaseio.com",
+    projectId: "scouting-compiler-onnyo",
+    storageBucket: "scouting-compiler-onnyo.appspot.com",
+    messagingSenderId: "577025368281"
   };
-firebase.initializeApp(config);
+  firebase.initializeApp(config);
 
+// Initialize DEV DATABASE 
 // var config = {
-//   apiKey: "AIzaSyCT_QffKeMhyhj-Do9sAIatIY4oKsHreDw",
-//   authDomain: "dev-scouting-compiler.firebaseapp.com",
-//   databaseURL: "https://dev-scouting-compiler.firebaseio.com",
-//   storageBucket: "dev-scouting-compiler.appspot.com",
-//   messagingSenderId: "424826179751"
+//   apiKey: "AIzaSyAUxp-Hz_5ZKo2WabIiEU3PUU8TEGwWAQE",
+//     authDomain: "scouting-compiler-dev.firebaseapp.com",
+//     databaseURL: "https://scouting-compiler-dev.firebaseio.com",
+//     projectId: "scouting-compiler-dev",
+//     storageBucket: "scouting-compiler-dev.appspot.com",
+//     messagingSenderId: "211665111326"
 // };
 // firebase.initializeApp(config);
+
