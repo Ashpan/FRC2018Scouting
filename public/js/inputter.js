@@ -8,7 +8,7 @@ var teams = []
 
 
 $(document).ready(function() {
-    teams = ["188", "746", "771", "854", "907", "919", "1075", "1310", "1325", "1360", "4001", "4343", "4618", "4939", "4946", "4976", "5031", "5036", "5428", "5519", "5699", "5776", "5921", "6009", "6135", "6140", "6141", "6397", "6513", "6564", "6632", "6867", "6975", "7013", "7136", "7329"]
+    teams = ["188", "1241", "1325", "1334", "1374", "2056", "2200", "2386", "2609", "2935", "3161", "3560", "3571", "3683", "4039", "4069", "4308", "4519", "4618", "4902", "4932", "4976", "4992", "5406", "5409", "5699", "5776", "5921", "6070", "6130", "6135", "6323", "6339", "6342", "6461", "6537", "6632", "6878", ""]
     $( "#auto_switch_success" ).change(function() {
         if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0) ) {
             $("#baseline_n").removeClass("active");
@@ -43,6 +43,14 @@ function submitData() {
 
 }
 
+function validTeam(){
+    if(!(teams.includes($('#team').val()))){
+        $("#teamCheck").html("Team " + $('#team').val() + " isn't at McMaster");
+    }else if((teams.includes($('#team').val())) || ($('#team').val() == "")){
+        $("#teamCheck").html("");
+    }
+}
+
 function inputVerification() {
 
     var check = true;
@@ -56,7 +64,7 @@ function inputVerification() {
         check = false;
     }
     if(!(teams.includes($('#team').val()))){
-     $('#uploading').html($('#uploading').html() + "<br>The team you entered is not attending York.");
+     $('#uploading').html($('#uploading').html() + "<br>The team you entered is not attending McMaster.");
         check = false;
     }
     if ( (parseInt($('#auto_switch_success').val()))>5 || (parseInt($('#auto_scale_success').val()))>5 || (parseInt($('#auto_switch_fail').val()))>5 || (parseInt($('#auto_scale_fail').val()))>5 ) {

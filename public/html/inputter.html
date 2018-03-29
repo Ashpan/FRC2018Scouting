@@ -31,8 +31,9 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Team #</span>
         </div>
-        <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*">
+        <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="validTeam()">
       </div>
+      <p id="teamCheck"></p>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Match #</span>

@@ -36,40 +36,18 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Team #</span>
         </div>
-        <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*">
+        <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="loadTeam()">
       </div>
-      <button class="btn btn-block btn-primary" onclick="loadTeam()">Load Team</button>
+      <!-- <button class="btn btn-block btn-primary">Load Team</button> -->
       <div id="uploading"></div>
-      <br>
       <div class="dropdown block">
-        <button id="menu" class="btn btn-block btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-        Select View
-        </button>
+        <button id="menu" class="btn btn-block btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select View</button>
         <div class="dropdown-menu" style="right: 0">
-          <button id="tab-stats" type="button" class="dropdown-item">Statistics</button>
           <button id="tab-matches" type="button" class="dropdown-item">Match History</button>
+          <button id="tab-stats" type="button" class="dropdown-item">Statistics</button>
         </div>
       </div>
       <br>
-      <div id="section-tab-stats" style="display: none">
-        <br>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Stat</th>
-                <th scope="col">Median</th>
-                <th scope="col">IQR</th>
-                <th scope="col">Mean</th>
-                <th scope="col">ST Dev</th>
-                <th scope="col">Range</th>
-              </tr>
-            </thead>
-            <tbody id="stats_table">
-            </tbody>
-          </table>
-        </div>
-      </div>
       <div id="section-tab-matches" style="display: none">
         <br>
         <p>
@@ -139,9 +117,8 @@
             <thead>
               <tr>
                 <th scope="col">Match #</th>
-                <th scope="col">Start</th>
+                <th scope="col">Start Position</th>
                 <th scope="col">Climb</th>
-                <th scope="col">Climb Comments</th>                
               </tr>
             </thead>
             <tbody id="misc_table">
@@ -163,6 +140,27 @@
               </tr>
             </thead>
             <tbody id="comment_table">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      
+      <div id="section-tab-stats" style="display: none">
+        <br>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Stat</th>
+                <th scope="col">Median</th>
+                <th scope="col">IQR</th>
+                <th scope="col">Mean</th>
+                <th scope="col">ST Dev</th>
+                <th scope="col">Range</th>
+              </tr>
+            </thead>
+            <tbody id="stats_table">
             </tbody>
           </table>
         </div>

@@ -2,11 +2,6 @@ const db = firebase.database();
 
 $(document).ready(function() {
 
-var teams = ["188", "746", "771", "854", "907", "919", "1075", "1310", "1325", "1360", "4001", "4343", "4618", "4939", "4946", "4976", "5031", "5036", "5428", "5519", "5699", "5776", "5921", "6009", "6135", "6140", "6141", "6397", "6513", "6564", "6632", "6867", "6975", "7013", "7136", "7329"]
-    $("#team").autocomplete({
-        source: teams
-    });
-
   hideAll();
 
   $("#section-stats").show();
@@ -19,7 +14,6 @@ var teams = ["188", "746", "771", "854", "907", "919", "1075", "1310", "1325", "
     $("#menu").text($(this).text());
 
   });
-
 });
 
 function hideAll() {
@@ -35,7 +29,7 @@ var team = 0;
 var data = {};
 
 function loadTeam() {
-
+  $("#section-tab-matches").show();
   if (isNaN(parseInt($("#team").val()))) {
     $("#alerts").text("Please enter a valid team number.");
     return;
