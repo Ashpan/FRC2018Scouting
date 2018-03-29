@@ -5,7 +5,12 @@ var valKey = [];
 var matchArray = [];
 var teams = []
 
-
+$(window).on('load',function(){
+        if (!(firebase.auth().currentUser)) {
+        $('#login_modal').modal('show');
+        alert("Please Login to your account to input data");
+    }
+    });
 
 $(document).ready(function() {
     teams = ["188", "1241", "1325", "1334", "1374", "2056", "2200", "2386", "2609", "2935", "3161", "3560", "3571", "3683", "4039", "4069", "4308", "4519", "4618", "4902", "4932", "4976", "4992", "5406", "5409", "5699", "5776", "5921", "6070", "6130", "6135", "6323", "6339", "6342", "6461", "6537", "6632", "6878", ""]

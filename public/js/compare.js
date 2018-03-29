@@ -43,11 +43,9 @@ function retrieveData() {
             $("#alerts1").html("Viewing data for team: " + team1);
             console.log("Viewing data for team: " + team1);
             data1 = {};
-
             snap.forEach(function(matchsnap) {
                 parseMatch1(matchsnap);
             });
-
             // Matches have been retrieved
             populateMatchHistory();
             console.log("pls");
