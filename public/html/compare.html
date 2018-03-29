@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compare Teams</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="https://www.w3schools.com/lib/w3data.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
+  </head>
+  <body>
+    <div w3-include-html="/html/nav.html"></div>
+    <script>w3IncludeHTML();</script>
+    <script src="/js/fireinit.js"></script>
+    <script src="/js/compare_matchhistory.js"></script>
+    <script src="/js/compare.js"></script>
+    <script src="/js/auth.js"></script>
+    <div class="container">
+      <br>
+      <h1>
+      Compare Teams!
+      </h1>
+      <div class="row">
+        <div class="col">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Team #</span>
+            </div>
+            <input id="team1" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="loadTeam()">
+            <br>
+          </div>
+          <p id="alerts1"></p>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Team #</span>
+            </div>
+            <input id="team2" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="loadTeam()">
+            <br>
+          </div>
+          <p id="alerts2"></p>
+        </div>
+      </div>
+      <div id="section-tab-matches">
+        <br>
+        <div class="row">
+          <div class="col">
+            <div class="table-responsive">
+              <h4>
+              Autonomous Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Switch</th>
+                    <th scope="col">Scale</th>
+                    <th scope="col">Vault</th>
+                    <th scope="col">Reach Line</th>
+                  </tr>
+                </thead>
+                <tbody id="auto_table1">
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="table-responsive">
+              <h4>
+              Teleoperated Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Switch</th>
+                    <th scope="col">Scale</th>
+                    <th scope="col">Opp. Switch</th>
+                    <th scope="col">Vault</th>
+                  </tr>
+                </thead>
+                <tbody id="teleop_table1">
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="table-responsive">
+              <h4>
+              Misc. Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Start Position</th>
+                    <th scope="col">Climb</th>
+                  </tr>
+                </thead>
+                <tbody id="misc_table1">
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="table-responsive">
+              <h4>
+              Comment Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Scouter</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col">Compiler</th>
+                  </tr>
+                </thead>
+                <tbody id="comment_table1">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col">
+            <div class="table-responsive">
+              <h4>
+              Autonomous Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Switch</th>
+                    <th scope="col">Scale</th>
+                    <th scope="col">Vault</th>
+                    <th scope="col">Reach Line</th>
+                  </tr>
+                </thead>
+                <tbody id="auto_table2">
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="table-responsive">
+              <h4>
+              Teleoperated Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Switch</th>
+                    <th scope="col">Scale</th>
+                    <th scope="col">Opp. Switch</th>
+                    <th scope="col">Vault</th>
+                  </tr>
+                </thead>
+                <tbody id="teleop_table2">
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="table-responsive">
+              <h4>
+              Misc. Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Start Position</th>
+                    <th scope="col">Climb</th>
+                  </tr>
+                </thead>
+                <tbody id="misc_table2">
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="table-responsive">
+              <h4>
+              Comment Table
+              </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Match #</th>
+                    <th scope="col">Scouter</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col">Compiler</th>
+                  </tr>
+                </thead>
+                <tbody id="comment_table2">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div w3-include-html="/html/footer.html"></div>
+    <script>w3IncludeHTML();</script>
+  </body>
+</html>

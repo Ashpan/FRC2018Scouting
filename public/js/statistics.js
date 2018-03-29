@@ -53,30 +53,30 @@ function analyzeSet(dataset) {
     return [median, IQR.toFixed(1), mean.toFixed(2), stdev.toFixed(2), range];
 }
 
-function removeOutliers(dataset) {
-    dataset = dataset.sort(sortNumber);
-    var data = dataset
-    done = false
-    while (!done) {
-        var set = analyzeSet(dataset)
-        var furthestMin = Math.abs(Math.min.apply(null, data) - set[2])
-        var furthestMax = Math.abs(Math.max.apply(null, data) - set[2])
-        var toRemove = 0;
-        var diff = 1.5 * set[1]
-        if (furthestMax > furthestMin) {
-            toRemove = (furthestMax)
-        } else if (furthestMax <= furthestMin) {
-            toRemove = (furthestMin)
-        }
-        if (Math.abs(toRemove - set[2]) > diff) {
-            var index = data.indexOf(toRemove)
-            data.splice(index, 1);
-        } else {
-            done = true
-        }
-    }
-    return data
-}
+// function removeOutliers(dataset) {
+//     dataset = dataset.sort(sortNumber);
+//     var data = dataset
+//     done = false
+//     while (!done) {
+//         var set = analyzeSet(dataset)
+//         var furthestMin = Math.abs(Math.min.apply(null, data) - set[2])
+//         var furthestMax = Math.abs(Math.max.apply(null, data) - set[2])
+//         var toRemove = 0;
+//         var diff = 1.5 * set[1]
+//         if (furthestMax > furthestMin) {
+//             toRemove = (furthestMax)
+//         } else if (furthestMax <= furthestMin) {
+//             toRemove = (furthestMin)
+//         }
+//         if (Math.abs(toRemove - set[2]) > diff) {
+//             var index = data.indexOf(toRemove)
+//             data.splice(index, 1);
+//         } else {
+//             done = true
+//         }
+//     }
+//     return data
+// }
 
 function sortNumber(a, b) {
     return a - b;
@@ -88,12 +88,12 @@ function pushToStats(team) {
     $('#uploading').html("");
     firebase.database().ref('statistics/').child(team).set({
         team: team,
-        average_auto_switch_success: analyzeSet(removeOutliers(data.auto_switch_success))[2],
-        average_auto_scale_success: analyzeSet(removeOutliers(data.auto_scale_success))[2],
-        average_teleop_switch_success: analyzeSet(removeOutliers(data.teleop_switch_success))[2],
-        average_teleop_scale_success: analyzeSet(removeOutliers(data.teleop_scale_success))[2],
-        average_teleop_opp_switch_success: analyzeSet(removeOutliers(data.teleop_opp_switch_success))[2],
-        average_teleop_vault: analyzeSet(removeOutliers(data.teleop_vault))[2]
+        average_auto_switch_success: analyzeSet(data.auto_switch_success)[2],
+        average_auto_scale_success: analyzeSet(data.auto_scale_success)[2],
+        average_teleop_switch_success: analyzeSet(data.teleop_switch_success)[2],
+        average_teleop_scale_success: analyzeSet(data.teleop_scale_success)[2],
+        average_teleop_opp_switch_success: analyzeSet(data.teleop_opp_switch_success)[2],
+        average_teleop_vault: analyzeSet(data.teleop_vault)[2]
     }).then(function(done) {
         console.log("Successfully uploaded stats to statistics/" + team);
         $("#uploading").show();
