@@ -1,16 +1,25 @@
 {
-  "rules": {
-  	"allteams": {
-	    ".read": true,
-	    ".write": "auth != null"
-  		},
-	"teamlist": {
-	    ".read": true,
-	    ".write": "auth != null"
-  		},
-	"statistics": {
-		".read": true,
-	    ".write": true
-	}
-	}
+    "rules":
+    {
+        "allteams":
+        {
+            ".read": true,
+            ".write": "auth != null"
+        },
+        "teamlist":
+        {
+            ".read": true,
+            ".write": "auth != null"
+        },
+        "pitdata":
+        {
+            ".read": true,
+            ".write": "auth != null"
+        },
+        "statistics":
+        {
+            ".read": true,
+            ".write": true
+        }
+    }
 }

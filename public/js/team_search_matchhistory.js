@@ -4,6 +4,7 @@ function populateMatchHistory() {
     matchHistoryTeleop();
     matchHistoryMisc();
     matchHistoryComments();
+    pitData();
 }
 
 function matchHistoryOverall() {
@@ -35,7 +36,7 @@ function matchHistoryAuto() {
         row.append($('<th scope="row"></th>').text(data.match_number[i]));
         row.append($('<td></td>').text(data.auto_switch_success[i] + " : " + data.auto_switch_fail[i]));
         row.append($('<td></td>').text(data.auto_scale_success[i] + " : " + data.auto_scale_fail[i]));
-        row.append($('<td></td>').text(data.auto_vault[i] + " : " + data.auto_scale_fail[i]));
+        row.append($('<td></td>').text(data.auto_vault[i]));
         row.append($('<td></td>').text(data.auto_baseline[i] == 1 ? "Yes" : "No"));
 
         $('#auto_table').append(row);
@@ -99,5 +100,26 @@ function matchHistoryComments() {
         $('#comment_table').append(row);
 
     }
+
+}
+
+
+function pitData() {
+    var pitdata = []
+    firebase.database().ref('pitdata/' + team + '/switch_capable').on('value', function(snapshot) {
+        pitdata[0] = snapshot.val()
+    });
+    firebase.database().ref('pitdata/' + team + '/scale_capable').on('value', function(snapshot) {
+        pitdata[1] = snapshot.val()
+    });
+    firebase.database().ref('pitdata/' + team + '/comments').on('value', function(snapshot) {
+        pitdata[2] = snapshot.val()
+        $('#pit_table').html("");
+        var row = $('<tr></tr>');
+        row.append($('<td></td>').text(pitdata[0]));
+        row.append($('<td></td>').text(pitdata[1]));
+        row.append($('<td></td>').text(pitdata[2]));
+        $('#pit_table').append(row);
+    });
 
 }

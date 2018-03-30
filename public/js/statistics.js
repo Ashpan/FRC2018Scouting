@@ -1,4 +1,5 @@
 var data = {};
+
 function fetchStats() {
     var query = firebase.database().ref("allteams").orderByKey();
     query.once("value").then(function(snapshot) {
@@ -98,8 +99,8 @@ function pushToStats(team) {
         console.log("Successfully uploaded stats to statistics/" + team);
         $("#uploading").show();
         $('#uploading').html($('#uploading').html() + "<br>Successfully uploaded " + team + " to statistics.");
-        setTimeout(function(){
+        setTimeout(function() {
             $("#uploading").hide();
-        }, 750); 
+        }, 750);
     });
 }

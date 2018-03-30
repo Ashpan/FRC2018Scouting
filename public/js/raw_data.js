@@ -10,13 +10,13 @@ dbTeamsList.on('child_added', snap => {
     teamLi.append(teamUl);
     $('#allmatches').append(teamLi);
     snap.forEach(function(matchsnap) {
-            var matchLi = $('<li></li>').attr("class", "list-group-item");
-            teamUl.append(matchLi);
+        var matchLi = $('<li></li>').attr("class", "list-group-item");
+        teamUl.append(matchLi);
 
-            matchsnap.forEach(function(datasnap) {
+        matchsnap.forEach(function(datasnap) {
 
-                    matchLi.append($('<p></p>').text(datasnap.key + ": " + datasnap.val()));
+            matchLi.append($('<p></p>').text(datasnap.key + ": " + datasnap.val()));
 
-            });
+        });
     });
 });

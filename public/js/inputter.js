@@ -5,31 +5,31 @@ var valKey = [];
 var matchArray = [];
 var teams = []
 
-$(window).on('load',function(){
-        if (!(firebase.auth().currentUser)) {
+$(window).on('load', function() {
+    if (!(firebase.auth().currentUser)) {
         $('#login_modal').modal('show');
         alert("Please Login to your account to input data");
     }
-    });
+});
 
 $(document).ready(function() {
     teams = ["188", "1241", "1325", "1334", "1374", "2056", "2200", "2386", "2609", "2935", "3161", "3560", "3571", "3683", "4039", "4069", "4308", "4519", "4618", "4902", "4932", "4976", "4992", "5406", "5409", "5699", "5776", "5921", "6070", "6130", "6135", "6323", "6339", "6342", "6461", "6537", "6632", "6878", ""]
-    $( "#auto_switch_success" ).change(function() {
-        if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0) ) {
+    $("#auto_switch_success").change(function() {
+        if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0)) {
             $("#baseline_n").removeClass("active");
             $("#baseline_y").addClass("active");
-        }else{
+        } else {
             $("#baseline_n").addClass("active");
-            $("#baseline_y").removeClass("active");        
+            $("#baseline_y").removeClass("active");
         }
     });
-    $( "#auto_scale_success" ).change(function() {
-        if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0) ) {
+    $("#auto_scale_success").change(function() {
+        if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0)) {
             $("#baseline_n").removeClass("active");
             $("#baseline_y").addClass("active");
-        }else{
+        } else {
             $("#baseline_n").addClass("active");
-            $("#baseline_y").removeClass("active");        
+            $("#baseline_y").removeClass("active");
         }
     });
 });
@@ -48,10 +48,10 @@ function submitData() {
 
 }
 
-function validTeam(){
-    if(!(teams.includes($('#team').val()))){
+function validTeam() {
+    if (!(teams.includes($('#team').val()))) {
         $("#teamCheck").html("Team " + $('#team').val() + " isn't at McMaster");
-    }else if((teams.includes($('#team').val())) || ($('#team').val() == "")){
+    } else if ((teams.includes($('#team').val())) || ($('#team').val() == "")) {
         $("#teamCheck").html("");
     }
 }
@@ -68,19 +68,19 @@ function inputVerification() {
         $('#uploading').html($('#uploading').html() + "<br>Please enter a team number as an integer.");
         check = false;
     }
-    if(!(teams.includes($('#team').val()))){
-     $('#uploading').html($('#uploading').html() + "<br>The team you entered is not attending McMaster.");
+    if (!(teams.includes($('#team').val()))) {
+        $('#uploading').html($('#uploading').html() + "<br>The team you entered is not attending McMaster.");
         check = false;
     }
-    if ( (parseInt($('#auto_switch_success').val()))>5 || (parseInt($('#auto_scale_success').val()))>5 || (parseInt($('#auto_switch_fail').val()))>5 || (parseInt($('#auto_scale_fail').val()))>5 ) {
+    if ((parseInt($('#auto_switch_success').val())) > 5 || (parseInt($('#auto_scale_success').val())) > 5 || (parseInt($('#auto_switch_fail').val())) > 5 || (parseInt($('#auto_scale_fail').val())) > 5) {
         $('#uploading').html($('#uploading').html() + "<br>Please enter an auto cube number less than 5.");
         check = false;
     }
-    if ( (parseInt($('#teleop_switch_success').val()))>54 || (parseInt($('#teleop_scale_success').val()))>54 || (parseInt($('#teleop_switch_fail').val()))>54 || (parseInt($('#teleop_scale_fail').val()))>54 || (parseInt($('#teleop_opp_switch_success').val()))>54 || (parseInt($('#teleop_opp_switch_fail').val()))>54 ) {
+    if ((parseInt($('#teleop_switch_success').val())) > 54 || (parseInt($('#teleop_scale_success').val())) > 54 || (parseInt($('#teleop_switch_fail').val())) > 54 || (parseInt($('#teleop_scale_fail').val())) > 54 || (parseInt($('#teleop_opp_switch_success').val())) > 54 || (parseInt($('#teleop_opp_switch_fail').val())) > 54) {
         $('#uploading').html($('#uploading').html() + "<br>Please enter an teleop cube number less than 54.");
         check = false;
     }
-    if ( (parseInt($('#teleop_vault').val()))>15 ) {
+    if ((parseInt($('#teleop_vault').val())) > 15) {
         $('#uploading').html($('#uploading').html() + "<br>Please enter an vault number less than 15.");
         check = false;
     }
@@ -107,43 +107,43 @@ function updateDatabase() {
     var team = $('#team').val();
     var updateCount = {};
     // updateCount['match-count'] = matchNumber;
-        db.child(team).update(updateCount);
-        var newKey = db.push().key;
-        db.child(team + '/' + newKey).set({
-                auto_switch_success: parseInt($('#auto_switch_success').val()),
-                auto_switch_fail: parseInt($('#auto_switch_fail').val()),
-                auto_scale_success: parseInt($('#auto_scale_success').val()),
-                auto_scale_fail: parseInt($('#auto_scale_fail').val()),
-                auto_baseline: parseInt($('label[name="baseline"].active').attr('value')),
-                auto_vault: parseInt($('#auto_vault').val()),
+    db.child(team).update(updateCount);
+    var newKey = db.push().key;
+    db.child(team + '/' + newKey).set({
+            auto_switch_success: parseInt($('#auto_switch_success').val()),
+            auto_switch_fail: parseInt($('#auto_switch_fail').val()),
+            auto_scale_success: parseInt($('#auto_scale_success').val()),
+            auto_scale_fail: parseInt($('#auto_scale_fail').val()),
+            auto_baseline: parseInt($('label[name="baseline"].active').attr('value')),
+            auto_vault: parseInt($('#auto_vault').val()),
 
-                teleop_switch_success: parseInt($('#teleop_switch_success').val()),
-                teleop_switch_fail: parseInt($('#teleop_switch_fail').val()),
-                teleop_scale_success: parseInt($('#teleop_scale_success').val()),
-                teleop_scale_fail: parseInt($('#teleop_scale_fail').val()),
-                teleop_opp_switch_success: parseInt($('#teleop_opp_switch_success').val()),
-                teleop_opp_switch_fail: parseInt($('#teleop_opp_switch_fail').val()),
-                teleop_vault: parseInt($('#teleop_vault').val()),
+            teleop_switch_success: parseInt($('#teleop_switch_success').val()),
+            teleop_switch_fail: parseInt($('#teleop_switch_fail').val()),
+            teleop_scale_success: parseInt($('#teleop_scale_success').val()),
+            teleop_scale_fail: parseInt($('#teleop_scale_fail').val()),
+            teleop_opp_switch_success: parseInt($('#teleop_opp_switch_success').val()),
+            teleop_opp_switch_fail: parseInt($('#teleop_opp_switch_fail').val()),
+            teleop_vault: parseInt($('#teleop_vault').val()),
 
-                climb: document.querySelector('input[name="climb"]:checked').value,
-                climb_notes: $('#climb_other').val(),
+            climb: document.querySelector('input[name="climb"]:checked').value,
+            climb_notes: $('#climb_other').val(),
 
-                team_number: parseInt($('#team').val()),
-                match_number: parseInt($('#matchnumber').val()),
-                match_scouter: $('#scouter').val() === "" ? "-" : $('#scouter').val(),
-                match_comment: $('#comment').val() === "" ? "-" : $('#comment').val(),
-                match_startpos: $('label#position.active').attr('value'),
+            team_number: parseInt($('#team').val()),
+            match_number: parseInt($('#matchnumber').val()),
+            match_scouter: $('#scouter').val() === "" ? "-" : $('#scouter').val(),
+            match_comment: $('#comment').val() === "" ? "-" : $('#comment').val(),
+            match_startpos: $('label#position.active').attr('value'),
 
-                overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
-                overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
-                overall_auto_success: parseInt($('#auto_switch_success').val()) + parseInt($('#auto_scale_success').val()),
-                overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val()),
+            overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
+            overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
+            overall_auto_success: parseInt($('#auto_switch_success').val()) + parseInt($('#auto_scale_success').val()),
+            overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val()),
 
-                compiler_email: firebase.auth().currentUser.email
-            })
-            .then(function(done) {
-                console.log("Successfully uploaded data to allteams/" + team + "/matches/" + newKey);
-            });
+            compiler_email: firebase.auth().currentUser.email
+        })
+        .then(function(done) {
+            console.log("Successfully uploaded data to allteams/" + team + "/matches/" + newKey);
+        });
 
 
     if (document.getElementById('climb_other').value === "" || document.getElementById('climb_other').value === null) {

@@ -64,6 +64,13 @@ function retrieveData() {
         }
 
     });
+
+    firebase.storage().ref().child('teams/' + team).getDownloadURL().then(function(teamPic) {
+
+        // $("#teamPic").attr("src", teamPic);
+        var img = document.getElementById('teamPic');
+        img.src = teamPic;
+    });
 }
 
 function parseMatch(matchsnap) {
