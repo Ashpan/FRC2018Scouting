@@ -20,6 +20,11 @@
         {
             ".read": true,
             ".write": true
+        },
+        "emails":
+        {
+            ".read": true,
+            ".write": true
         }
     }
 }
