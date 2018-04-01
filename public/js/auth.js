@@ -6,13 +6,14 @@ function fetch_emails() {
         snapshot.forEach(function(childSnapshot) {
             whitelisted_emails.push(childSnapshot.val());
         });
+        loginStatus();
     });
 }
 
 function toWhitelist() {
     fetch_emails();
     console.log(whitelisted_emails.length)
-    firebase.database().ref().child('emails/' + whitelisted_emails.length).set($("#toWhitelistEmail").val());
+    firebase.database().ref().child('emails/' + (whitelisted_emails.length + 1)).set($("#toWhitelistEmail").val());
     location.reload();
 }
 
@@ -46,7 +47,7 @@ function loginStatus() {
     var user = firebase.auth().currentUser;
     if (user) {
         if (!(whitelisted_emails.includes(user.email))) {
-            alert("You haven't been approved to input data with this email. Please login with the correct email or contact Ashpan")
+            alert("You haven't been approved to input data with " + user.email + ". Please login with the correct email or contact Ashpan")
             console.log("Nah bee you're a fake fan");
             firebase.auth().signOut();
         }
@@ -87,7 +88,6 @@ function updateNav() {
 
 window.onload = function() {
     fetch_emails();
-    loginStatus();
     updateNav();
 };
 
