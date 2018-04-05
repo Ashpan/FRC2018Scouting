@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Rankings</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-    <script src="https://www.w3schools.com/lib/w3data.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
-  </head>
-  <body>
-    <script src="/js/fireinit.js"></script>
-    <script src="/js/rankings.js"></script>
-    <script src="/js/statistics.js"></script>
-    <!-- <script src="/js/tbaapi.js"></script> -->
-    <script src="/js/auth.js"></script>
-    <div w3-include-html="/html/nav.html"></div>
-    <script>w3IncludeHTML();</script>
-    <div class="container">
-      <br>
-      <h1 id="test">
-      Rankings!
-      </h1>
-      <p id="alerts">
-        Select a Ranking, and view the data!
-      </p>
-      <br>
-      <button class="btn btn-block btn-outline-info" onclick="fetchStats()">Populate Statistics</button>
-      <!-- <button class="btn btn-block btn-outline-info" onclick="fetchMatches()">Populate Statistics</button> -->
-      <div id="uploading"></div>
-      <br>
-      <div class="dropdown block">
-        <button id="menu" class="btn btn-block btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-        Select View
-        </button>
-        <br>
-        <div id="rankings" class="dropdown-menu" style="right: 0">
-          <button id="tab-a_switch" type="button" class="dropdown-item">Auto Switch</button>
-          <button id="tab-a_scale" type="button" class="dropdown-item">Auto Scale</button>
-          <button id="tab-t_switch" type="button" class="dropdown-item">Teleop Switch</button>
-          <button id="tab-t_scale" type="button" class="dropdown-item">Teleop Scale</button>
-          <button id="tab-t_opp_switch" type="button" class="dropdown-item">Teleop Opposite Switch</button>
-          <button id="tab-t_vault" type="button" class="dropdown-item">Teleop Vault</button>
+    <head>
+        <title>Rankings</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+        <script src="/js/w3data.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
+    </head>
+    <body>
+        <script src="/js/init.js"></script>
+        <script src="/js/rankings.js"></script>
+        <script src="/js/statistics.js"></script>
+        <div w3-include-html="/html/nav.html"></div>
+        <div class="container">
+            <br>
+            <h1 id="test">
+            Rankings!
+            </h1>
+            <p id="alerts">
+                Select a Ranking, and view the data!
+            </p>
+            <br>
+            <button class="btn btn-block btn-outline-info" onclick="fetchStats()">Populate Statistics</button>
+            <!-- <button class="btn btn-block btn-outline-info" onclick="fetchMatches()">Populate Statistics</button> -->
+            <div id="uploading"></div>
+            <br>
+            <div class="dropdown block">
+                <button id="menu" class="btn btn-block btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                Select View
+                </button>
+                <br>
+                <div id="rankings" class="dropdown-menu" style="right: 0">
+                    <button id="tab-a_switch" type="button" class="dropdown-item">Auto Switch</button>
+                    <button id="tab-a_scale" type="button" class="dropdown-item">Auto Scale</button>
+                    <button id="tab-t_switch" type="button" class="dropdown-item">Teleop Switch</button>
+                    <button id="tab-t_scale" type="button" class="dropdown-item">Teleop Scale</button>
+                    <button id="tab-t_opp_switch" type="button" class="dropdown-item">Teleop Opposite Switch</button>
+                    <button id="tab-t_vault" type="button" class="dropdown-item">Teleop Vault</button>
+                </div>
+            </div>
+            <button class="btn btn-block btn-primary" onclick="loadRankings()">Load Rankings</button>
+            <br>
+            <br>
+            <div id="section-tab-rankings" style="display: none">
+                <br>
+                <p><strong>Averages</strong></p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Team</th>
+                                <th scope="col">Auto Switch</th>
+                                <th scope="col">Auto Scale</th>
+                                <th scope="col">Teleop Switch</th>
+                                <th scope="col">Teleop Scale</th>
+                                <th scope="col">Teleop Opposite
+                                <br> Switch</th>
+                                <th scope="col">Teleop Vault</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rankings_table">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-      <button class="btn btn-block btn-primary" onclick="loadRankings()">Load Rankings</button>
-      <br>
-      <br>
-      <div id="section-tab-rankings" style="display: none">
-        <br>
-        <p><strong>Averages</strong></p>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Team</th>
-                <th scope="col">Auto Switch</th>
-                <th scope="col">Auto Scale</th>
-                <th scope="col">Teleop Switch</th>
-                <th scope="col">Teleop Scale</th>
-                <th scope="col">Teleop Opposite <br> Switch</th>
-                <th scope="col">Teleop Vault</th>
-              </tr>
-            </thead>
-            <tbody id="rankings_table">
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div w3-include-html="/html/footer.html"></div>
-    <script>w3IncludeHTML();</script>
-  </body>
+        <div w3-include-html="/html/footer.html"></div>
+        <script>
+        w3IncludeHTML();
+        </script>
+    </body>
 </html>

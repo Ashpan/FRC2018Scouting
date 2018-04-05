@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Viewer Portal</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-    <script src="https://www.w3schools.com/lib/w3data.js"></script>
-  </head>
-  <body>
-    <div w3-include-html="/html/nav.html"></div>
-    <script>w3IncludeHTML();</script>
-    <div class="jumbotron vertical-center" style="margin-bottom:0px">
-      <div class="container text-center">
-        <h1>View data in many different ways!</h1>
-        <br>
-        <a href="/html/raw_data.html" class="btn btn-lg btn-success btn-block" role="button">
-          Raw Data
-        </a>
-        <br>
-        <a href="/html/team_search.html" class="btn btn-lg btn-warning btn-block" role="button">
-          Team Search
-        </a>
-        <br>
-        <a href="/html/rankings.html" class="btn btn-lg btn-danger btn-block" role="button">
-          Rankings
-        </a>
-      </div>
-    </div>
-    <script src="/js/fireinit.js"></script>
-    <div w3-include-html="/html/footer.html"></div>
-    <script>w3IncludeHTML();</script>
-    <script src="/js/auth.js"></script>
-  </body>
+    <head>
+        <title>Viewer Portal</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+        <script src="/js/w3data.js"></script>
+    </head>
+    <body>
+        <div w3-include-html="/html/nav.html"></div>
+        <div class="jumbotron vertical-center" style="margin-bottom:0px">
+            <div class="container text-center">
+                <h1>View data in many different ways!</h1>
+                <br>
+                <a href="/html/raw_data.html" class="btn btn-lg btn-success btn-block" role="button">
+                    Raw Data
+                </a>
+                <br>
+                <a href="/html/team_search.html" class="btn btn-lg btn-warning btn-block" role="button">
+                    Team Search
+                </a>
+                <br>
+                <a href="/html/compare.html" class="btn btn-lg btn-dark btn-block" role="button">
+                    Compare Teams
+                </a>
+                <br>
+                <a href="/html/rankings.html" class="btn btn-lg btn-danger btn-block" role="button">
+                    Rankings
+                </a>
+            </div>
+        </div>
+        <div w3-include-html="/html/footer.html"></div>
+        <script>
+        w3IncludeHTML();
+        </script>
+        <script src="/js/init.js"></script>
+    </body>
 </html>

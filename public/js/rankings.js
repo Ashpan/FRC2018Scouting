@@ -124,25 +124,25 @@ function addToTable(teamDone) {
                     team = childSnapshot.val();
                 }
             });
-        }).then(function(done){
-        console.log(team);
-        console.log(auto_switch_success);
-        console.log(auto_scale_success);
-        console.log(teleop_switch_success);
-        console.log(teleop_scale_success);
-        console.log(teleop_opp_switch_success);
-        console.log(teleop_vault);
-        var row = $('<tr></tr>');
-        row.append($('<th scope="row"></th>').text(team));
-        row.append($('<td></td>').text(auto_switch_success));
-        row.append($('<td></td>').text(auto_scale_success));
-        row.append($('<td></td>').text(teleop_switch_success));
-        row.append($('<td></td>').text(teleop_scale_success));
-        row.append($('<td></td>').text(teleop_opp_switch_success));
-        row.append($('<td></td>').text(teleop_vault));
-        $('#rankings_table').append(row);
-        $("#section-tab-rankings").show();
-});
+        }).then(function(done) {
+            console.log(team);
+            console.log(auto_switch_success);
+            console.log(auto_scale_success);
+            console.log(teleop_switch_success);
+            console.log(teleop_scale_success);
+            console.log(teleop_opp_switch_success);
+            console.log(teleop_vault);
+            var row = $('<tr></tr>');
+            row.append($('<th scope="row"></th>').text(team));
+            row.append($('<td></td>').text(auto_switch_success));
+            row.append($('<td></td>').text(auto_scale_success));
+            row.append($('<td></td>').text(teleop_switch_success));
+            row.append($('<td></td>').text(teleop_scale_success));
+            row.append($('<td></td>').text(teleop_opp_switch_success));
+            row.append($('<td></td>').text(teleop_vault));
+            $('#rankings_table').append(row);
+            $("#section-tab-rankings").show();
+        });
     }
 }
 
@@ -189,7 +189,7 @@ function addToTable(teamDone) {
 
 // function baseLine(team, match){
 //     firebase.database().ref('/allteams/' + team).on('child_added', function(snap) {
-        
+
 //         firebase.database().ref('/allteams/' + team + '/' + snap.key).on('child_added', function(snapchild) {
 //             if(snapchild.key === "match_number" && snapchild.val() === match){}
 //                 if(snapchild.key === "auto_baseline"){

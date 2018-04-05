@@ -1,78 +1,78 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset=utf-8 />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <!-- Material Design Theming -->
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-    <script src="https://www.w3schools.com/lib/w3data.js"></script>
-
-  <!-- Import and configure the Firebase SDK -->
-  <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-  <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-  <script src="/__/firebase/4.0.0/firebase-app.js"></script>
-  <script src="/__/firebase/4.0.0/firebase-auth.js"></script>
-  <script src="/__/firebase/init.js"></script>
-  <script src="/js/fireinit.js"></script>
-  <script src="/js/auth.js"></script>
-</head>
-<body>
-<!--   <div w3-include-html="/html/nav.html"></div>
-    <script>w3IncludeHTML();</script>
- -->    <div class="container">
+    <head>
+        <meta charset=utf-8 />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <!-- Material Design Theming -->
+        <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+        <script src="/js/w3data.js"></script>
+        <!-- Import and configure the Firebase SDK -->
+        <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+        <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+        <script src="/__/firebase/4.0.0/firebase-app.js"></script>
+        <script src="/__/firebase/4.0.0/firebase-auth.js"></script>
+        <script src="/__/firebase/init.js"></script>
+        <script src="/js/init.js"></script>
+    </head>
+    <body>
+        <!--   <div w3-include-html="/html/nav.html"></div>
+        <script>w3IncludeHTML();</script>
+        -->
+        <div class="container">
             <br>
-      <h1>
-      Login to Input Data into Database
-      </h1>
-      <br>
-          <div class="row">
-            <div class="col">
-          <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Email</span>
+            <h1>
+            Login to Input Data into Database
+            </h1>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                        </div>
+                        <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Password</span>
+                        </div>
+                        <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="col">
+                    <button disabled class="btn btn-block btn-primary" id="sign-in" name="signin" type="submit">Sign In</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-warning" disabled id="verify-email" name="verify-email">Send Email Verification</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-info" id="password-reset" name="verify-email">Send Password Reset Email</button>
+                </div>
+            </div>
+            <div class="user-details-container">
+                Firebase sign-in status: <span id="sign-in-status">Unknown</span>
+            </div>
         </div>
-        <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
-      </div>
-      </div>
-          <div class="col">
-          <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Password</span>
-        </div>
-        <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
-      </div>
-      </div>
-      </div>
-          <br/><br/>
-          <div class="row">
-            <div class="col">
-              <button disabled class="btn btn-block btn-primary" id="sign-in" name="signin" type="submit">Sign In</button>
-            </div>
-            <div class="col">
-              <button class="btn btn-block btn-warning" disabled id="verify-email" name="verify-email">Send Email Verification</button>
-            </div>
-            <div class="col">
-              <button class="btn btn-block btn-info" id="password-reset" name="verify-email">Send Password Reset Email</button>
-            </div>
-          </div>          
-          <div class="user-details-container">
-            Firebase sign-in status: <span id="sign-in-status">Unknown</span>
-          </div>
-
-</div>
-  <div w3-include-html="/html/footer.html"></div>
-    <script>w3IncludeHTML();</script>
-    <!-- <script src="/js/auth.js"></script> -->
-</body>
+        <div w3-include-html="/html/footer.html"></div>
+        <script>
+        w3IncludeHTML();
+        </script>
+        <!-- <script src="/js/init.js"></script> -->
+    </body>
 </html>

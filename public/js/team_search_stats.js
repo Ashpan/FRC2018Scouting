@@ -15,14 +15,14 @@ function analyzeSet(dataset) {
     var median = math.median(dataset);
 
     // split the data by the median
-    var firstHalf = dataset.filter(function(f){ return f <= median });
-    var secondHalf = dataset.filter(function(f){ return f >= median });
+    var firstHalf = dataset.filter(function(f) { return f <= median });
+    var secondHalf = dataset.filter(function(f) { return f >= median });
 
     // find the medians for each split
     var q1 = math.median(firstHalf);
     var q3 = math.median(secondHalf);
 
-    var IQR = q3-q1;
+    var IQR = q3 - q1;
 
     var mean = math.mean(dataset);
 

@@ -1,0 +1,97 @@
+<nav class="navbar navbar navbar-dark navbar-default navbar-custom navbar-expand-lg">
+    <img alt="Brand" src="https://firebasestorage.googleapis.com/v0/b/scouting-compiler-onbar.appspot.com/o/brand.png?alt=media&token=ce29b857-6d69-4054-a162-8415237f4fe9" style="height: 50px; margin-right: 15px" class="logo">
+    <a class="navbar-brand" href="/">1325 Compiler</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon offf-white"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav navbar-left mr-auto">
+            <li class="nav-item">
+                <a class="nav-link offf-white" href="/html/inputter.html">Inputter</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link offf-white" href="/html/team_info.html">Team Input</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Data Viewer
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item offf-white" href="/html/viewer_portal.html">Portal</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item offf-white" href="/html/raw_data.html">Raw Data</a>
+                    <a class="dropdown-item offf-white" href="/html/team_search.html">Team Search</a>
+                    <a class="dropdown-item offf-white" href="/html/compare.html">Compare Teams</a>
+                    <a class="dropdown-item offf-white" href="/html/rankings.html">Rankings</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link open-sans" id="login" onclick='log_out();'></a>
+            </li>
+            <li class="nav-item">
+                <!-- Button trigger modal -->
+                <!-- <button type="button" class="btn btn-primary" id="login_link" data-toggle="modal" data-target="#login_modal">Login</button> -->
+                <button type="button" class="btn btn-primary" id="login_link" data-toggle="modal" onclick="google_signin()">Login</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Modal -->
+<div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="container">
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Email</span>
+                                    </div>
+                                    <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Password</span>
+                                    </div>
+                                    <input class="mdl-textfield__input form-control" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col">
+                                <button disabled class="btn btn-block btn-primary" id="sign-in" name="signin" type="submit">Sign In</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-block btn-warning" disabled id="verify-email" name="verify-email">Send Email Verification</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-block btn-info" id="password-reset" name="verify-email">Send Password Reset Email</button>
+                            </div>
+                        </div>
+                        <div class="user-details-container">
+                            Firebase sign-in status: <span id="sign-in-status">Unknown</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="updateNav();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
