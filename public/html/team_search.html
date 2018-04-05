@@ -1,197 +1,190 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>Team Search</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-    <script src="https://www.w3schools.com/lib/w3data.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
-</head>
-
-<body>
-    <div w3-include-html="/html/nav.html"></div>
-    <script>
-    w3IncludeHTML();
-    </script>
-    <script src="/js/fireinit.js"></script>
-    <script src="/js/team_search.js"></script>
-    <script src="/js/team_search_stats.js"></script>
-    <script src="/js/team_search_matchhistory.js"></script>
-    <script src="/js/auth.js"></script>
-    <div class="container">
-        <br>
-        <h1>
-      Team Search!
-      </h1>
-        <p id="alerts">
-            Select a team, and view their data!
-        </p>
-        <br>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Team #</span>
-            </div>
-            <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="loadTeam()">
-        </div>
-        <!-- <button class="btn btn-block btn-primary">Load Team</button> -->
-        <div id="uploading"></div>
-        <div class="dropdown block">
-            <button id="menu" class="btn btn-block btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select View</button>
-            <div class="dropdown-menu" style="right: 0">
-                <button id="tab-matches" type="button" class="dropdown-item">Match History</button>
-                <button id="tab-stats" type="button" class="dropdown-item">Statistics</button>
-            </div>
-        </div>
-        <br>
-        <div id="section-tab-matches" style="display: none">
+    <head>
+        <title>Team Search</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+        <script src="/js/w3data.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
+    </head>
+    <body>
+        <div w3-include-html="/html/nav.html"></div>
+        <script src="/js/init.js"></script>
+        <script src="/js/team_search.js"></script>
+        <script src="/js/team_search_stats.js"></script>
+        <script src="/js/team_search_matchhistory.js"></script>
+        <div class="container">
             <br>
-            <p>
-                (x) denotes missed.
+            <h1>
+            Team Search!
+            </h1>
+            <p id="alerts">
+                Select a team, and view their data!
             </p>
             <br>
-            <div class="table-responsive">
-                <h4>
-          Overall Cubes Table
-          </h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Match #</th>
-                            <th scope="col">Auto</th>
-                            <th scope="col">Teleop</th>
-                        </tr>
-                    </thead>
-                    <tbody id="overall_table">
-                    </tbody>
-                </table>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Team #</span>
+                </div>
+                <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="loadTeam()">
+            </div>
+            <!-- <button class="btn btn-block btn-primary">Load Team</button> -->
+            <div id="uploading"></div>
+            <div class="dropdown block">
+                <button id="menu" class="btn btn-block btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Select View</button>
+                <div class="dropdown-menu" style="right: 0">
+                    <button id="tab-matches" type="button" class="dropdown-item">Match History</button>
+                    <button id="tab-stats" type="button" class="dropdown-item">Statistics</button>
+                </div>
             </div>
             <br>
-            <div class="table-responsive">
-                <h4>
-          Autonomous Table
-          </h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Match #</th>
-                            <th scope="col">Switch</th>
-                            <th scope="col">Scale</th>
-                            <th scope="col">Vault</th>
-                            <th scope="col">Reach Line</th>
-                        </tr>
-                    </thead>
-                    <tbody id="auto_table">
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <div class="table-responsive">
-                <h4>
-          Teleoperated Table
-          </h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Match #</th>
-                            <th scope="col">Switch</th>
-                            <th scope="col">Scale</th>
-                            <th scope="col">Opp. Switch</th>
-                            <th scope="col">Vault</th>
-                        </tr>
-                    </thead>
-                    <tbody id="teleop_table">
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <div class="table-responsive">
-                <h4>
-          Misc. Table
-          </h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Match #</th>
-                            <th scope="col">Start Position</th>
-                            <th scope="col">Climb</th>
-                        </tr>
-                    </thead>
-                    <tbody id="misc_table">
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <div class="table-responsive">
-                <h4>
-          Comment Table
-          </h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Match #</th>
-                            <th scope="col">Scouter</th>
-                            <th scope="col">Comment</th>
-                            <th scope="col">Compiler</th>
-                        </tr>
-                    </thead>
-                    <tbody id="comment_table">
-                    </tbody>
-                </table>
-            </div>
-            <div class="table-responsive">
-                <h4>
-          Pit Data Table
-          </h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Switch</th>
-                            <th scope="col">Scale</th>
-                            <th scope="col">Comments</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pit_table">
-                    </tbody>
-                </table>
-                <h5>
+            <div id="section-tab-matches" style="display: none">
+                <br>
+                <p>
+                    (x) denotes missed.
+                </p>
+                <br>
+                <div class="table-responsive">
+                    <h4>
+                    Overall Cubes Table
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Match #</th>
+                                <th scope="col">Auto</th>
+                                <th scope="col">Teleop</th>
+                            </tr>
+                        </thead>
+                        <tbody id="overall_table">
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <h4>
+                    Autonomous Table
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Match #</th>
+                                <th scope="col">Switch</th>
+                                <th scope="col">Scale</th>
+                                <th scope="col">Vault</th>
+                                <th scope="col">Reach Line</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auto_table">
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <h4>
+                    Teleoperated Table
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Match #</th>
+                                <th scope="col">Switch</th>
+                                <th scope="col">Scale</th>
+                                <th scope="col">Opp. Switch</th>
+                                <th scope="col">Vault</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teleop_table">
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <h4>
+                    Misc. Table
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Match #</th>
+                                <th scope="col">Start Position</th>
+                                <th scope="col">Climb</th>
+                            </tr>
+                        </thead>
+                        <tbody id="misc_table">
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <h4>
+                    Comment Table
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Match #</th>
+                                <th scope="col">Scouter</th>
+                                <th scope="col">Comment</th>
+                                <th scope="col">Compiler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comment_table">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <h4>
+                    Pit Data Table
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Switch</th>
+                                <th scope="col">Scale</th>
+                                <th scope="col">Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pit_table">
+                        </tbody>
+                    </table>
+                    <h5>
                     Robot Picture
-                </h5>
-                <img id="teamPic" src="">
+                    </h5>
+                    <img id="teamPic" src="">
+                </div>
+            </div>
+            <div id="section-tab-stats" style="display: none">
+                <br>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Stat</th>
+                                <th scope="col">Median</th>
+                                <th scope="col">IQR</th>
+                                <th scope="col">Mean</th>
+                                <th scope="col">ST Dev</th>
+                                <th scope="col">Range</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stats_table">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div id="section-tab-stats" style="display: none">
-            <br>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Stat</th>
-                            <th scope="col">Median</th>
-                            <th scope="col">IQR</th>
-                            <th scope="col">Mean</th>
-                            <th scope="col">ST Dev</th>
-                            <th scope="col">Range</th>
-                        </tr>
-                    </thead>
-                    <tbody id="stats_table">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div w3-include-html="/html/footer.html"></div>
-    <script>
-    w3IncludeHTML();
-    </script>
-</body>
-
+        <div w3-include-html="/html/footer.html"></div>
+        <script>
+        w3IncludeHTML();
+        </script>
+    </body>
 </html>

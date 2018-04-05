@@ -1,89 +1,82 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>Input Match Data</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css" />
-    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-    <script src="https://www.w3schools.com/lib/w3data.js"></script>
-</head>
-
-<body>
-    <div w3-include-html="/html/nav.html"></div>
-    <script>
-    w3IncludeHTML();
-    </script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/fireinit.js"></script>
-    <script src="/js/team_info.js"></script>
-    <div class="container">
-        <br>
-        <h1>
-      Team Info!
-      </h1>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Team #</span>
+    <head>
+        <title>Input Match Data</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css" />
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+        <script src="/js/w3data.js"></script>
+    </head>
+    <body>
+        <div w3-include-html="/html/nav.html"></div>
+        <script src="/js/init.js"></script>
+        <script src="/js/team_info.js"></script>
+        <div class="container">
+            <br>
+            <h1>
+            Team Info!
+            </h1>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Team #</span>
+                </div>
+                <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="validTeam()">
             </div>
-            <input id="team" class="form-control" placeholder="Number..." type="number" inputmode="numeric" pattern="[0-9]*" oninput="validTeam()">
-        </div>
-        <p id="teamCheck"></p>
-        <div class="input-group mb-3">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="teamPhoto">
-                <label class="custom-file-label" for="teamPhoto">Choose file</label>
+            <p id="teamCheck"></p>
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="teamPhoto">
+                    <label class="custom-file-label" for="teamPhoto">Choose file</label>
+                </div>
             </div>
-        </div>
-        <div class="input-group btn-group btn-group-toggle" data-toggle="buttons">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Switch</span>
+            <div class="input-group btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Switch</span>
+                </div>
+                <label id="switch" class="btn btn-outline-secondary active" value="Yes">
+                    <input type="radio" name="switch" id="Yes" autocomplete="off">&nbsp;&nbsp;Yes&nbsp;&nbsp;
+                </label>
+                <label id="switch" class="btn btn-outline-secondary" value="No">
+                    <input type="radio" name="switch" id="No" autocomplete="off">&nbsp;No&nbsp;
+                </label>
             </div>
-            <label id="switch" class="btn btn-outline-secondary active" value="Yes">
-                <input type="radio" name="switch" id="Yes" autocomplete="off">&nbsp;&nbsp;Yes&nbsp;&nbsp;
-            </label>
-            <label id="switch" class="btn btn-outline-secondary" value="No">
-                <input type="radio" name="switch" id="No" autocomplete="off">&nbsp;No&nbsp;
-            </label>
-        </div>
-        <br>
-        <div class="input-group btn-group btn-group-toggle" data-toggle="buttons">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Scale</span>
+            <br>
+            <div class="input-group btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Scale</span>
+                </div>
+                <label id="scale" class="btn btn-outline-secondary active" value="Yes">
+                    <input type="radio" name="scale" id="Yes" autocomplete="off">&nbsp;&nbsp;Yes&nbsp;&nbsp;
+                </label>
+                <label id="scale" class="btn btn-outline-secondary" value="No">
+                    <input type="radio" name="scale" id="No" autocomplete="off">&nbsp;No&nbsp;
+                </label>
             </div>
-            <label id="scale" class="btn btn-outline-secondary active" value="Yes">
-                <input type="radio" name="scale" id="Yes" autocomplete="off">&nbsp;&nbsp;Yes&nbsp;&nbsp;
-            </label>
-            <label id="scale" class="btn btn-outline-secondary" value="No">
-                <input type="radio" name="scale" id="No" autocomplete="off">&nbsp;No&nbsp;
-            </label>
+            <br>
+            <h5>
+            Comments:
+            </h5>
+            <div class="input-group">
+                <textarea id="comment" class="form-control" placeholder="Comments..."></textarea>
+            </div>
+            <br>
+            <button class="btn btn-block btn-primary" onclick="submitData()">Submit</button>
+            <div id="uploading"></div>
+            <br>
+            <br>
         </div>
-        <br>
-        <h5>
-      Comments:
-      </h5>
-        <div class="input-group">
-            <textarea id="comment" class="form-control" placeholder="Comments..."></textarea>
-        </div>
-        <br>
-        <button class="btn btn-block btn-primary" onclick="submitData()">Submit</button>
-        <div id="uploading"></div>
-        <br>
-        <br>
-    </div>
-    <div w3-include-html="/html/footer.html"></div>
-    <script>
-    w3IncludeHTML();
-    </script>
-</body>
-
+        <div w3-include-html="/html/footer.html"></div>
+        <script>
+        w3IncludeHTML();
+        </script>
+    </body>
 </html>
