@@ -19,22 +19,25 @@ function databaseRanking(rankingSelection) {
     var toReturn = "";
     switch (rankingSelection) {
         case "Auto Switch":
-            toReturn = "average_auto_switch_success";
+            toReturn = "auto_switch_success";
             break;
         case "Auto Scale":
-            toReturn = "average_auto_scale_success";
+            toReturn = "auto_scale_success";
+            break;
+        case "Auto Vault":
+            toReturn = "auto_vault";
             break;
         case "Teleop Switch":
-            toReturn = "average_teleop_switch_success";
+            toReturn = "teleop_switch_success";
             break;
         case "Teleop Scale":
-            toReturn = "average_teleop_scale_success";
+            toReturn = "teleop_scale_success";
             break;
         case "Teleop Opposite Switch":
-            toReturn = "average_teleop_opp_switch_success";
+            toReturn = "teleop_opp_switch_success";
             break;
         case "Teleop Vault":
-            toReturn = "average_teleop_vault";
+            toReturn = "teleop_vault";
             break;
     }
     return toReturn;
@@ -89,6 +92,7 @@ function addToTable(teamDone) {
     var team = 0;
     var auto_switch_success = 0;
     var auto_scale_success = 0;
+    var auto_vault = 0;
     var teleop_switch_success = 0;
     var teleop_scale_success = 0;
     var teleop_opp_switch_success = 0;
@@ -96,28 +100,28 @@ function addToTable(teamDone) {
     $("#rankings_table").html("");
     for (var i = 0; i < teamDone.length; i++) {
         currTeam = teamDone[i];
-        console.log(currTeam);
         var query = firebase.database().ref("statistics/" + currTeam).orderByKey();
         query.once("value").then(function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
-                console.log(childSnapshot.key + ' : ' + childSnapshot.val());
-                if (childSnapshot.key === "average_auto_switch_success") {
+                if (childSnapshot.key === "auto_switch_success") {
                     auto_switch_success = childSnapshot.val();
                 }
-                if (childSnapshot.key === "average_auto_scale_success") {
-                    console.log('working');
+                if (childSnapshot.key === "auto_scale_success") {
                     auto_scale_success = childSnapshot.val();
                 }
-                if (childSnapshot.key === "average_teleop_switch_success") {
+                if (childSnapshot.key === "auto_vault") {
+                    auto_vault = childSnapshot.val();
+                }
+                if (childSnapshot.key === "teleop_switch_success") {
                     teleop_switch_success = childSnapshot.val();
                 }
-                if (childSnapshot.key === "average_teleop_scale_success") {
+                if (childSnapshot.key === "teleop_scale_success") {
                     teleop_scale_success = childSnapshot.val();
                 }
-                if (childSnapshot.key === "average_teleop_opp_switch_success") {
+                if (childSnapshot.key === "teleop_opp_switch_success") {
                     teleop_opp_switch_success = childSnapshot.val();
                 }
-                if (childSnapshot.key === "average_teleop_vault") {
+                if (childSnapshot.key === "teleop_vault") {
                     teleop_vault = childSnapshot.val();
                 }
                 if (childSnapshot.key === "team") {
@@ -125,17 +129,11 @@ function addToTable(teamDone) {
                 }
             });
         }).then(function(done) {
-            console.log(team);
-            console.log(auto_switch_success);
-            console.log(auto_scale_success);
-            console.log(teleop_switch_success);
-            console.log(teleop_scale_success);
-            console.log(teleop_opp_switch_success);
-            console.log(teleop_vault);
             var row = $('<tr></tr>');
             row.append($('<th scope="row"></th>').text(team));
             row.append($('<td></td>').text(auto_switch_success));
             row.append($('<td></td>').text(auto_scale_success));
+            row.append($('<td></td>').text(auto_vault));
             row.append($('<td></td>').text(teleop_switch_success));
             row.append($('<td></td>').text(teleop_scale_success));
             row.append($('<td></td>').text(teleop_opp_switch_success));
@@ -145,6 +143,43 @@ function addToTable(teamDone) {
         });
     }
 }
+
+var data = {};
+
+function fetchStats() {
+    var query = firebase.database().ref("allteams").orderByKey();
+    query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            var team = parseInt(childSnapshot.key);
+            retrieveData(team);
+        });
+    });
+}
+
+function retrieveData(team) {
+    firebase.database().ref("allteams/" + team).on('value', function(snap) {
+        if (snap.exists()) {
+            data = {};
+            snap.forEach(function(matchsnap) {
+                parseMatch(matchsnap, team);
+            });
+        } else {
+            console.log("Failed to retrieve data for team: " + team + "<br>Please check your internet connection and if the team exists in the database.");
+        }
+    });
+}
+
+function parseMatch(matchsnap, team) {
+    matchsnap.forEach(function(infosnap) {
+        if (typeof data[infosnap.key] == "undefined") {
+            data[infosnap.key] = [];
+        }
+        data[infosnap.key].push(infosnap.val());
+    });
+    console.log(data);
+    pushToStats(team);
+} 
+
 
 
 
