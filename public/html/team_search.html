@@ -14,6 +14,28 @@
         <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
         <script src="/js/w3data.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
+        
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <style type="text/css">
+        svg {
+            font: 10px sans-serif;
+            shape-rendering: crispEdges;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+        }
+        
+        path.domain {
+            stroke: none;
+        }
+        
+        .y .tick line {
+            stroke: #ddd;
+        }
+        </style>
     </head>
     <body>
         <div w3-include-html="/html/nav.html"></div>
