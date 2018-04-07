@@ -14,6 +14,35 @@
         <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
         <script src="/js/w3data.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
+
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <style type="text/css">
+        svg {
+            font: 10px sans-serif;
+            shape-rendering: crispEdges;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+        }
+        
+        path.domain {
+            stroke: none;
+        }
+        
+        .y .tick line {
+            stroke: #ddd;
+        }
+
+        .legend {
+	            padding: 5px;
+	            font: 10px sans-serif;
+	            background: yellow;
+	            box-shadow: 2px 2px 1px #888;
+            }
+        </style>
     </head>
     <body>
         <div w3-include-html="/html/nav.html"></div>
@@ -21,6 +50,7 @@
         <script src="/js/team_search.js"></script>
         <script src="/js/team_search_stats.js"></script>
         <script src="/js/team_search_matchhistory.js"></script>
+        <script src="/js/statistics.js"></script>
         <div class="container">
             <br>
             <h1>
@@ -43,13 +73,14 @@
                 <div class="dropdown-menu" style="right: 0">
                     <button id="tab-matches" type="button" class="dropdown-item">Match History</button>
                     <button id="tab-stats" type="button" class="dropdown-item">Statistics</button>
+                    <button id="tab-graphs" type="button" class="dropdown-item">Graphs</button>
                 </div>
             </div>
             <br>
             <div id="section-tab-matches" style="display: none">
                 <br>
                 <p>
-                    (x) denotes missed.
+                    Scored : Missed
                 </p>
                 <br>
                 <div class="table-responsive">
@@ -170,15 +201,17 @@
                             <tr>
                                 <th scope="col">Stat</th>
                                 <th scope="col">Median</th>
-                                <th scope="col">IQR</th>
-                                <th scope="col">Mean</th>
-                                <th scope="col">ST Dev</th>
-                                <th scope="col">Range</th>
                             </tr>
                         </thead>
                         <tbody id="stats_table">
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div id="section-tab-graphs" style="display: none">
+                <br>
+                <div class="table-responsive">
+                    <div id='stacked-bar'></div>
                 </div>
             </div>
         </div>
