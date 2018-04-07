@@ -5,6 +5,10 @@
   src:  url('/fonts/adamcg.otf') format('opentype');
 }
 
+html { 
+  overflow-x: hidden;
+}
+
 .open-sans {
   font-family: 'Open Sans', sans-serif;
 }

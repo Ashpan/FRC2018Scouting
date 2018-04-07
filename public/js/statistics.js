@@ -69,6 +69,9 @@ function analyzeData() {
     console.log(auto_switch_success);
     console.log(teleop_vault);
 
+
+    createGraph();
+
     return [analyzeSet(auto_switch_success), 
             analyzeSet(auto_scale_success), 
             analyzeSet(auto_vault), 
@@ -107,80 +110,157 @@ function pushToStats(team) {
 
 function createGraph() {
 
-    var data = [
-        {month: 'Jan', A: 20, B: 5, C: 10},
-        {month: 'Feb', A: 30, B: 10, C: 20}
-    ];
-     
-    var xData = ["A", "B", "C"];
-     
-    var margin = {top: 20, right: 50, bottom: 30, left: 50},
-            width = 400 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
-     
-    var x = d3.scale.ordinal()
-            .rangeRoundBands([0, width], .35);
-     
-    var y = d3.scale.linear()
-            .rangeRound([height, 0]);
-     
-    var color = d3.scale.category20();
-     
-    var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom");
-     
-    var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-     
-    var dataIntermediate = xData.map(function (c) {
-        return data.map(function (d) {
-            return {x: d.month, y: d[c]};
-        });
+    console.log(data);
+
+    // var graphData = [
+    //     {"match":5,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":11,   "Auto Switch":1,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":17,   "Auto Switch":5,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":23,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":29,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":36,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":42,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":48,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":54,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":60,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":66,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+    //     {"match":72,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3}];
+    // var key = ["Auto Switch", "Auto Scale", "Auto Vault"];
+    // var colors = ["#FF0000", "#00FF00" , "#0000FF"];
+
+    var graphData = [];
+    for (var i = 0; i < data.match_number.length; i++) {
+        bar = {
+            "match": data.match_number[i],
+            "Auto Switch": data.auto_switch_success[i],
+            "Auto Scale": data.auto_scale_success[i],
+            "Auto Vault": data.auto_vault[i],
+            "Teleop Switch": data.teleop_switch_success[i],
+            "Teleop Scale": data.teleop_scale_success[i],
+            "Teleop Opp Switch": data.teleop_opp_switch_success[i],
+            "Teleop Vault": data.teleop_vault[i]
+        };
+        graphData.push(bar);
+    };
+
+    var key = ["Auto Switch", "Auto Scale", "Auto Vault", "Teleop Switch", "Teleop Scale", "Teleop Opp Switch", "Teleop Vault"];
+    var colors = ["#FFEB3B", "#FF9800", "#CDDC39", "#2196F3", "#3F51B5", "#9C27B0", "#E91E63"];
+
+
+    $('#stacked-bar').html("");
+
+    initStackedBarChart.draw({
+        data: graphData,
+        key: key,
+        colors: colors,
+        element: 'stacked-bar'
     });
-     
-    var dataStackLayout = d3.layout.stack()(dataIntermediate);
-     
-    x.domain(dataStackLayout[0].map(function (d) {
-        return d.x;
-    }));
-     
-    y.domain([0,
-        d3.max(dataStackLayout[dataStackLayout.length - 1],
-                function (d) { return d.y0 + d.y;})
-        ])
-      .nice();
-     
-    var layer = svg.selectAll(".stack")
-            .data(dataStackLayout)
+
+}
+
+
+var initStackedBarChart = {
+    draw: function(config) {
+        me = this,
+        domEle = config.element,
+        stackKey = config.key,
+        stackColors = config.colors,
+        graphData = config.data,
+        margin = {top: 20, right: 20, bottom: 100, left: 30},
+        width = 700 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom,
+        xScale = d3.scaleBand().range([0, width]).padding(0.1),
+        yScale = d3.scaleLinear().range([height, 0]),
+        color = d3.scaleOrdinal()
+            .domain(stackKey)
+            .range(stackColors),
+        xAxis = d3.axisBottom(xScale),
+        yAxis =  d3.axisLeft(yScale),
+        svg = d3.select("#"+domEle).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var stack = d3.stack()
+            .keys(stackKey)
+            .order(d3.stackOrderNone)
+            .offset(d3.stackOffsetNone);
+    
+        var layers= stack(graphData);
+            // graphData.sort(function(a, b) { return b.total - a.total; });
+            xScale.domain(graphData.map(function(d) { return d.match; }));
+            yScale.domain([0, d3.max(layers[layers.length - 1], function(d) { return d[0] + d[1]; }) ]).nice();
+
+        var layer = svg.selectAll(".layer")
+            .data(layers)
             .enter().append("g")
-            .attr("class", "stack")
-            .style("fill", function (d, i) {
-                return color(i);
-            });
-     
-    layer.selectAll("rect")
-            .data(function (d) {
-                return d;
-            })
+            .attr("class", "layer")
+            .style("fill", function(d, i) { return color(i); });
+
+          layer.selectAll("rect")
+              .data(function(d) { return d; })
             .enter().append("rect")
-            .attr("x", function (d) {
-                return x(d.x);
-            })
-            .attr("y", function (d) {
-                return y(d.y + d.y0);
-            })
-            .attr("height", function (d) {
-                return y(d.y0) - y(d.y + d.y0);
-            })
-            .attr("width", x.rangeBand());
-     
-    svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0," + height + ")")
+              .attr("x", function(d) { return xScale(d.data.match); })
+              .attr("y", function(d) { return yScale(d[1]); })
+              .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
+              .attr("width", xScale.bandwidth());
+
+            svg.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + (height+5) + ")")
             .call(xAxis);
+
+            svg.append("g")
+            .attr("class", "axis axis--y")
+            .attr("transform", "translate(0,0)")
+            .call(yAxis);	
             
+            svg.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "end")
+            .attr("x", width/2 + 20)
+            .attr("y", height + 50)
+            .text("Match Number");
+
+            svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "end")
+            .attr("y", 6)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text("Cumulative # of Cubes");
+
+            // add legend   
+	var legend = svg.append("g")
+    .attr("class", "legend")
+    .attr("height", 1000)
+    .attr("width", 200)
+  .attr('transform', 'translate(-120,0)')    
+    
+  
+  legend.selectAll('rect')
+    .data(stackColors)
+    .enter()
+    .append("rect")
+    .attr("x", width - 65)
+    .attr("y", function(d, i){ return 140 - i *  20;})
+    .attr("width", 10)
+    .attr("height", 10)
+    .style("fill", function(d) { 
+      var color = d;
+      return color;
+    })
+    
+  legend.selectAll('text')
+    .data(stackKey)
+    .enter()
+    .append("text")
+    .attr("x", width - 52)
+    .attr("y", function(d, i){ return 140 - i *  20 + 9;})
+    .text(function(d) {
+      var text = d;
+      return text;
+    });
+    }
 }
