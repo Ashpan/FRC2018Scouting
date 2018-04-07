@@ -110,51 +110,55 @@ function pushToStats(team) {
 
 function createGraph() {
 
-    console.log(data);
+    if (typeof d3 !== 'undefined') {
 
-    // var graphData = [
-    //     {"match":5,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":11,   "Auto Switch":1,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":17,   "Auto Switch":5,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":23,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":29,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":36,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":42,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":48,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":54,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":60,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":66,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
-    //     {"match":72,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3}];
-    // var key = ["Auto Switch", "Auto Scale", "Auto Vault"];
-    // var colors = ["#FF0000", "#00FF00" , "#0000FF"];
+        console.log(data);
 
-    var graphData = [];
-    for (var i = 0; i < data.match_number.length; i++) {
-        bar = {
-            "match": data.match_number[i],
-            "Auto Switch": data.auto_switch_success[i],
-            "Auto Scale": data.auto_scale_success[i],
-            "Auto Vault": data.auto_vault[i],
-            "Teleop Switch": data.teleop_switch_success[i],
-            "Teleop Scale": data.teleop_scale_success[i],
-            "Teleop Opp Switch": data.teleop_opp_switch_success[i],
-            "Teleop Vault": data.teleop_vault[i]
+        // var graphData = [
+        //     {"match":5,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":11,   "Auto Switch":1,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":17,   "Auto Switch":5,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":23,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":29,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":36,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":42,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":48,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":54,   "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":60,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":66,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3},
+        //     {"match":72,  "Auto Switch":2,    "Auto Scale":5, "Auto Vault":3}];
+        // var key = ["Auto Switch", "Auto Scale", "Auto Vault"];
+        // var colors = ["#FF0000", "#00FF00" , "#0000FF"];
+
+        var graphData = [];
+        for (var i = 0; i < data.match_number.length; i++) {
+            bar = {
+                "match": data.match_number[i],
+                "Auto Switch": data.auto_switch_success[i],
+                "Auto Scale": data.auto_scale_success[i],
+                "Auto Vault": data.auto_vault[i],
+                "Teleop Switch": data.teleop_switch_success[i],
+                "Teleop Scale": data.teleop_scale_success[i],
+                "Teleop Opp Switch": data.teleop_opp_switch_success[i],
+                "Teleop Vault": data.teleop_vault[i]
+            };
+            graphData.push(bar);
         };
-        graphData.push(bar);
-    };
 
-    var key = ["Auto Switch", "Auto Scale", "Auto Vault", "Teleop Switch", "Teleop Scale", "Teleop Opp Switch", "Teleop Vault"];
-    var colors = ["#FFEB3B", "#FF9800", "#CDDC39", "#2196F3", "#3F51B5", "#9C27B0", "#E91E63"];
+        var key = ["Auto Switch", "Auto Scale", "Auto Vault", "Teleop Switch", "Teleop Scale", "Teleop Opp Switch", "Teleop Vault"];
+        var colors = ["#FFEB3B", "#FF9800", "#CDDC39", "#2196F3", "#3F51B5", "#9C27B0", "#E91E63"];
 
 
-    $('#stacked-bar').html("");
+        $('#stacked-bar').html("");
 
-    initStackedBarChart.draw({
-        data: graphData,
-        key: key,
-        colors: colors,
-        element: 'stacked-bar'
-    });
+        initStackedBarChart.draw({
+            data: graphData,
+            key: key,
+            colors: colors,
+            element: 'stacked-bar'
+        });
+
+    }
 
 }
 
