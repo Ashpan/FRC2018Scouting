@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Alliance Plate Configuration</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/js/w3data.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://www.w3schools.com/lib/w3data.js"></script>
+    <script src="/js/jquery.fittext.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script src="/js/Alliance_Side.js"></script>
+  </head>
+  <body onload="update()">
+    <nav class="navbar navbar navbar-dark navbar-default navbar-custom navbar-expand-lg">
+      <img alt="Brand" src="https://firebasestorage.googleapis.com/v0/b/scouting-compiler-onbar.appspot.com/o/brand.png?alt=media&token=ce29b857-6d69-4054-a162-8415237f4fe9" style="height: 50px; margin-right: 15px" class="logo">
+      <a class="navbar-brand" href="#">Team 1325 Inverse Paradox</a>
+    </nav>
+    <div id="container" style="text-align: center; display:block">
+      <br>
+      <br>
+      <h1 id="side" class="adam-cg" style="color: #213f99; font-size: 20vw; vertical-align: middle; line-height: 100%;"></h1>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p id="LRL"></p>
+      <p id="RLR"></p>
+      <p id="LLL"></p>
+      <p id="RRR"></p>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <!--       <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="#" value="2018onbar">Barrie</a>
+          <a class="dropdown-item" href="#" value="2018onnyo">York</a>
+          <a class="dropdown-item" href="#" value="2018onham">McMaster</a>
+        </div>
+      </div> -->
+      <!-- Example single danger button -->
+      <select name="dropdown" id="events">
+        <option value="2018onham" selected="selected">McMaster</option>
+        <option value="2018onnyo">York</option>
+        <option value="2018onbar">Barrie</option>
+      </select>
+      <br>
+      <br>
+      <button type="button" class="btn btn-dark" onclick="update()">Update</button>
+    </div>
+  </body>
+</html>
