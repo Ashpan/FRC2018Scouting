@@ -20,7 +20,7 @@ function matchHistoryAuto1() {
         row.append($('<th scope="row"></th>').text(data1.match_number[i]));
         row.append($('<td></td>').text(data1.auto_switch_success[i] + " : " + data1.auto_switch_fail[i]));
         row.append($('<td></td>').text(data1.auto_scale_success[i] + " : " + data1.auto_scale_fail[i]));
-        row.append($('<td></td>').text(data1.auto_vault[i] + " : " + data1.auto_scale_fail[i]));
+        row.append($('<td></td>').text(data1.auto_vault[i]));
         row.append($('<td></td>').text(data1.auto_baseline[i] == 1 ? "Yes" : "No"));
 
         $('#auto_table1').append(row);
@@ -100,7 +100,7 @@ function matchHistoryAuto2() {
         row.append($('<th scope="row"></th>').text(data2.match_number[i]));
         row.append($('<td></td>').text(data2.auto_switch_success[i] + " : " + data2.auto_switch_fail[i]));
         row.append($('<td></td>').text(data2.auto_scale_success[i] + " : " + data2.auto_scale_fail[i]));
-        row.append($('<td></td>').text(data2.auto_vault[i] + " : " + data2.auto_scale_fail[i]));
+        row.append($('<td></td>').text(data2.auto_vault[i]));
         row.append($('<td></td>').text(data2.auto_baseline[i] == 1 ? "Yes" : "No"));
 
         $('#auto_table2').append(row);

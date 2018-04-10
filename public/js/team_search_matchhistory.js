@@ -76,6 +76,7 @@ function matchHistoryMisc() {
         row.append($('<th scope="row"></th>').text(data.match_number[i]));
         row.append($('<td></td>').text(data.match_startpos[i][0].toUpperCase() + data.match_startpos[i].substring(1)));
         row.append($('<td></td>').text(data.climb[i] + ". " + data.climb_notes[i]));
+        row.append($('<td></td>').text(data.climb_assist[i]));
 
 
         $('#misc_table').append(row);

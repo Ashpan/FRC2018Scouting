@@ -1,16 +1,24 @@
 function analyzeSet(dataset) {
 
+    if (dataset.length <= 0) {
+        return 0;
+    }
+
     var median = math.median(dataset);
 
-    // split the data by the median
-    var firstHalf = dataset.filter(function(f) { return f <= median });
-    var secondHalf = dataset.filter(function(f) { return f >= median });
+    // // split the data by the median
+    // var firstHalf = dataset.filter(function(f) {
+    //     return f <= median
+    // });
+    // var secondHalf = dataset.filter(function(f) {
+    //     return f >= median
+    // });
 
-    // find the medians for each split
-    var q1 = math.median(firstHalf);
-    var q3 = math.median(secondHalf);
+    // // find the medians for each split
+    // var q1 = math.median(firstHalf);
+    // var q3 = math.median(secondHalf);
 
-    var IQR = q3 - q1;
+    // var IQR = q3 - q1;
 
     return median;
 
@@ -33,8 +41,7 @@ function analyzeData() {
     if (data.overall_teleop_success.length < mostRecent) {
         overall_auto_success = data.overall_auto_success;
         overall_teleop_success = data.overall_teleop_success;
-    }
-    else {
+    } else {
         overall_auto_success = data.overall_auto_success.slice(data.overall_auto_success.length - mostRecent);
         overall_teleop_success = data.overall_teleop_success.slice(data.overall_teleop_success.length - mostRecent);
     }
@@ -72,13 +79,14 @@ function analyzeData() {
 
     createGraph();
 
-    return [analyzeSet(auto_switch_success), 
-            analyzeSet(auto_scale_success), 
-            analyzeSet(auto_vault), 
-            analyzeSet(teleop_switch_success),
-            analyzeSet(teleop_scale_success),
-            analyzeSet(teleop_opp_switch_success),
-            analyzeSet(teleop_vault)];
+    return [analyzeSet(auto_switch_success),
+        analyzeSet(auto_scale_success),
+        analyzeSet(auto_vault),
+        analyzeSet(teleop_switch_success),
+        analyzeSet(teleop_scale_success),
+        analyzeSet(teleop_opp_switch_success),
+        analyzeSet(teleop_vault)
+    ];
 
 }
 
@@ -166,68 +174,87 @@ function createGraph() {
 var initStackedBarChart = {
     draw: function(config) {
         me = this,
-        domEle = config.element,
-        stackKey = config.key,
-        stackColors = config.colors,
-        graphData = config.data,
-        margin = {top: 20, right: 20, bottom: 100, left: 30},
-        width = 700 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom,
-        xScale = d3.scaleBand().range([0, width]).padding(0.1),
-        yScale = d3.scaleLinear().range([height, 0]),
-        color = d3.scaleOrdinal()
+            domEle = config.element,
+            stackKey = config.key,
+            stackColors = config.colors,
+            graphData = config.data,
+            margin = {
+                top: 20,
+                right: 20,
+                bottom: 100,
+                left: 30
+            },
+            width = 700 - margin.left - margin.right,
+            height = 600 - margin.top - margin.bottom,
+            xScale = d3.scaleBand().range([0, width]).padding(0.1),
+            yScale = d3.scaleLinear().range([height, 0]),
+            color = d3.scaleOrdinal()
             .domain(stackKey)
             .range(stackColors),
-        xAxis = d3.axisBottom(xScale),
-        yAxis =  d3.axisLeft(yScale),
-        svg = d3.select("#"+domEle).append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            xAxis = d3.axisBottom(xScale),
+            yAxis = d3.axisLeft(yScale),
+            svg = d3.select("#" + domEle).append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         var stack = d3.stack()
             .keys(stackKey)
             .order(d3.stackOrderNone)
             .offset(d3.stackOffsetNone);
-    
-        var layers= stack(graphData);
-            // graphData.sort(function(a, b) { return b.total - a.total; });
-            xScale.domain(graphData.map(function(d) { return d.match; }));
-            yScale.domain([0, d3.max(layers[layers.length - 1], function(d) { return d[0] + d[1]; }) ]).nice();
+
+        var layers = stack(graphData);
+        // graphData.sort(function(a, b) { return b.total - a.total; });
+        xScale.domain(graphData.map(function(d) {
+            return d.match;
+        }));
+        yScale.domain([0, d3.max(layers[layers.length - 1], function(d) {
+            return d[0] + d[1];
+        })]).nice();
 
         var layer = svg.selectAll(".layer")
             .data(layers)
             .enter().append("g")
             .attr("class", "layer")
-            .style("fill", function(d, i) { return color(i); });
+            .style("fill", function(d, i) {
+                return color(i);
+            });
 
-          layer.selectAll("rect")
-              .data(function(d) { return d; })
+        layer.selectAll("rect")
+            .data(function(d) {
+                return d;
+            })
             .enter().append("rect")
-              .attr("x", function(d) { return xScale(d.data.match); })
-              .attr("y", function(d) { return yScale(d[1]); })
-              .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
-              .attr("width", xScale.bandwidth());
+            .attr("x", function(d) {
+                return xScale(d.data.match);
+            })
+            .attr("y", function(d) {
+                return yScale(d[1]);
+            })
+            .attr("height", function(d) {
+                return yScale(d[0]) - yScale(d[1]);
+            })
+            .attr("width", xScale.bandwidth());
 
-            svg.append("g")
+        svg.append("g")
             .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + (height+5) + ")")
+            .attr("transform", "translate(0," + (height + 5) + ")")
             .call(xAxis);
 
-            svg.append("g")
+        svg.append("g")
             .attr("class", "axis axis--y")
             .attr("transform", "translate(0,0)")
-            .call(yAxis);	
-            
-            svg.append("text")
+            .call(yAxis);
+
+        svg.append("text")
             .attr("class", "x label")
             .attr("text-anchor", "end")
-            .attr("x", width/2 + 20)
+            .attr("x", width / 2 + 20)
             .attr("y", height + 50)
             .text("Match Number");
 
-            svg.append("text")
+        svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "end")
             .attr("y", 6)
@@ -235,36 +262,40 @@ var initStackedBarChart = {
             .attr("transform", "rotate(-90)")
             .text("Cumulative # of Cubes");
 
-            // add legend   
-	var legend = svg.append("g")
-    .attr("class", "legend")
-    .attr("height", 1000)
-    .attr("width", 200)
-  .attr('transform', 'translate(-120,0)')    
-    
-  
-  legend.selectAll('rect')
-    .data(stackColors)
-    .enter()
-    .append("rect")
-    .attr("x", width - 65)
-    .attr("y", function(d, i){ return 140 - i *  20;})
-    .attr("width", 10)
-    .attr("height", 10)
-    .style("fill", function(d) { 
-      var color = d;
-      return color;
-    })
-    
-  legend.selectAll('text')
-    .data(stackKey)
-    .enter()
-    .append("text")
-    .attr("x", width - 52)
-    .attr("y", function(d, i){ return 140 - i *  20 + 9;})
-    .text(function(d) {
-      var text = d;
-      return text;
-    });
+        // add legend   
+        var legend = svg.append("g")
+            .attr("class", "legend")
+            .attr("height", 1000)
+            .attr("width", 200)
+            .attr('transform', 'translate(-120,0)')
+
+
+        legend.selectAll('rect')
+            .data(stackColors)
+            .enter()
+            .append("rect")
+            .attr("x", width - 65)
+            .attr("y", function(d, i) {
+                return 140 - i * 20;
+            })
+            .attr("width", 10)
+            .attr("height", 10)
+            .style("fill", function(d) {
+                var color = d;
+                return color;
+            })
+
+        legend.selectAll('text')
+            .data(stackKey)
+            .enter()
+            .append("text")
+            .attr("x", width - 52)
+            .attr("y", function(d, i) {
+                return 140 - i * 20 + 9;
+            })
+            .text(function(d) {
+                var text = d;
+                return text;
+            });
     }
 }

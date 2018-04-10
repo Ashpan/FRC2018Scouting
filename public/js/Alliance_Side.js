@@ -1,11 +1,5 @@
-$(document).ready(function() {
-    update($("#events").find(":selected").val());
-    $('select[name=dropdown]').change(function() {
-        update($("#events").find(":selected").val());
-    });
-});
-
 function update(event) {
+    // var event = 
     const api = 'https://www.thebluealliance.com/api/v3/event/' + event + '/matches?X-TBA-Auth-Key=aSeFMfnmXUczi0DbldlhqJ6u2EyCgEt3XcQyFtElytJCdRHj7swAs8S2vatmCeBX';
     var json;
     var LRL = [];
@@ -20,14 +14,17 @@ function update(event) {
             json = JSON.parse(this.responseText);
             // console.log(json);
             for (i = 0; i < json.length; i++) {
-                if (json[i].score_breakdown.blue.tba_gameData == "LRL") {
-                    LRL.push(1);
-                } else if (json[i].score_breakdown.blue.tba_gameData == "RLR") {
-                    RLR.push(1);
-                } else if (json[i].score_breakdown.blue.tba_gameData == "LLL") {
-                    LLL.push(1);
-                } else if (json[i].score_breakdown.blue.tba_gameData == "RRR") {
-                    RRR.push(1);
+                if (json[i].alliances.red.score != "-1") {
+
+                    if (json[i].score_breakdown.blue.tba_gameData == "LRL") {
+                        LRL.push(1);
+                    } else if (json[i].score_breakdown.blue.tba_gameData == "RLR") {
+                        RLR.push(1);
+                    } else if (json[i].score_breakdown.blue.tba_gameData == "LLL") {
+                        LLL.push(1);
+                    } else if (json[i].score_breakdown.blue.tba_gameData == "RRR") {
+                        RRR.push(1);
+                    }
                 }
             }
             var total = LRL.length + RLR.length + LLL.length + RRR.length
@@ -52,27 +49,49 @@ function update(event) {
                     "side": "Left",
                     "percent": (LLL.length / total * 100).toFixed(2)
                 },
+                "ALRL": {
+                    "side": "Right",
+                    "percent": 24.005563282336578
+                },
+                "ARLR": {
+                    "side": "Left",
+                    "percent": 31.48817802503477
+                },
+                "ALLL": {
+                    "side": "Left",
+                    "percent": 21.891515994436716
+                },
+                "ARRR": {
+                    "side": "Right",
+                    "percent": 22.614742698191932
+                }
             }
-            document.getElementById("LRL").innerHTML = ("LRL: " + obj.LRL.percent + "%");
-            document.getElementById("RLR").innerHTML = ("RLR: " + obj.RLR.percent + "%");
-            document.getElementById("LLL").innerHTML = ("LLL: " + obj.LLL.percent + "%");
-            document.getElementById("RRR").innerHTML = ("RRR: " + obj.RRR.percent + "%");
-            document.getElementById("side").innerHTML = (obj.RRR.percent + "%");
+            console.log("LRL " + obj.LRL.percent);
+            console.log("ALRL " + obj.ALRL.percent);
+            console.log("RLR " + obj.RLR.percent);
+            console.log("ARLR " + obj.ARLR.percent);
+            console.log("LLL " + obj.LLL.percent);
+            console.log("ALLL " + obj.ALLL.percent);
+            console.log("RRR " + obj.RRR.percent);
+            console.log("ARRR " + obj.ARRR.percent);
+            var right1 = Math.abs(obj.LRL.percent - obj.ALRL.percent)
+            var right2 = Math.abs(obj.RRR.percent - obj.ARRR.percent)
+            var left1 = Math.abs(obj.RLR.percent - obj.ARLR.percent)
+            var left2 = Math.abs(obj.LLL.percent - obj.ALLL.percent)
+            document.getElementById("LRL").innerHTML = ("LRL: " + Math.abs(obj.LRL.percent - obj.ALRL.percent));
+            document.getElementById("RLR").innerHTML = ("RLR: " + Math.abs(obj.RLR.percent - obj.ARLR.percent));
+            document.getElementById("LLL").innerHTML = ("LLL: " + Math.abs(obj.LLL.percent - obj.ALLL.percent));
+            document.getElementById("RRR").innerHTML = ("RRR: " + Math.abs(obj.RRR.percent - obj.ARRR.percent));
             // var arr = Object.values(obj.length);
             // var max = Math.max(...arr);
             // console.log(max);
-            var max = 0
-            var maxstr = ""
 
-            for (i in obj) {
-                console.log(i);
-                if (obj[i].length > max) {
-                    max = obj[i].length;
-                    maxstr = obj[i].side;
-                }
-                console.log(max);
+            if (Math.max(right1, left1, right2, left2) === right1 || Math.max(right1, left1, right2, left2) === right2) {
+                document.getElementById("side").innerHTML = ("Right");
+            } else {
+                document.getElementById("side").innerHTML = ("Left");
             }
-            document.getElementById("side").innerHTML = (maxstr);
+
             // console.log(obj.length);
             // for (var i = 0; i < obj.length; i++) {
             //     console.log("pls");
@@ -89,3 +108,17 @@ function update(event) {
     request.send();
     // jQuery("#side").fitText();
 }
+
+
+
+
+
+
+
+
+$(document).ready(function() {
+    update($("#events").find(":selected").val());
+    $('select[name=dropdown]').change(function() {
+        update($("#events").find(":selected").val());
+    });
+});

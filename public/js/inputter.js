@@ -14,22 +14,31 @@ $(window).on('load', function() {
 
 $(document).ready(function() {
     teams = ["188", "1241", "1325", "1334", "1374", "2056", "2200", "2386", "2609", "2935", "3161", "3560", "3571", "3683", "4039", "4069", "4308", "4519", "4618", "4902", "4932", "4976", "4992", "5406", "5409", "5699", "5776", "5921", "6070", "6130", "6135", "6323", "6339", "6342", "6461", "6537", "6632", "6878", ""]
-    $("#auto_switch_success").change(function() {
-        if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0)) {
-            $("#baseline_n").removeClass("active");
-            $("#baseline_y").addClass("active");
+        // $("#auto_switch_success").change(function() {
+        //     if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0)) {
+        //         $("#baseline_n").removeClass("active");
+        //         $("#baseline_y").addClass("active");
+        //     } else {
+        //         $("#baseline_n").addClass("active");
+        //         $("#baseline_y").removeClass("active");
+        //     }
+        // });
+        // $("#auto_scale_success").change(function() {
+        //     if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0)) {
+        //         $("#baseline_n").removeClass("active");
+        //         $("#baseline_y").addClass("active");
+        //     } else {
+        //         $("#baseline_n").addClass("active");
+        //         $("#baseline_y").removeClass("active");
+        //     }
+        // });
+    $('.climb').change(function() {
+        if ($('input[id=assisted-climb]:checked').val() === "Assisted Climb") {
+            console.log("true");
+            document.getElementById("assisted-climb-team").style.display = "block";
         } else {
-            $("#baseline_n").addClass("active");
-            $("#baseline_y").removeClass("active");
-        }
-    });
-    $("#auto_scale_success").change(function() {
-        if ((parseInt($('#auto_switch_success').val()) > 0) || (parseInt($('#auto_scale_success').val()) > 0)) {
-            $("#baseline_n").removeClass("active");
-            $("#baseline_y").addClass("active");
-        } else {
-            $("#baseline_n").addClass("active");
-            $("#baseline_y").removeClass("active");
+            console.log("false");
+            document.getElementById("assisted-climb-team").style.display = "none";
         }
     });
 });
@@ -126,6 +135,7 @@ function updateDatabase() {
             teleop_vault: parseInt($('#teleop_vault').val()),
 
             climb: document.querySelector('input[name="climb"]:checked').value,
+            climb_assist: $('#assisted-climb-team').val(),
             climb_notes: $('#climb_other').val(),
 
             team_number: parseInt($('#team').val()),
@@ -154,11 +164,16 @@ function updateDatabase() {
         document.getElementById('comment').value = "-";
     }
 
+    if (document.getElementById('assisted-climb-team').value === "" || document.getElementById('assisted-climb-team').value === null) {
+        document.getElementById('assisted-climb-team').value = "-";
+    }
+
 
     firebase.database().ref().child('teamlist/' + team).set(1);
 
     console.log("Team " + team + " added to teamlist.");
     location.reload();
+    $('html,body').scrollTop(0);
 
     // var counter = firebase.database().ref('allteams/' + team).orderByKey();
     // counter.once("value").then(function(snapshot) {

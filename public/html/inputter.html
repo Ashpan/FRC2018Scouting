@@ -99,10 +99,10 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Baseline</span>
                             </div>
-                            <label id="baseline_y" name="baseline" class="btn btn-outline-secondary" value="1">
+                            <label id="baseline_y" name="baseline" class="btn btn-outline-secondary active" value="1">
                                 <input type="radio" name="baseline" id="baseline_yes" autocomplete="off">&nbsp;Yes&nbsp;
                             </label>
-                            <label id="baseline_n" name="baseline" class="btn btn-outline-secondary active" value="0">
+                            <label id="baseline_n" name="baseline" class="btn btn-outline-secondary" value="0">
                                 <input type="radio" name="baseline" id="baseline_no" autocomplete="off">&nbsp;No&nbsp;
                             </label>
                         </div>
@@ -161,23 +161,32 @@
             Climb:
             </h5>
             <div class="custom-control custom-radio">
-                <input type="radio" id="self-climb" value="Climbed" name="climb" class="custom-control-input">
+                <input type="radio" id="self-climb" value="Climbed" name="climb" class="custom-control-input climb">
                 <label class="custom-control-label" for="self-climb">Climbed</label>
             </div>
             <div class="custom-control custom-radio">
-                <input type="radio" id="parked" value="Parked" name="climb" class="custom-control-input" checked>
+                <input type="radio" id="parked" value="Parked" name="climb" class="custom-control-input climb" checked>
                 <label class="custom-control-label active" for="parked">Parked</label>
             </div>
             <div class="custom-control custom-radio">
-                <input type="radio" id="failed-climb" value="Failed Climb" name="climb" class="custom-control-input">
+                <input type="radio" id="failed-climb" value="Failed Climb" name="climb" class="custom-control-input climb">
                 <label class="custom-control-label" for="failed-climb">Failed Climb</label>
             </div>
             <div class="custom-control custom-radio">
-                <input type="radio" id="failed-park" value="Failed Park" name="climb" class="custom-control-input">
+                <input type="radio" id="failed-park" value="Failed Park" name="climb" class="custom-control-input climb">
                 <label class="custom-control-label" for="failed-park">Failed Park</label>
             </div>
             <div class="custom-control custom-radio">
-                <input type="radio" id="did-not-attempt" value="Did not Attempt" name="climb" class="custom-control-input">
+                <input type="radio" id="assisted-climb" value="Assisted Climb" name="climb" class="custom-control-input climb">
+                <label class="custom-control-label" for="assisted-climb">Assisted Climb</label>
+            </div>
+            <div class="input-group mb-3">
+                <form id="my_radio_box">
+                    <input name="assisted-climb-team" id="assisted-climb-team" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" style="display: none">
+                </form>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="did-not-attempt" value="Did not Attempt" name="climb" class="custom-control-input climb">
                 <label class="custom-control-label" for="did-not-attempt">Did not Attempt</label>
             </div>
             <br>
