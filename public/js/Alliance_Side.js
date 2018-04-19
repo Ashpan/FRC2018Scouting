@@ -51,19 +51,19 @@ function update(event) {
                 },
                 "ALRL": {
                     "side": "Right",
-                    "percent": 24.005563282336578
+                    "percent": 24.989135158626684
                 },
                 "ARLR": {
                     "side": "Left",
-                    "percent": 31.48817802503477
+                    "percent": 25.684485006518905
                 },
                 "ALLL": {
                     "side": "Left",
-                    "percent": 21.891515994436716
+                    "percent": 25.380269448066056
                 },
                 "ARRR": {
                     "side": "Right",
-                    "percent": 22.614742698191932
+                    "percent": 23.94611038678835
                 }
             }
             console.log("LRL " + obj.LRL.percent);

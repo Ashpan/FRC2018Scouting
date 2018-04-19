@@ -5,7 +5,7 @@ var teams = []
 
 
 $(document).ready(function() {
-    teams = ["188", "1241", "1325", "1334", "1374", "2056", "2200", "2386", "2609", "2935", "3161", "3560", "3571", "3683", "4039", "4069", "4308", "4519", "4618", "4902", "4932", "4976", "4992", "5406", "5409", "5699", "5776", "5921", "6070", "6130", "6135", "6323", "6339", "6342", "6461", "6537", "6632", "6878", ""]
+    teams = ["188", "610", "772", "1285", "1305", "1325", "1334", "2013", "2056", "2200", "2386", "2702", "2706", "2852", "3161", "3683", "4343", "4476", "4618", "4678", "4814", "4903", "4914", "4936", "5036", "5426", "5834", "6140", "6141", "6331", "6336", "6378", "6544", "6856", "6864", "6867", "6875", "6917", "6978", "7329", ""]
 
     $("input[type=file]").change(function() {
         var fieldVal = $(this).val();
@@ -28,7 +28,7 @@ function submitData() {
 
 function validTeam() {
     if (!(teams.includes($('#team').val()))) {
-        $("#teamCheck").html("Team " + $('#team').val() + " isn't at McMaster");
+        $("#teamCheck").html("Team " + $('#team').val() + " isn't in the Science Division");
     } else if ((teams.includes($('#team').val())) || ($('#team').val() == "")) {
         $("#teamCheck").html("");
     }
@@ -42,7 +42,7 @@ function inputVerification() {
         check = false;
     }
     if (!(teams.includes($('#team').val()))) {
-        $('#uploading').html($('#uploading').html() + "<br>The team you entered is not attending McMaster.");
+        $('#uploading').html($('#uploading').html() + "<br>The team you entered is not attending the Science Division.");
         check = false;
     }
     return check;

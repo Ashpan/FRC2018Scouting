@@ -3,6 +3,7 @@
     "default": "scouting-compiler-dev",
     "barrie": "scouting-compiler-onbar",
     "york": "scouting-compiler-onnyo",
-    "mac": "scouting-compiler-onham"
+    "mac": "scouting-compiler-onham",
+    "dcmp": "scouting-compiler-oncmp"
   }
 }
