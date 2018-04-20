@@ -4,6 +4,7 @@
     "barrie": "scouting-compiler-onbar",
     "york": "scouting-compiler-onnyo",
     "mac": "scouting-compiler-onham",
-    "dcmp": "scouting-compiler-oncmp"
+    "dcmp": "scouting-compiler-oncmp",
+    "cmp": "scouting-compiler-cmp"
   }
 }

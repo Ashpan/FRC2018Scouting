@@ -82,6 +82,13 @@ $(document).ready(function() {
             console.log("false");
             document.getElementById("assisted-climb-team").style.display = "none";
         }
+        if ($('input[id=lifted-team]:checked').val() === "Lifted Team") {
+            console.log("true");
+            document.getElementById("lifted-climb-team").style.display = "block";
+        } else {
+            console.log("false");
+            document.getElementById("lifted-climb-team").style.display = "none";
+        }
     });
 });
 
@@ -132,7 +139,7 @@ function inputVerification() {
         $('#uploading').html($('#uploading').html() + "<br>Please enter an auto cube number less than 5.");
         check = false;
     }
-    if ((parseInt($('#teleop_switch_success').val())) > 54 || (parseInt($('#teleop_scale_success').val())) > 54 || (parseInt($('#teleop_switch_fail').val())) > 54 || (parseInt($('#teleop_scale_fail').val())) > 54 || (parseInt($('#teleop_opp_switch_success').val())) > 54 || (parseInt($('#teleop_opp_switch_fail').val())) > 54) {
+    if ((parseInt($('#teleop_switch_success').val())) > 54 || (parseInt($('#teleop_scale_winning_success').val())) > 54 || (parseInt($('#teleop_scale_losing_success').val())) > 54 || (parseInt($('#teleop_switch_fail').val())) > 54 || (parseInt($('#teleop_scale_winning_fail').val())) > 54 || (parseInt($('#teleop_scale_losing_fail').val())) > 54 || (parseInt($('#teleop_opp_switch_success').val())) > 54 || (parseInt($('#teleop_opp_switch_fail').val())) > 54) {
         $('#uploading').html($('#uploading').html() + "<br>Please enter an teleop cube number less than 54.");
         check = false;
     }
@@ -171,18 +178,21 @@ function updateDatabase() {
             auto_scale_success: parseInt($('#auto_scale_success').val()),
             auto_scale_fail: parseInt($('#auto_scale_fail').val()),
             auto_baseline: parseInt($('label[name="baseline"].active').attr('value')),
-            auto_vault: parseInt($('#auto_vault').val()),
+        // auto_vault: parseInt($('#auto_vault').val()),
 
             teleop_switch_success: parseInt($('#teleop_switch_success').val()),
             teleop_switch_fail: parseInt($('#teleop_switch_fail').val()),
-            teleop_scale_success: parseInt($('#teleop_scale_success').val()),
-            teleop_scale_fail: parseInt($('#teleop_scale_fail').val()),
+            teleop_scale_winning_success: parseInt($('#teleop_scale_winning_success').val()),
+            teleop_scale_winning_fail: parseInt($('#teleop_scale_winning_fail').val()),
+            teleop_scale_losing_success: parseInt($('#teleop_scale_losing_success').val()),
+            teleop_scale_losing_fail: parseInt($('#teleop_scale_losing_fail').val()),
             teleop_opp_switch_success: parseInt($('#teleop_opp_switch_success').val()),
             teleop_opp_switch_fail: parseInt($('#teleop_opp_switch_fail').val()),
             teleop_vault: parseInt($('#teleop_vault').val()),
 
             climb: document.querySelector('input[name="climb"]:checked').value,
             climb_assist: $('#assisted-climb-team').val(),
+            climb_lift: $('#lifted-climb-team').val(),
             climb_notes: $('#climb_other').val(),
 
             team_number: parseInt($('#team').val()),
@@ -191,8 +201,8 @@ function updateDatabase() {
             match_comment: $('#comment').val() === "" ? "-" : $('#comment').val(),
             match_startpos: $('label#position.active').attr('value'),
 
-            overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
-            overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
+            overall_teleop_success: parseInt($('#teleop_switch_success').val()) + parseInt($('#teleop_scale_winning_success').val()) + parseInt($('#teleop_scale_losing_success').val()) + parseInt($('#teleop_opp_switch_success').val()) + parseInt($('#teleop_vault').val()),
+            overall_teleop_fail: parseInt($('#teleop_switch_fail').val()) + parseInt($('#teleop_scale_winning_fail').val()) + parseInt($('#teleop_scale_losing_fail').val()) + parseInt($('#teleop_opp_switch_fail').val()),
             overall_auto_success: parseInt($('#auto_switch_success').val()) + parseInt($('#auto_scale_success').val()),
             overall_auto_fail: parseInt($('#auto_switch_fail').val()) + parseInt($('#auto_scale_fail').val()),
 
@@ -213,6 +223,10 @@ function updateDatabase() {
 
     if (document.getElementById('assisted-climb-team').value === "" || document.getElementById('assisted-climb-team').value === null) {
         document.getElementById('assisted-climb-team').value = "-";
+    }
+
+    if (document.getElementById('lifted-climb-team').value === "" || document.getElementById('assisted-climb-team').value === null) {
+        document.getElementById('lifted-climb-team').value = "-";
     }
 
 

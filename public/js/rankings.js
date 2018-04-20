@@ -39,6 +39,9 @@ function databaseRanking(rankingSelection) {
         case "Teleop Vault":
             toReturn = "teleop_vault";
             break;
+        case "Alliance Switch Accuracy":
+            toReturn = "switch_accuracy";
+            break;
     }
     return toReturn;
 }
@@ -178,7 +181,7 @@ function parseMatch(matchsnap, team) {
     });
     console.log(data);
     pushToStats(team);
-} 
+}
 
 
 

@@ -7,8 +7,8 @@
 		<link rel="stylesheet" href="/css/styles.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css" />
-		<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
-		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<link href="/css/jquery-ui.css" rel="Stylesheet"></link>
+		<script src="/js/jquery-3.3.1.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -64,35 +64,41 @@
 					<h5>
 					Autonomous:
 					</h5>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Switch Scored</span>
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Switch Scored</span>
+								</div>
+								<input id="auto_switch_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
+							</div>
 						</div>
-						<input id="auto_switch_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Switch Missed</span>
+								</div>
+								<input id="auto_switch_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
+							</div>
+						</div>
 					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Switch Missed</span>
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Scale Scored</span>
+								</div>
+								<input id="auto_scale_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
+							</div>
 						</div>
-						<input id="auto_switch_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
-					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Scale Scored</span>
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Scale Missed</span>
+								</div>
+								<input id="auto_scale_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
+							</div>
 						</div>
-						<input id="auto_scale_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
-					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Scale Missed</span>
-						</div>
-						<input id="auto_scale_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
-					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Vault</span>
-						</div>
-						<input id="auto_vault" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="5">
 					</div>
 					<div class="input-group mb-3">
 						<div class="input-group btn-group btn-group-toggle" data-toggle="buttons">
@@ -107,44 +113,98 @@
 							</label>
 						</div>
 					</div>
+					<div class="input-group mb-3">
+						<div class="input-group btn-group btn-group-toggle" data-toggle="buttons">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Scale Position</span>
+							</div>
+							<label id="scale_left" name="scale_pos" class="btn btn-outline-secondary" value="Left">
+								<input type="radio" name="scale_pos" id="scale_left" autocomplete="off">&nbsp;Left&nbsp;
+							</label>
+							<label id="scale_right" name="scale_pos" class="btn btn-outline-secondary" value="Right">
+								<input type="radio" name="scale_pos" id="scale_righ" autocomplete="off">&nbsp;Right&nbsp;
+							</label>
+							<label id="scale_none" name="scale_pos" class="btn btn-outline-secondary active" value="None">
+								<input type="radio" name="scale_pos" id="scale_none" autocomplete="off">&nbsp;Not Applicable&nbsp;
+							</label>
+						</div>
+					</div>
+					<br>
+					
 					<h5>
 					Teleoperated:
 					</h5>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Alliance Switch Scored</span>
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Alliance Switch Scored</span>
+								</div>
+								<input id="teleop_switch_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
 						</div>
-						<input id="teleop_switch_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Alliance Switch Missed</span>
+								</div>
+								<input id="teleop_switch_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
+						</div>
 					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Alliance Switch Missed</span>
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">WINNING Scale Scored</span>
+								</div>
+								<input id="teleop_scale_winning_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
 						</div>
-						<input id="teleop_switch_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">WINNING Scale Missed</span>
+								</div>
+								<input id="teleop_scale_winning_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
+						</div>
 					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Scale Scored</span>
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">LOSING Scale Scored</span>
+								</div>
+								<input id="teleop_scale_losing_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
 						</div>
-						<input id="teleop_scale_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">LOSING Scale Missed</span>
+								</div>
+								<input id="teleop_scale_losing_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
+						</div>
 					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Scale Missed</span>
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Opp. Switch Scored</span>
+								</div>
+								<input id="teleop_opp_switch_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
 						</div>
-						<input id="teleop_scale_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
-					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Opp. Switch Scored</span>
+						<div class="col">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Opp. Switch Missed</span>
+								</div>
+								<input id="teleop_opp_switch_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
+							</div>
 						</div>
-						<input id="teleop_opp_switch_success" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
-					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Opp. Switch Missed</span>
-						</div>
-						<input id="teleop_opp_switch_fail" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" max="54">
 					</div>
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
@@ -159,12 +219,21 @@
 			Climb:
 			</h5>
 			<div class="custom-control custom-radio">
-				<input type="radio" id="self-climb" value="Climbed" name="climb" class="custom-control-input climb">
-				<label class="custom-control-label" for="self-climb">Climbed</label>
+				<input type="radio" id="self-climb" value="Self Climb" name="climb" class="custom-control-input climb">
+				<label class="custom-control-label" for="self-climb">Self-Climbed</label>
 			</div>
 			<div class="custom-control custom-radio">
 				<input type="radio" id="parked" value="Parked" name="climb" class="custom-control-input climb" checked>
 				<label class="custom-control-label active" for="parked">Parked</label>
+			</div>
+			<div class="custom-control custom-radio">
+				<input type="radio" id="lifted-team" value="Lifted Team" name="climb" class="custom-control-input climb">
+				<label class="custom-control-label" for="lifted-team">Lifted Team</label>
+			</div>
+			<div class="input-group mb-3">
+				<form>
+					<input name="lifted-climb-team" id="lifted-climb-team" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" style="display: none">
+				</form>
 			</div>
 			<div class="custom-control custom-radio">
 				<input type="radio" id="failed-climb" value="Failed Climb" name="climb" class="custom-control-input climb">
@@ -176,10 +245,10 @@
 			</div>
 			<div class="custom-control custom-radio">
 				<input type="radio" id="assisted-climb" value="Assisted Climb" name="climb" class="custom-control-input climb">
-				<label class="custom-control-label" for="assisted-climb">Assisted Climb</label>
+				<label class="custom-control-label" for="assisted-climb">Assisted by</label>
 			</div>
 			<div class="input-group mb-3">
-				<form id="my_radio_box">
+				<form>
 					<input name="assisted-climb-team" id="assisted-climb-team" class="form-control" value="0" placeholder="Number..." type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" style="display: none">
 				</form>
 			</div>
