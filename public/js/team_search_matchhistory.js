@@ -38,6 +38,7 @@ function matchHistoryAuto() {
         row.append($('<td></td>').text(data.auto_scale_success[i] + " : " + data.auto_scale_fail[i]));
         // row.append($('<td></td>').text(data.auto_vault[i]));
         row.append($('<td></td>').text(data.auto_baseline[i] == 1 ? "Yes" : "No"));
+        row.append($('<td></td>').text(data.scale_position[i]));
 
         $('#auto_table').append(row);
 
@@ -78,6 +79,7 @@ function matchHistoryMisc() {
         row.append($('<td></td>').text(data.match_startpos[i][0].toUpperCase() + data.match_startpos[i].substring(1)));
         row.append($('<td></td>').text(data.climb[i] + ". " + data.climb_notes[i]));
         row.append($('<td></td>').text(data.climb_assist[i]));
+        row.append($('<td></td>').text(data.climb_lift[i]));
 
 
         $('#misc_table').append(row);

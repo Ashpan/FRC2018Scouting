@@ -1,25 +1,25 @@
 // Initialize CMP DATABASE
 //
-// var config = {
-// apiKey: "AIzaSyASlyJO51wK3FqXMZZ5i-z9wOPRj2Q6ipE",
-// authDomain: "scouting-compiler-cmp.firebaseapp.com",
-// databaseURL: "https://scouting-compiler-cmp.firebaseio.com",
-// projectId: "scouting-compiler-cmp",
-// storageBucket: "scouting-compiler-cmp.appspot.com",
-// messagingSenderId: "401377758996"
-// };
-// firebase.initializeApp(config);
-
-// Initialize DEV DATABASE 
 var config = {
-    apiKey: "AIzaSyAUxp-Hz_5ZKo2WabIiEU3PUU8TEGwWAQE",
-    authDomain: "scouting-compiler-dev.firebaseapp.com",
-    databaseURL: "https://scouting-compiler-dev.firebaseio.com",
-    projectId: "scouting-compiler-dev",
-    storageBucket: "scouting-compiler-dev.appspot.com",
-    messagingSenderId: "211665111326"
+    apiKey: "AIzaSyASlyJO51wK3FqXMZZ5i-z9wOPRj2Q6ipE",
+    authDomain: "scouting-compiler-cmp.firebaseapp.com",
+    databaseURL: "https://scouting-compiler-cmp.firebaseio.com",
+    projectId: "scouting-compiler-cmp",
+    storageBucket: "scouting-compiler-cmp.appspot.com",
+    messagingSenderId: "401377758996"
 };
 firebase.initializeApp(config);
+
+// Initialize DEV DATABASE 
+// var config = {
+//     apiKey: "AIzaSyAUxp-Hz_5ZKo2WabIiEU3PUU8TEGwWAQE",
+//     authDomain: "scouting-compiler-dev.firebaseapp.com",
+//     databaseURL: "https://scouting-compiler-dev.firebaseio.com",
+//     projectId: "scouting-compiler-dev",
+//     storageBucket: "scouting-compiler-dev.appspot.com",
+//     messagingSenderId: "211665111326"
+// };
+// firebase.initializeApp(config);
 
 
 // ------------------------------------------------------------------------------------------------------------------------------
