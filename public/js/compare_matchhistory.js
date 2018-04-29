@@ -20,7 +20,6 @@ function matchHistoryAuto1() {
         row.append($('<th scope="row"></th>').text(data1.match_number[i]));
         row.append($('<td></td>').text(data1.auto_switch_success[i] + " : " + data1.auto_switch_fail[i]));
         row.append($('<td></td>').text(data1.auto_scale_success[i] + " : " + data1.auto_scale_fail[i]));
-        row.append($('<td></td>').text(data1.auto_vault[i]));
         row.append($('<td></td>').text(data1.auto_baseline[i] == 1 ? "Yes" : "No"));
 
         $('#auto_table1').append(row);
@@ -38,7 +37,7 @@ function matchHistoryTeleop1() {
 
         row.append($('<th scope="row"></th>').text(data1.match_number[i]));
         row.append($('<td></td>').text(data1.teleop_switch_success[i] + " : " + data1.teleop_switch_fail[i]));
-        row.append($('<td></td>').text(data1.teleop_scale_success[i] + " : " + data1.teleop_scale_fail[i]));
+        row.append($('<td></td>').text((data1.teleop_scale_winning_success[i] + data1.teleop_scale_losing_success[i]) + " : " + (data1.teleop_scale_winning_fail[i] + data1.teleop_scale_losing_fail[i])));
         row.append($('<td></td>').text(data1.teleop_opp_switch_success[i] + " : " + data1.teleop_opp_switch_fail[i]));
         row.append($('<td></td>').text(data1.teleop_vault[i]));
 
@@ -100,7 +99,6 @@ function matchHistoryAuto2() {
         row.append($('<th scope="row"></th>').text(data2.match_number[i]));
         row.append($('<td></td>').text(data2.auto_switch_success[i] + " : " + data2.auto_switch_fail[i]));
         row.append($('<td></td>').text(data2.auto_scale_success[i] + " : " + data2.auto_scale_fail[i]));
-        row.append($('<td></td>').text(data2.auto_vault[i]));
         row.append($('<td></td>').text(data2.auto_baseline[i] == 1 ? "Yes" : "No"));
 
         $('#auto_table2').append(row);
@@ -118,7 +116,7 @@ function matchHistoryTeleop2() {
 
         row.append($('<th scope="row"></th>').text(data2.match_number[i]));
         row.append($('<td></td>').text(data2.teleop_switch_success[i] + " : " + data2.teleop_switch_fail[i]));
-        row.append($('<td></td>').text(data2.teleop_scale_success[i] + " : " + data2.teleop_scale_fail[i]));
+        row.append($('<td></td>').text((data2.teleop_scale_winning_success[i] + data2.teleop_scale_losing_success[i]) + " : " + (data2.teleop_scale_winning_fail[i] + data2.teleop_scale_losing_fail[i])));
         row.append($('<td></td>').text(data2.teleop_opp_switch_success[i] + " : " + data2.teleop_opp_switch_fail[i]));
         row.append($('<td></td>').text(data2.teleop_vault[i]));
 

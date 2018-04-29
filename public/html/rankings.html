@@ -15,8 +15,8 @@
     </head>
     <body>
         <script src="/js/init.js"></script>
-        <script src="/js/rankings.js"></script>
         <script src="/js/statistics.js"></script>
+        <script src="/js/rankings.js"></script>
         <div w3-include-html="/html/nav.html"></div>
         <div class="container">
             <br>
@@ -44,6 +44,7 @@
                     <button id="tab-t_scale" type="button" class="dropdown-item">Teleop Scale</button>
                     <button id="tab-t_opp_switch" type="button" class="dropdown-item">Teleop Opposite Switch</button>
                     <button id="tab-t_vault" type="button" class="dropdown-item">Teleop Vault</button>
+                    <button id="tab-t_switch_acc" type="button" class="dropdown-item">Alliance Switch Accuracy</button>
                 </div>
             </div>
             <button class="btn btn-block btn-primary" onclick="loadRankings()">Load Rankings</button>
@@ -65,6 +66,7 @@
                                 <th scope="col">Teleop Opposite
                                 <br> Switch</th>
                                 <th scope="col">Teleop Vault</th>
+                                <th scope="col">Switch Accuracy</th>
                             </tr>
                         </thead>
                         <tbody id="rankings_table">

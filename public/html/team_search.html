@@ -6,8 +6,8 @@
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
-        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <link href="/css/jquery-ui.css" rel="Stylesheet"></link>
+        <script src="/js/jquery-3.3.1.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -15,6 +15,7 @@
         <script src="/js/w3data.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.0.0/math.js"></script>
         <script src="https://d3js.org/d3.v5.min.js"></script>
+        <!--
         <style type="text/css">
         svg {
         font: 10px sans-serif;
@@ -34,12 +35,13 @@
         stroke: #ddd;
         }
         .legend {
-            padding: 5px;
-            font: 10px sans-serif;
-            background: yellow;
-            box-shadow: 2px 2px 1px #888;
+        padding: 5px;
+        font: 10px sans-serif;
+        background: yellow;
+        box-shadow: 2px 2px 1px #888;
         }
         </style>
+        -->
     </head>
     <body>
         <div w3-include-html="/html/nav.html"></div>
@@ -107,7 +109,7 @@
                                 <th scope="col">Match #</th>
                                 <th scope="col">Switch</th>
                                 <th scope="col">Scale</th>
-                                <th scope="col">Vault</th>
+                                <!-- <th scope="col">Vault</th> -->
                                 <th scope="col">Reach Line</th>
                             </tr>
                         </thead>
@@ -125,7 +127,8 @@
                             <tr>
                                 <th scope="col">Match #</th>
                                 <th scope="col">Switch</th>
-                                <th scope="col">Scale</th>
+                                <th scope="col">Winning Scale</th>
+                                <th scope="col">Losing Scale</th>
                                 <th scope="col">Opp. Switch</th>
                                 <th scope="col">Vault</th>
                             </tr>
